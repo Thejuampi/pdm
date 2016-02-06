@@ -1,10 +1,15 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven {
+            url 'https://repos.zeroturnaround.com/nexus/content/repositories/zt-public-releases'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
+        // This does not break the build when Android Studio is missing the JRebel for Android plugin.
+        classpath 'com.zeroturnaround.jrebel.android:jr-android-gradle:1.0.+'
     }
 }
 
@@ -75,6 +80,10 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.1"
         compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.1"
+
+        //Dependencias Agregadas manualmente:
+        compile "com.google.guava:guava:19.0"
+        compile "org.apache.commons:commons-lang3:3.4"
     }
 }
 
