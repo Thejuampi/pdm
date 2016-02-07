@@ -2,6 +2,7 @@ package jpal.games.gestor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -26,7 +27,7 @@ public class GestorCamara implements CicloDeVida {
 
     private Viewport viewport;
 
-    public GestorCamara() {
+    public GestorCamara(SpriteBatch batch) {
 
         relacionAspecto = (float)Gdx.graphics.getWidth() /(float) Gdx.graphics.getHeight();
         altoPantalla = 10.0f;
@@ -34,6 +35,7 @@ public class GestorCamara implements CicloDeVida {
 
         camara = new OrthographicCamera(altoPantalla, anchoPantalla);
         viewport = new ScreenViewport(camara);
+        batch.setProjectionMatrix(camara.combined);
     }
 
     //Metodos del ciclo de vida
