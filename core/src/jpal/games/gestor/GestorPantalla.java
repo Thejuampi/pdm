@@ -1,8 +1,10 @@
 package jpal.games.gestor;
 
+import com.badlogic.gdx.utils.Logger;
 import com.google.common.collect.Lists;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 import jpal.games.pantalla.Pantalla;
 
@@ -11,12 +13,15 @@ import jpal.games.pantalla.Pantalla;
  */
 public class GestorPantalla {
 
+    private Logger logger;
+
     private static GestorPantalla gestor;
 
     private LinkedList<Pantalla> pantallas;
 
     private GestorPantalla(){
         pantallas = Lists.newLinkedList();
+        logger = new Logger("GestorPantalla");
     }
 
     public static GestorPantalla get(){
@@ -27,9 +32,14 @@ public class GestorPantalla {
     }
 
     public Pantalla crearPantalla(String nombre) {
-        Pantalla pantallaAnterior = pantallas.getLast();
+        Pantalla pantallaAnterior = null;
+        if(pantallas.size() > 0) {
+            pantallaAnterior = pantallas.getLast();
+        }
         Pantalla nuevaPantalla = new Pantalla(nombre, pantallaAnterior, null, this);
-        pantallaAnterior.setPantallaSiguiente(nuevaPantalla);
+        if(pantallaAnterior != null) {
+            pantallaAnterior.setPantallaSiguiente(nuevaPantalla);
+        }
         pantallas.add(nuevaPantalla);
         return nuevaPantalla;
     }

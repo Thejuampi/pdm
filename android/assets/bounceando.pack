@@ -1,0 +1,397 @@
+
+bounceando.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+white-pool-ball
+  rotate: false
+  xy: 1, 358
+  size: 148, 149
+  orig: 200, 200
+  offset: 26, 26
+  index: -1
+Selector
+  rotate: false
+  xy: 1, 185
+  size: 101, 171
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Wall Block Tall
+  rotate: false
+  xy: 1, 16
+  size: 101, 167
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Stone Block Tall
+  rotate: false
+  xy: 151, 344
+  size: 101, 163
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Window Tall
+  rotate: false
+  xy: 254, 346
+  size: 101, 161
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Door Tall Closed
+  rotate: false
+  xy: 357, 356
+  size: 101, 151
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Tree Tall
+  rotate: false
+  xy: 460, 371
+  size: 100, 136
+  orig: 101, 171
+  offset: 1, 3
+  index: -1
+Grass Block
+  rotate: false
+  xy: 562, 376
+  size: 101, 131
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Wall Block
+  rotate: false
+  xy: 665, 380
+  size: 101, 127
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Stone Block
+  rotate: false
+  xy: 768, 384
+  size: 101, 123
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Roof South West
+  rotate: false
+  xy: 871, 385
+  size: 101, 122
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Roof South East
+  rotate: false
+  xy: 974, 385
+  size: 101, 122
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Wood Block
+  rotate: false
+  xy: 1077, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Chest Closed
+  rotate: false
+  xy: 1180, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Roof South
+  rotate: false
+  xy: 1283, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Ramp South
+  rotate: false
+  xy: 1386, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Chest Open
+  rotate: false
+  xy: 1489, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Plain Block
+  rotate: false
+  xy: 1592, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Water Block
+  rotate: false
+  xy: 1695, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Dirt Block
+  rotate: false
+  xy: 1798, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Brown Block
+  rotate: false
+  xy: 1901, 386
+  size: 101, 121
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Roof East
+  rotate: false
+  xy: 104, 223
+  size: 101, 119
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Ramp West
+  rotate: false
+  xy: 104, 102
+  size: 101, 119
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Chest Lid
+  rotate: false
+  xy: 104, 15
+  size: 101, 85
+  orig: 101, 171
+  offset: 0, 36
+  index: -1
+Ramp East
+  rotate: false
+  xy: 207, 223
+  size: 101, 119
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Roof West
+  rotate: false
+  xy: 207, 102
+  size: 101, 119
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Shadow North
+  rotate: false
+  xy: 207, 9
+  size: 101, 91
+  orig: 101, 171
+  offset: 0, 71
+  index: -1
+Tree Ugly
+  rotate: false
+  xy: 310, 229
+  size: 101, 115
+  orig: 101, 171
+  offset: 0, 2
+  index: -1
+Gem Blue
+  rotate: false
+  xy: 310, 115
+  size: 101, 112
+  orig: 101, 171
+  offset: 0, 1
+  index: -1
+Gem Orange
+  rotate: false
+  xy: 310, 1
+  size: 101, 112
+  orig: 101, 171
+  offset: 0, 1
+  index: -1
+Gem Green
+  rotate: false
+  xy: 413, 242
+  size: 101, 112
+  orig: 101, 171
+  offset: 0, 1
+  index: -1
+SpeechBubble
+  rotate: false
+  xy: 413, 134
+  size: 100, 106
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Tree Short
+  rotate: false
+  xy: 413, 25
+  size: 98, 107
+  orig: 101, 171
+  offset: 1, 9
+  index: -1
+Star
+  rotate: false
+  xy: 516, 269
+  size: 100, 100
+  orig: 101, 171
+  offset: 0, 19
+  index: -1
+Character Princess Girl
+  rotate: false
+  xy: 618, 275
+  size: 75, 99
+  orig: 101, 171
+  offset: 13, 20
+  index: -1
+Rock
+  rotate: false
+  xy: 695, 280
+  size: 98, 98
+  orig: 101, 171
+  offset: 2, 7
+  index: -1
+Heart
+  rotate: false
+  xy: 795, 292
+  size: 89, 90
+  orig: 101, 171
+  offset: 7, 33
+  index: -1
+Roof North East
+  rotate: false
+  xy: 886, 299
+  size: 101, 84
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Roof North West
+  rotate: false
+  xy: 989, 299
+  size: 101, 84
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Roof North
+  rotate: false
+  xy: 1092, 303
+  size: 101, 81
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Ramp North
+  rotate: false
+  xy: 1195, 303
+  size: 101, 81
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Door Tall Open
+  rotate: false
+  xy: 1298, 305
+  size: 101, 79
+  orig: 101, 171
+  offset: 0, 0
+  index: -1
+Enemy Bug
+  rotate: false
+  xy: 1401, 307
+  size: 99, 77
+  orig: 101, 171
+  offset: 0, 17
+  index: -1
+Character Horn Girl
+  rotate: false
+  xy: 1502, 294
+  size: 77, 90
+  orig: 101, 171
+  offset: 7, 20
+  index: -1
+Character Pink Girl
+  rotate: false
+  xy: 1581, 295
+  size: 76, 89
+  orig: 101, 171
+  offset: 13, 20
+  index: -1
+Character Cat Girl
+  rotate: false
+  xy: 1659, 294
+  size: 68, 90
+  orig: 101, 171
+  offset: 17, 20
+  index: -1
+Character Boy
+  rotate: false
+  xy: 1729, 296
+  size: 67, 88
+  orig: 101, 171
+  offset: 17, 20
+  index: -1
+Key
+  rotate: false
+  xy: 1798, 286
+  size: 58, 98
+  orig: 101, 171
+  offset: 18, 16
+  index: -1
+Shadow West
+  rotate: false
+  xy: 1858, 303
+  size: 51, 81
+  orig: 101, 171
+  offset: 0, 40
+  index: -1
+Shadow South
+  rotate: false
+  xy: 516, 246
+  size: 101, 21
+  orig: 101, 171
+  offset: 0, 71
+  index: -1
+Shadow East
+  rotate: false
+  xy: 2004, 426
+  size: 21, 81
+  orig: 101, 171
+  offset: 80, 40
+  index: -1
+Shadow South East
+  rotate: false
+  xy: 2027, 456
+  size: 20, 51
+  orig: 101, 171
+  offset: 81, 40
+  index: -1
+Shadow North West
+  rotate: false
+  xy: 1911, 333
+  size: 51, 51
+  orig: 101, 171
+  offset: 0, 70
+  index: -1
+Shadow North East
+  rotate: false
+  xy: 2027, 403
+  size: 20, 51
+  orig: 101, 171
+  offset: 81, 70
+  index: -1
+Shadow South West
+  rotate: false
+  xy: 1964, 333
+  size: 51, 51
+  orig: 101, 171
+  offset: 0, 40
+  index: -1
+Shadow Side West
+  rotate: false
+  xy: 1911, 290
+  size: 51, 41
+  orig: 101, 171
+  offset: 0, 0
+  index: -1

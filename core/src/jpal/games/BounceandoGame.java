@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Logger;
 
 import jpal.games.gestor.GestorCamara;
 import jpal.games.gestor.GestorPantalla;
+import jpal.games.gestor.GestorTextura;
 
 public class BounceandoGame extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -19,6 +20,8 @@ public class BounceandoGame extends ApplicationAdapter {
 
     private GestorCamara gestorCamara;
 
+    private GestorTextura gestorTextura;
+
 	@Override
 	public void create () {
         logger = new Logger("logger", Logger.DEBUG);
@@ -28,6 +31,8 @@ public class BounceandoGame extends ApplicationAdapter {
         gestorPantalla.crearMenuPrincipal();
 
         gestorCamara = new GestorCamara(batch);
+
+        gestorTextura = new GestorTextura();
     }
 
 
@@ -40,7 +45,6 @@ public class BounceandoGame extends ApplicationAdapter {
 		batch.begin();
 
         doRender();
-
 
 		batch.end();
 	}
@@ -59,14 +63,15 @@ public class BounceandoGame extends ApplicationAdapter {
     private void doRender() {
         logger.debug("doRreate()");
 
+        batch.draw(gestorTextura.pelotaJugador, 0.0f, 0.0f);
 
     }
 
     @Override
     public void dispose() {
         super.dispose();
-
         batch.dispose();
-
+        gestorTextura.dispose();
+        gestorCamara.dispose();
     }
 }
