@@ -7,18 +7,24 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
 
+import jpal.games.gestor.GestorPantalla;
+
 public class BounceandoGame extends ApplicationAdapter {
 	private SpriteBatch batch;
     private Logger logger;
 
     //Gestion
-    private GestorPanta
+    private GestorPantalla gestorPantalla;
+
+    private
 
 	@Override
 	public void create () {
         logger = new Logger("logger", Logger.DEBUG);
         logger.debug("create()");
         batch = new SpriteBatch();
+        gestorPantalla = GestorPantalla.get();
+        gestorPantalla.crearMenuPrincipal();
     }
 
 

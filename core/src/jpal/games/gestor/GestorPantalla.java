@@ -19,7 +19,7 @@ public class GestorPantalla {
         pantallas = Lists.newLinkedList();
     }
 
-    public GestorPantalla get(){
+    public static GestorPantalla get(){
         if(gestor == null) {
             gestor = new GestorPantalla();
         }
