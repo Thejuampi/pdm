@@ -31,8 +31,7 @@ public class BounceandoGame extends ApplicationAdapter {
         gestorPantalla.crearMenuPrincipal();
 
         gestorCamara = new GestorCamara(batch);
-
-        gestorTextura = new GestorTextura();
+        gestorTextura = GestorTextura.get();
     }
 
 

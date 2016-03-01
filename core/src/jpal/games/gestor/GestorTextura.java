@@ -19,9 +19,16 @@ public class GestorTextura implements Disposable{
 
     public final TextureRegion pelotaJugador;
 
+    private static GestorTextura instance;
 
+    public static GestorTextura get(){
+        if(instance == null) {
+            instance = new GestorTextura();
+        }
+        return instance;
+    }
 
-    public GestorTextura() {
+    private GestorTextura() {
 
         atlas = new TextureAtlas(files.internal("bounceando.pack"));
 

@@ -1,27 +1,38 @@
 package jpal.games.pantalla;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
 import jpal.games.gestor.GestorPantalla;
+import jpal.games.gestor.GestorSprite;
 
 /**
  * Created by juan on 06/02/16.
  */
 public class Pantalla extends ScreenAdapter {
 
-    private GestorPantalla gestor;
+    protected GestorPantalla gestor;
 
-    private String nombre;
+    protected String nombre;
 
-    private Pantalla pantallaAnterior;
+    protected Pantalla pantallaAnterior;
 
-    private Pantalla pantallaSiguiente;
+    protected Pantalla pantallaSiguiente;
 
-    public Pantalla(String nombre, Pantalla anterior, Pantalla siguiente, GestorPantalla gestor) {
+    protected GestorSprite gestorSprite;
+
+    World mundo;
+
+    public Pantalla(String nombre, Pantalla anterior, Pantalla siguiente, GestorPantalla gestor, World mundo) {
         this.nombre = nombre;
         this.pantallaAnterior = anterior;
         this.pantallaSiguiente = siguiente;
         this.gestor = gestor;
+//        this.mundo = new World(new Vector2(0.0f,-9.8f), true);
+        this.mundo = mundo;
+        this.gestorSprite = GestorSprite.get();
     }
 
     public void setPantallaSiguiente(Pantalla pantallaSiguiente) {

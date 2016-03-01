@@ -16,7 +16,7 @@ public class GestorCamara implements Disposable {
 
     private static final float LARGO_MUNDO = 20.0f;
 
-    private float anchoCamara;
+    private float altoCamara;
 
     private float anchoCamara;
 
@@ -40,6 +40,7 @@ public class GestorCamara implements Disposable {
         anchoCamara = anchoCamara *relacionAspecto;
 
         camara = new OrthographicCamera(anchoCamara, anchoCamara);
+//        camara = new OrthographicCamera(640,480);
         viewport = new ScreenViewport(camara);
 
         batch.setProjectionMatrix(camara.combined);
