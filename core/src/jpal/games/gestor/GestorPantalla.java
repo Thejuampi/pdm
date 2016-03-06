@@ -1,12 +1,6 @@
 package jpal.games.gestor;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,15 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Logger;
 import com.google.common.collect.Lists;
 
-//import org.lwjgl.util.Color;
-
 import java.util.LinkedList;
 
 import jpal.games.BounceandoGame;
 import jpal.games.pantalla.Pantalla;
-import jpal.games.pantalla.Pantalla1;
 
-import static jpal.games.gestor.Constantes.gravedad;
+//import org.lwjgl.util.Color;
 
 /**
  * Created by juan on 06/02/16.
@@ -61,26 +52,25 @@ public class GestorPantalla {
         return gestor;
     }
 
-    public Pantalla crearPantalla(String nombre, World mundo) {
+    public Pantalla crearPantalla(String nombre, World mundo, Stage stage) {
         Pantalla pantallaAnterior = null;
         if (pantallas.size() > 0) {
             pantallaAnterior = pantallas.getLast();
         }
-        Pantalla nuevaPantalla = new Pantalla(nombre, pantallaAnterior, null, this, mundo);
+        Pantalla nuevaPantalla = new Pantalla(nombre, pantallaAnterior, null, this, mundo, juego);
         if (pantallaAnterior != null) {
             pantallaAnterior.setPantallaSiguiente(nuevaPantalla);
         }
+
+        nuevaPantalla.setStage(stage);
         pantallas.add(nuevaPantalla);
         return nuevaPantalla;
     }
 
     public Pantalla crearMenuPrincipal() {
+        World mundoPrincipal = new World(Constantes.gravedad, false); // no es necesario para el menú
 
-        String defecto = "default";
-        String fondo = "backgroud";
-        World mundoPrincipal = null; // no es necesario para el menú
-
-        Stage stage = new Stage();
+        Stage stage = new Stage(juego.getGestorCamara().getViewport(), juego.getBatch());
         Gdx.input.setInputProcessor(stage);
 
         TextButton botonNuevoJuego = BotonesFactory.crearBoton("Nuevo Juego", new ChangeListener() {
@@ -101,18 +91,18 @@ public class GestorPantalla {
 
         botonNuevoJuego.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 100);
         botonSalir.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 0);
-        
+
         stage.addActor(botonNuevoJuego);
         stage.addActor(botonSalir);
 
-        Pantalla menuPrincipal = crearPantalla("Menu Principal", mundoPrincipal);
-        menuPrincipal.setStage(stage);
+        Pantalla menuPrincipal = crearPantalla("Menu Principal", mundoPrincipal, stage);
         return menuPrincipal;
-
     }
 
     public Pantalla crearPantalla1() {
-        Pantalla pantalla = crearPantalla("Pantalla 1", mundo);
+        Stage stage = new Stage();
+
+        Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
 
 
 
