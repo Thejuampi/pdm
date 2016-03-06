@@ -20,7 +20,7 @@ public class Pantalla1 extends Pantalla {
         super(nombre, anterior, siguiente, gestor, new World(new Vector2(0.0f,-9.81f), true));
         debugRender = new Box2DDebugRenderer();
 
-        suelo = new Sprite(this.gestorSprite.);
+        //suelo = new Sprite(this.gestorSprite.);
 
 
     }
