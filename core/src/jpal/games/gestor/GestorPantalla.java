@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Logger;
 import com.google.common.collect.Lists;
 
@@ -69,7 +71,7 @@ public class GestorPantalla {
 
         World mundoPrincipal = new World(gravedad, true);
         BitmapFont font = new BitmapFont();
-        Pixmap pixmap = new Pixmap((int)Gdx.graphics.getWidth()/4,(int) Gdx.graphics.getHeight()/10, Pixmap.Format.RGB888);
+        Pixmap pixmap = new Pixmap((int)Gdx.graphics.getWidth()/3,(int) Gdx.graphics.getHeight()/10, Pixmap.Format.RGB888);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
 
         skin.add(defecto, font);
@@ -87,13 +89,34 @@ public class GestorPantalla {
         textButtonStyle.font = skin.getFont(defecto);
         skin.add(defecto, textButtonStyle);
 
-        TextButton newGameButton = new TextButton("New game", skin); // Use the initialized skin
-        newGameButton.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , Gdx.graphics.getHeight()/2);
-        stage.addActor(newGameButton);
+        TextButton botonNuevoJuego = new TextButton("Nuevo Juego", skin); // Use the initialized skin
+        TextButton botonSalir = new TextButton("Salir", skin);
+
+
+        botonNuevoJuego.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2)  + 100 );
+        botonSalir.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8,  (Gdx.graphics.getHeight() / 2) + 0);
+
+        botonNuevoJuego.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+            }
+        });
+
+        botonSalir.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("","Boton Salir presionado");
+                Gdx.app.exit();
+            }
+        });
+
+        stage.addActor(botonNuevoJuego);
+        stage.addActor(botonSalir);
 
 
         Pantalla menuPrincipal = crearPantalla("Menu Principal", mundoPrincipal);
-
+        menuPrincipal.setStage(stage);
         return menuPrincipal;
 
     }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import jpal.games.gestor.GestorPantalla;
 import jpal.games.gestor.GestorSprite;
@@ -23,6 +24,8 @@ public class Pantalla extends ScreenAdapter {
 
     protected GestorSprite gestorSprite;
 
+    protected Stage stage;
+
     World mundo;
 
     public Pantalla(String nombre, Pantalla anterior, Pantalla siguiente, GestorPantalla gestor, World mundo) {
@@ -33,6 +36,10 @@ public class Pantalla extends ScreenAdapter {
 //        this.mundo = new World(new Vector2(0.0f,-9.8f), true);
         this.mundo = mundo;
         this.gestorSprite = GestorSprite.get();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     public void setPantallaSiguiente(Pantalla pantallaSiguiente) {
@@ -57,6 +64,20 @@ public class Pantalla extends ScreenAdapter {
 
     }
 
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        if( stage  != null) {
+            stage.act();
+            stage.draw();
+        }
+    }
 
-
+    @Override
+    public void dispose() {
+        super.dispose();
+        if(stage != null) {
+            stage.dispose();
+        }
+    }
 }
