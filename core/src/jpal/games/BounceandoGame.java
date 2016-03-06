@@ -1,6 +1,7 @@
 package jpal.games;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
@@ -18,7 +19,8 @@ import jpal.games.gestor.GestorTextura;
 import jpal.games.pantalla.Pantalla;
 
 public class BounceandoGame extends ApplicationAdapter {
-	private SpriteBatch batch;
+
+    private SpriteBatch batch;
     private Logger logger;
 
     //Gestion
@@ -26,7 +28,7 @@ public class BounceandoGame extends ApplicationAdapter {
 
     private GestorCamara gestorCamara;
 
-    private GestorTextura gestorTextura;
+//    private GestorTextura gestorTextura;
 
     private List<Screen> screens;
 
@@ -39,9 +41,10 @@ public class BounceandoGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         gestorPantalla = GestorPantalla.get();
         gestorCamara = new GestorCamara(batch);
-        gestorTextura = GestorTextura.get();
+//        gestorTextura = GestorTextura.get();
         screens = Lists.newArrayList();
 
+        gestorPantalla.setJuego(this);
         Pantalla menuPrincipal = gestorPantalla.crearMenuPrincipal();
         screens.add(menuPrincipal);
         pantallaActual = menuPrincipal;
@@ -52,7 +55,7 @@ public class BounceandoGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-        logger.debug("render()");
+//        logger.debug("render()");
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
@@ -79,11 +82,21 @@ public class BounceandoGame extends ApplicationAdapter {
 
     }
 
+    public void setPantallaActual(Screen pantalla) {
+        this.pantallaActual = pantalla;
+    }
+
+    @Override
+    public void resize(int width, int height) {
+//        this.gestorCamara
+
+    }
+
     @Override
     public void dispose() {
         super.dispose();
         batch.dispose();
-        gestorTextura.dispose();
+//        gestorTextura.dispose();
         gestorCamara.dispose();
 
         for(Screen pantalla : screens) pantalla.dispose();

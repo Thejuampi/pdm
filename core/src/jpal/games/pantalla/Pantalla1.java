@@ -11,22 +11,28 @@ import jpal.games.gestor.GestorSprite;
 /**
  * Created by juan on 24/02/16.
  */
+
+@Deprecated
 public class Pantalla1 extends Pantalla {
 
+    /**
+     * No usar!
+     */
+    @Deprecated
     Sprite suelo;
 
-    Box2DDebugRenderer debugRender;
+//    Box2DDebugRenderer debugRender;
 
     public Pantalla1(String nombre, Pantalla anterior, Pantalla siguiente, GestorPantalla gestor, World mundo) {
-        super(nombre, anterior, siguiente, gestor, new World(new Vector2(0.0f,-9.81f), true));
+        super(nombre, anterior, siguiente, gestor, mundo);
     }
 
 
     @Override
     protected void init() {
         super.init();
-        debugRender = new Box2DDebugRenderer();
-        suelo = GestorSprite.get().crearSuelo();
+//        debugRender = new Box2DDebugRenderer();
+//        suelo = GestorSprite.get().crearSuelo();
         //TODO (juan) ver como crear pantalla 1.
     }
 }

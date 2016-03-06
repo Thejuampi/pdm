@@ -1,6 +1,8 @@
 package jpal.games.gestor;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,6 +20,7 @@ import com.google.common.collect.Lists;
 
 import java.util.LinkedList;
 
+import jpal.games.BounceandoGame;
 import jpal.games.pantalla.Pantalla;
 import jpal.games.pantalla.Pantalla1;
 
@@ -38,11 +41,17 @@ public class GestorPantalla {
 
     private World mundo;
 
+    BounceandoGame juego;
+
     private GestorPantalla() {
         pantallas = Lists.newLinkedList();
         logger = new Logger("GestorPantalla");
         skin = new Skin();
         mundo = new World(Constantes.gravedad, true);
+    }
+
+    public void setJuego(BounceandoGame juego) {
+        this.juego = juego;
     }
 
     public static GestorPantalla get() {
@@ -69,47 +78,20 @@ public class GestorPantalla {
 
         String defecto = "default";
         String fondo = "backgroud";
+        World mundoPrincipal = null; // no es necesario para el menú
 
         Stage stage = new Stage();
-        Gdx.input.setInputProcessor(stage);// Make the stage consume events
+        Gdx.input.setInputProcessor(stage);
 
-        World mundoPrincipal = new World(gravedad, true);
-        BitmapFont font = new BitmapFont();
-        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth() / 3, (int) Gdx.graphics.getHeight() / 10, Pixmap.Format.RGB888);
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-
-        skin.add(defecto, font);
-
-        //Create a texture
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        skin.add(fondo, new Texture(pixmap));
-
-        //Creo el boton
-        textButtonStyle.up = skin.newDrawable(fondo, Color.GRAY);
-        textButtonStyle.down = skin.newDrawable(fondo, Color.DARK_GRAY);
-        textButtonStyle.checked = skin.newDrawable(fondo, Color.DARK_GRAY);
-        textButtonStyle.over = skin.newDrawable(fondo, Color.LIGHT_GRAY);
-        textButtonStyle.font = skin.getFont(defecto);
-        skin.add(defecto, textButtonStyle);
-
-        TextButton botonNuevoJuego = new TextButton("Nuevo Juego", skin); // Use the initialized skin
-        TextButton botonSalir = new TextButton("Salir", skin);
-
-        botonNuevoJuego.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 100);
-        botonSalir.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 0);
-
-        botonNuevoJuego.addListener(new ChangeListener() {
+        TextButton botonNuevoJuego = BotonesFactory.crearBoton("Nuevo Juego", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
-                Pantalla1 pantalla1 = crearPantalla1();
-
-
+                Pantalla pantalla = crearPantalla1();
+                juego.setPantallaActual(pantalla);
             }
         });
 
-        botonSalir.addListener(new ChangeListener() {
+        TextButton botonSalir = BotonesFactory.crearBoton("Salir", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("", "Boton Salir presionado");
@@ -117,9 +99,11 @@ public class GestorPantalla {
             }
         });
 
+        botonNuevoJuego.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 100);
+        botonSalir.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 0);
+        
         stage.addActor(botonNuevoJuego);
         stage.addActor(botonSalir);
-
 
         Pantalla menuPrincipal = crearPantalla("Menu Principal", mundoPrincipal);
         menuPrincipal.setStage(stage);
@@ -127,9 +111,8 @@ public class GestorPantalla {
 
     }
 
-    public Pantalla1 crearPantalla1() {
-        World mundoPantalla1 = new World(Constantes.gravedad,true);
-        Pantalla1 pantalla = (Pantalla1) crearPantalla("Pantalla 1", mundoPantalla1);
+    public Pantalla crearPantalla1() {
+        Pantalla pantalla = crearPantalla("Pantalla 1", mundo);
 
 
 

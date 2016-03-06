@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  * Created by juan on 08/02/16.
+ * NO USAR!
  */
+@Deprecated
 public class GestorSprite {
 
     public Sprite pelota;
