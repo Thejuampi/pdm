@@ -2,6 +2,7 @@ package jpal.games;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,7 +28,9 @@ public class BounceandoGame extends ApplicationAdapter {
 
     private GestorTextura gestorTextura;
 
-    private List<ScreenAdapter> screenAdapters;
+    private List<Screen> screens;
+
+    private Screen pantallaActual;
 
 	@Override
 	public void create () {
@@ -37,11 +40,11 @@ public class BounceandoGame extends ApplicationAdapter {
         gestorPantalla = GestorPantalla.get();
         gestorCamara = new GestorCamara(batch);
         gestorTextura = GestorTextura.get();
-        screenAdapters = Lists.newArrayList();
+        screens = Lists.newArrayList();
 
         Pantalla menuPrincipal = gestorPantalla.crearMenuPrincipal();
-
-        screenAdapters.add(menuPrincipal);
+        screens.add(menuPrincipal);
+        pantallaActual = menuPrincipal;
 
     }
 
@@ -72,9 +75,7 @@ public class BounceandoGame extends ApplicationAdapter {
 
     private void doRender() {
 
-        for(ScreenAdapter s : screenAdapters) {
-            s.render(0.0f);
-        }
+        pantallaActual.render(Gdx.graphics.getDeltaTime());
 
     }
 
@@ -84,5 +85,7 @@ public class BounceandoGame extends ApplicationAdapter {
         batch.dispose();
         gestorTextura.dispose();
         gestorCamara.dispose();
+
+        for(Screen pantalla : screens) pantalla.dispose();
     }
 }

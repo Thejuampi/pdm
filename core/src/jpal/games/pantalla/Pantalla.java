@@ -36,6 +36,8 @@ public class Pantalla extends ScreenAdapter {
 //        this.mundo = new World(new Vector2(0.0f,-9.8f), true);
         this.mundo = mundo;
         this.gestorSprite = GestorSprite.get();
+
+        init();
     }
 
     public void setStage(Stage stage) {
@@ -46,23 +48,6 @@ public class Pantalla extends ScreenAdapter {
         this.pantallaSiguiente = pantallaSiguiente;
     }
 
-    public Datos getDatos() {
-        return new Datos(this.nombre, this.pantallaAnterior, this.pantallaSiguiente);
-    }
-
-    public class Datos {
-
-        public final String nombre;
-        public final Pantalla pantallaAnterior;
-        public final Pantalla pantallaSiguiente;
-
-        public Datos(String nombre, Pantalla pantallaAnterior, Pantalla pantallaSiguiente) {
-            this.nombre = nombre;
-            this.pantallaAnterior=pantallaAnterior;
-            this.pantallaSiguiente=pantallaSiguiente;
-        }
-
-    }
 
     @Override
     public void render(float delta) {
@@ -80,4 +65,10 @@ public class Pantalla extends ScreenAdapter {
             stage.dispose();
         }
     }
+
+    protected void init(){
+
+
+    }
+
 }

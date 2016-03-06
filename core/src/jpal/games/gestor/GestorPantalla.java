@@ -19,6 +19,7 @@ import com.google.common.collect.Lists;
 import java.util.LinkedList;
 
 import jpal.games.pantalla.Pantalla;
+import jpal.games.pantalla.Pantalla1;
 
 import static jpal.games.gestor.Constantes.gravedad;
 
@@ -35,14 +36,17 @@ public class GestorPantalla {
 
     public Skin skin;
 
-    private GestorPantalla(){
+    private World mundo;
+
+    private GestorPantalla() {
         pantallas = Lists.newLinkedList();
         logger = new Logger("GestorPantalla");
         skin = new Skin();
+        mundo = new World(Constantes.gravedad, true);
     }
 
-    public static GestorPantalla get(){
-        if(gestor == null) {
+    public static GestorPantalla get() {
+        if (gestor == null) {
             gestor = new GestorPantalla();
         }
         return gestor;
@@ -50,11 +54,11 @@ public class GestorPantalla {
 
     public Pantalla crearPantalla(String nombre, World mundo) {
         Pantalla pantallaAnterior = null;
-        if(pantallas.size() > 0) {
+        if (pantallas.size() > 0) {
             pantallaAnterior = pantallas.getLast();
         }
         Pantalla nuevaPantalla = new Pantalla(nombre, pantallaAnterior, null, this, mundo);
-        if(pantallaAnterior != null) {
+        if (pantallaAnterior != null) {
             pantallaAnterior.setPantallaSiguiente(nuevaPantalla);
         }
         pantallas.add(nuevaPantalla);
@@ -71,7 +75,7 @@ public class GestorPantalla {
 
         World mundoPrincipal = new World(gravedad, true);
         BitmapFont font = new BitmapFont();
-        Pixmap pixmap = new Pixmap((int)Gdx.graphics.getWidth()/3,(int) Gdx.graphics.getHeight()/10, Pixmap.Format.RGB888);
+        Pixmap pixmap = new Pixmap((int) Gdx.graphics.getWidth() / 3, (int) Gdx.graphics.getHeight() / 10, Pixmap.Format.RGB888);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
 
         skin.add(defecto, font);
@@ -92,13 +96,15 @@ public class GestorPantalla {
         TextButton botonNuevoJuego = new TextButton("Nuevo Juego", skin); // Use the initialized skin
         TextButton botonSalir = new TextButton("Salir", skin);
 
-
-        botonNuevoJuego.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2)  + 100 );
-        botonSalir.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8,  (Gdx.graphics.getHeight() / 2) + 0);
+        botonNuevoJuego.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 100);
+        botonSalir.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 0);
 
         botonNuevoJuego.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+
+                Pantalla1 pantalla1 = crearPantalla1();
+
 
             }
         });
@@ -106,7 +112,7 @@ public class GestorPantalla {
         botonSalir.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("","Boton Salir presionado");
+                Gdx.app.log("", "Boton Salir presionado");
                 Gdx.app.exit();
             }
         });
@@ -119,6 +125,16 @@ public class GestorPantalla {
         menuPrincipal.setStage(stage);
         return menuPrincipal;
 
+    }
+
+    public Pantalla1 crearPantalla1() {
+        World mundoPantalla1 = new World(Constantes.gravedad,true);
+        Pantalla1 pantalla = (Pantalla1) crearPantalla("Pantalla 1", mundoPantalla1);
+
+
+
+
+        return pantalla;
     }
 
 }
