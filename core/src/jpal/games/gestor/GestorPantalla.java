@@ -115,8 +115,6 @@ public class GestorPantalla {
         Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
 
 
-
-
         return pantalla;
     }
 

@@ -18,7 +18,7 @@ public class GestorCamara implements Screen {
 
     private static final float ANCHO_MUNDO = 50.0f;
 
-    private static final float LARGO_MUNDO = 20.0f;
+    private static final float ALTO_MUNDO = 20.0f;
 
     private static GestorCamara INSTANCE;
 
@@ -41,12 +41,10 @@ public class GestorCamara implements Screen {
     /**
      * Limites del mundo
      */
-    private float x0;
-    private float x1;
-    private float y0;
-    private float y1;
-
-
+    private float x0 = 0.0f;
+    private float x1 = ANCHO_MUNDO;
+    private float y0 = 0.0f;
+    private float y1 = ALTO_MUNDO;
 
     public static GestorCamara get() {
         if(INSTANCE == null) {
@@ -76,13 +74,6 @@ public class GestorCamara implements Screen {
         return camara.combined;
     }
 
-    public void setLimites(float x0,float x1,float y0,float y1) {
-        this.x0 = x0;
-        this.x1 = x1;
-        this.y0 = y0;
-        this.y1 = y1;
-    }
-
     /**
      * Utilizar para posicionar la camara en el mundo.
      * Controla que no se salga de los limites
@@ -90,7 +81,17 @@ public class GestorCamara implements Screen {
      * @param y
      */
     public void setPosicionCamara(float x, float y) {
-        this.camara.position.set(x,y,0f);
+
+        if (x >= x0 && x <= x1) {
+//            Gdx.app.log("","Nuevo x:" + String.valueOf(x));
+            this.camara.position.x = x;
+        }
+
+        if (y >= y0 && y <= y1) {
+//            Gdx.app.log("","Nuevo y:" + String.valueOf(y));
+            this.camara.position.y = y;
+        }
+//        this.camara.position.set(x,y,0f);
     }
 
     public void panallaToMundo(Vector3 pos) {
