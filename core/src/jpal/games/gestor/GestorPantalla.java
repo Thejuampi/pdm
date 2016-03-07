@@ -1,6 +1,9 @@
 package jpal.games.gestor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -8,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Logger;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.google.common.collect.Lists;
 
 import java.util.LinkedList;
@@ -70,7 +74,7 @@ public class GestorPantalla {
     public Pantalla crearMenuPrincipal() {
         World mundoPrincipal = new World(Constantes.gravedad, false); // no es necesario para el menú
 
-        Stage stage = new Stage(juego.getGestorCamara().getViewport(), juego.getBatch());
+        Stage stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), juego.getBatch());
         Gdx.input.setInputProcessor(stage);
 
         TextButton botonNuevoJuego = BotonesFactory.crearBoton("Nuevo Juego", new ChangeListener() {
@@ -113,9 +117,35 @@ public class GestorPantalla {
         Stage stage = new Stage();
 
         Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
-
+        crearRectangulo(0,0,1000,50, mundo, true);
 
         return pantalla;
     }
+
+
+    /**
+     * Crea un rectánguno y lo agrega al mundo
+     */
+    protected Body crearRectangulo(int x, int y, int ancho, int alto, World mundo, boolean esEstatico) {
+        Body pBody;
+        BodyDef def = new BodyDef();
+
+        if(esEstatico)
+            def.type = BodyDef.BodyType.StaticBody;
+        else
+            def.type = BodyDef.BodyType.DynamicBody;
+
+        def.position.set(x , y);
+        def.fixedRotation = true;
+        pBody = mundo.createBody(def);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(ancho / 2 , alto / 2 ); // TODO (juan) ver si es necesario convertir coordenadas
+
+        pBody.createFixture(shape, 1.0f);
+        shape.dispose();
+        return pBody;
+    }
+
 
 }

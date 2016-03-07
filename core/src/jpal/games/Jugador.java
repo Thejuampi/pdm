@@ -16,6 +16,8 @@ import jpal.games.pantalla.Pantalla;
  */
 public class Jugador {
 
+    private final float radioPelota;
+
     private CircleShape forma;
 
     private FixtureDef fixtureDef;
@@ -37,7 +39,8 @@ public class Jugador {
         gestorCamara = GestorCamara.get();
 //        this.sprite = new Sprite(gestorTextura.pelotaJugador);
         this.forma = new CircleShape();
-        this.forma.setRadius(100.5f); // (TODO ver el radio de la pelota);
+        this.radioPelota = 0.5f;
+        this.forma.setRadius(radioPelota); // (TODO ver el radio de la pelota);
 
         //Definición de propiedades físicas
         this.fixtureDef = new FixtureDef();
@@ -48,7 +51,7 @@ public class Jugador {
 
         this.bodyDef = new BodyDef();
 
-        bodyDef.position.set(0.0f,0.0f);
+        bodyDef.position.set(0.0f,radioPelota*2);
         bodyDef.fixedRotation = true; // para que no rote?
         this.bodyDef.type = BodyDef.BodyType.DynamicBody; // el jugador es un cuerpo dinamico (interactua fisicamente con el mundo)
 

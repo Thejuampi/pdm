@@ -74,9 +74,6 @@ public class Pantalla extends ScreenAdapter {
     @Override
     public void render(float delta) {
         Vector2 pos = jugador.getPosicion();
-//        Vector3 pos = new Vector3(posicionJugador.x, posicionJugador.y, 0.0f);
-//
-//        juego.getGestorCamara().mundoToPantalla(pos);
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
         debugRender.render(mundo, juego.getMatrizProyeccion());
         mundo.step(1.0f / 60.0f, 6, 2); // TODO (juan) ver esto..

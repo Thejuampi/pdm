@@ -61,12 +61,14 @@ public class GestorCamara implements Screen {
         anchoPantalla = (float)Gdx.graphics.getWidth();
 
         relacionAspecto = anchoPantalla/altoPantalla;
-        altoCamara = 10.0f;
-        anchoCamara = anchoCamara *relacionAspecto;
 
-        camara = new OrthographicCamera(anchoCamara, anchoCamara);
+        altoCamara = 10.0f;
+        anchoCamara = altoCamara *relacionAspecto;
+
+        camara = new OrthographicCamera();
+        camara.setToOrtho(false, anchoCamara, altoCamara);
 //        camara = new OrthographicCamera(640,480);
-        viewport = new ScreenViewport(camara);
+//        viewport = new ScreenViewport(camara);
 
     }
 
@@ -81,17 +83,12 @@ public class GestorCamara implements Screen {
      * @param y
      */
     public void setPosicionCamara(float x, float y) {
-
         if (x >= x0 && x <= x1) {
-//            Gdx.app.log("","Nuevo x:" + String.valueOf(x));
             this.camara.position.x = x;
         }
-
         if (y >= y0 && y <= y1) {
-//            Gdx.app.log("","Nuevo y:" + String.valueOf(y));
             this.camara.position.y = y;
         }
-//        this.camara.position.set(x,y,0f);
     }
 
     public void panallaToMundo(Vector3 pos) {

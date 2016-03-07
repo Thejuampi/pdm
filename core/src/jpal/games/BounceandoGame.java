@@ -37,16 +37,15 @@ public class BounceandoGame extends ApplicationAdapter {
 	public void create () {
         logger = new Logger("logger", Logger.DEBUG);
         logger.debug("create()");
+        pantallas = Lists.newArrayList();
         batch = new SpriteBatch();
         gestorPantalla = GestorPantalla.get();
         gestorCamara = GestorCamara.get();
-//        b2dr = new Box2DDebugRenderer();
-
-        pantallas = Lists.newArrayList();
 
         gestorPantalla.setJuego(this);
         Pantalla menuPrincipal = gestorPantalla.crearMenuPrincipal();
         pantallas.add(menuPrincipal);
+
         pantallaActual = menuPrincipal;
 
     }
