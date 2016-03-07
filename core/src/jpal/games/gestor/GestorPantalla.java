@@ -117,7 +117,7 @@ public class GestorPantalla {
         Stage stage = new Stage();
 
         Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
-        crearRectangulo(0,0,1000,50, mundo, true);
+        crearRectangulo(0,0,50.0f,1.0f, mundo, true);
 
         return pantalla;
     }
@@ -126,7 +126,7 @@ public class GestorPantalla {
     /**
      * Crea un rectánguno y lo agrega al mundo
      */
-    protected Body crearRectangulo(int x, int y, int ancho, int alto, World mundo, boolean esEstatico) {
+    protected Body crearRectangulo(float x, float y, float ancho, float alto, World mundo, boolean esEstatico) {
         Body pBody;
         BodyDef def = new BodyDef();
 
