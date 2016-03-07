@@ -1,15 +1,11 @@
 package jpal.games;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Logger;
 import com.google.common.collect.Lists;
 
@@ -17,7 +13,6 @@ import java.util.List;
 
 import jpal.games.gestor.GestorCamara;
 import jpal.games.gestor.GestorPantalla;
-import jpal.games.gestor.GestorTextura;
 import jpal.games.pantalla.Pantalla;
 
 public class BounceandoGame extends ApplicationAdapter {
@@ -32,9 +27,9 @@ public class BounceandoGame extends ApplicationAdapter {
 
 //    private GestorTextura gestorTextura;
 
-    private List<Screen> screens;
+    private List<Pantalla> pantallas;
 
-    private Screen pantallaActual;
+    private Pantalla pantallaActual;
 
 //    private Box2DDebugRenderer b2dr;
 
@@ -47,11 +42,11 @@ public class BounceandoGame extends ApplicationAdapter {
         gestorCamara = GestorCamara.get();
 //        b2dr = new Box2DDebugRenderer();
 
-        screens = Lists.newArrayList();
+        pantallas = Lists.newArrayList();
 
         gestorPantalla.setJuego(this);
         Pantalla menuPrincipal = gestorPantalla.crearMenuPrincipal();
-        screens.add(menuPrincipal);
+        pantallas.add(menuPrincipal);
         pantallaActual = menuPrincipal;
 
     }
@@ -70,15 +65,11 @@ public class BounceandoGame extends ApplicationAdapter {
 
     @Override
 	public void render () {
-//        logger.debug("render()");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
-
-        doRender();
-
-//		batch.end();
-	}
+        gestorCamara.actualizarCamara();
+        pantallaActual.render(Gdx.graphics.getDeltaTime());
+    }
 
     @Override
     public void pause() {
@@ -91,13 +82,7 @@ public class BounceandoGame extends ApplicationAdapter {
         logger.debug("resume()");
     }
 
-    private void doRender() {
-
-        pantallaActual.render(Gdx.graphics.getDeltaTime());
-
-    }
-
-    public void setPantallaActual(Screen pantalla) {
+    public void setPantallaActual(Pantalla pantalla) {
         this.pantallaActual = pantalla;
     }
 
@@ -114,6 +99,6 @@ public class BounceandoGame extends ApplicationAdapter {
 //        gestorTextura.dispose();
         gestorCamara.dispose();
 
-        for(Screen pantalla : screens) pantalla.dispose();
+        for(Screen pantalla : pantallas) pantalla.dispose();
     }
 }

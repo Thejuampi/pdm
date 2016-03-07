@@ -1,8 +1,6 @@
 package jpal.games;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -11,18 +9,16 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import jpal.games.gestor.GestorCamara;
-import jpal.games.gestor.GestorTextura;
+import jpal.games.pantalla.Pantalla;
 
 /**
  * Created by juan on 24/02/16.
  */
 public class Jugador {
 
-//    private Sprite sprite;
-
     private CircleShape forma;
 
-    private FixtureDef formaFixtureDef;
+    private FixtureDef fixtureDef;
 
     private BodyDef bodyDef;
 
@@ -37,32 +33,34 @@ public class Jugador {
 
 //    private static GestorTextura gestorTextura = GestorTextura.get();
 
-    public Jugador(World mundo) {
+    public Jugador(Pantalla pantalla) {
         gestorCamara = GestorCamara.get();
 //        this.sprite = new Sprite(gestorTextura.pelotaJugador);
         this.forma = new CircleShape();
-        this.forma.setRadius(0.5f); // (TODO ver el radio de la pelota);
+        this.forma.setRadius(100.5f); // (TODO ver el radio de la pelota);
 
         //Definición de propiedades físicas
-        this.formaFixtureDef = new FixtureDef();
-        this.formaFixtureDef.shape = forma;
-        this.formaFixtureDef.density = 0.5f;
-        this.formaFixtureDef.friction = 0.4f;
-        this.formaFixtureDef.restitution = 0.6f;
+        this.fixtureDef = new FixtureDef();
+        this.fixtureDef.shape = forma;
+        this.fixtureDef.density = 0.5f;
+        this.fixtureDef.friction = 0.4f;
+        this.fixtureDef.restitution = 0.6f;
 
         this.bodyDef = new BodyDef();
-
 
         bodyDef.position.set(0.0f,0.0f);
         bodyDef.fixedRotation = true; // para que no rote?
         this.bodyDef.type = BodyDef.BodyType.DynamicBody; // el jugador es un cuerpo dinamico (interactua fisicamente con el mundo)
 
-        this.mundo = mundo;
+        this.mundo = pantalla.getMundo();
         this.body = mundo.createBody(bodyDef);
 
-        Fixture fixture = body.createFixture(formaFixtureDef);
+        Fixture fixture = body.createFixture(forma, 0.5f);
         forma.dispose(); // ????
+    }
 
+    public Vector2 getPosicion() {
+        return body.getPosition();
     }
 
 }

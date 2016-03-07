@@ -95,7 +95,17 @@ public class GestorPantalla {
         stage.addActor(botonNuevoJuego);
         stage.addActor(botonSalir);
 
-        Pantalla menuPrincipal = crearPantalla("Menu Principal", mundoPrincipal, stage);
+        Pantalla menuPrincipal = new Pantalla("Menu principal", null, null, this, mundoPrincipal, juego) {
+            @Override
+            public void render(float delta) {
+                if(stage != null) {
+                    stage.act();
+                    stage.draw();
+                }
+            }
+        };
+
+        menuPrincipal.setStage(stage);
         return menuPrincipal;
     }
 

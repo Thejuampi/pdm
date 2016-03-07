@@ -2,6 +2,7 @@ package jpal.games.pantalla;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -43,6 +44,7 @@ public class Pantalla extends ScreenAdapter {
     private final float x1 = 50.0f;
     private final float y1 = 20.0f;
 
+
     public Pantalla(String nombre, Pantalla anterior, Pantalla siguiente, GestorPantalla gestor, World mundo, BounceandoGame juego) {
         this.nombre = nombre;
         this.pantallaAnterior = anterior;
@@ -51,11 +53,8 @@ public class Pantalla extends ScreenAdapter {
 //        this.mundo = new World(new Vector2(0.0f,-9.8f), true);
         this.mundo = mundo;
 //        this.gestorSprite = GestorSprite.get();
-
-        jugador = new Jugador(mundo);
-
+        jugador = new Jugador(this);
         this.juego = juego;
-
         debugRender = new Box2DDebugRenderer();
 
         init();
@@ -74,10 +73,14 @@ public class Pantalla extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        super.render(delta);
+        Vector2 pos = jugador.getPosicion();
+//        Vector3 pos = new Vector3(posicionJugador.x, posicionJugador.y, 0.0f);
+//
+//        juego.getGestorCamara().mundoToPantalla(pos);
+        juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
+        debugRender.render(mundo, juego.getMatrizProyeccion());
+        mundo.step(1.0f / 60.0f, 6, 2); // TODO (juan) ver esto..
         if( stage  != null) {
-            mundo.step(1.0f / 60.0f, 6, 2); // TODO (juan) ver esto..
-            debugRender.render(mundo, juego.getMatrizProyeccion());
             stage.act();
             stage.draw();
         }
@@ -96,4 +99,7 @@ public class Pantalla extends ScreenAdapter {
 
     }
 
+    public World getMundo() {
+        return mundo;
+    }
 }

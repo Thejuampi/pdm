@@ -90,11 +90,7 @@ public class GestorCamara implements Screen {
      * @param y
      */
     public void setPosicionCamara(float x, float y) {
-        if(x >= x0 || x <= x1 || y >= y0 || y <= y1) {
-            Vector3 pos = new Vector3(x,y,0.0f);
-            camara.unproject(pos);
-            this.camara.position.set(pos);
-        }
+        this.camara.position.set(x,y,0f);
     }
 
     public void panallaToMundo(Vector3 pos) {
@@ -143,5 +139,9 @@ public class GestorCamara implements Screen {
     @Override
     public void dispose() {
         //???
+    }
+
+    public void actualizarCamara() {
+        camara.update();
     }
 }
