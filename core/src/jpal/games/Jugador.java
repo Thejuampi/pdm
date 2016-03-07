@@ -107,4 +107,13 @@ public class Jugador {
         return body.getPosition();
     }
 
+    public void moverPorOrientacion(float orientacion) {
+
+        orientacion = orientacion / 10.0f;
+
+        Vector2 velocidad = body.getLinearVelocity();
+        velocidad.set( (velocidad.x+orientacion)/2.0f, velocidad.y);
+        body.setLinearVelocity(velocidad);
+
+    }
 }

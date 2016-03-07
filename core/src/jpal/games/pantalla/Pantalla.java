@@ -1,5 +1,7 @@
 package jpal.games.pantalla;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -19,7 +21,6 @@ import jpal.games.gestor.GestorSprite;
 public class Pantalla extends ScreenAdapter {
 
     protected GestorPantalla gestor;
-
     protected String nombre;
 
     protected Pantalla pantallaAnterior;
@@ -29,6 +30,8 @@ public class Pantalla extends ScreenAdapter {
     protected BounceandoGame juego;
 
 //    protected GestorSprite gestorSprite;
+
+    private final boolean hayAcelerometro;
 
     protected Stage stage;
 
@@ -56,7 +59,7 @@ public class Pantalla extends ScreenAdapter {
         jugador = new Jugador(this);
         this.juego = juego;
         debugRender = new Box2DDebugRenderer();
-
+        hayAcelerometro = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
         init();
     }
 
@@ -74,6 +77,12 @@ public class Pantalla extends ScreenAdapter {
     @Override
     public void render(float delta) {
         Vector2 pos = jugador.getPosicion();
+
+        if(hayAcelerometro) {
+            float orientacion = Gdx.input.getAccelerometerY();
+            jugador.moverPorOrientacion(orientacion);
+        }
+
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
         debugRender.render(mundo, juego.getMatrizProyeccion());
         mundo.step(1.0f / 60.0f, 6, 2); // TODO (juan) ver esto..

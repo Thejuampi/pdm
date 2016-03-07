@@ -12,8 +12,8 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
-        //Configuración:
-        config.useAccelerometer=true;
+		config.useAccelerometer = true;
+		config.useCompass = false;
 
         initialize(new BounceandoGame(), config);
 	}
