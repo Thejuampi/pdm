@@ -117,7 +117,7 @@ public class GestorPantalla {
         Stage stage = new Stage();
 
         Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
-        crearRectangulo(0,0,50.0f,1.0f, mundo, true);
+        crearRectangulo(0,0,10.0f,1.0f, mundo, true);
 
         return pantalla;
     }
@@ -142,7 +142,10 @@ public class GestorPantalla {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(ancho / 2 , alto / 2 ); // TODO (juan) ver si es necesario convertir coordenadas
 
+
         pBody.createFixture(shape, 1.0f);
+
+//        pBody.setTransform(pBody.getPosition(), (float)Math.toRadians(90.0));
         shape.dispose();
         return pBody;
     }

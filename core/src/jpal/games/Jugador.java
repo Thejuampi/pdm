@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import jpal.games.gestor.GestorCamara;
 import jpal.games.pantalla.Pantalla;
@@ -45,7 +46,7 @@ public class Jugador {
 //        this.sprite = new Sprite(gestorTextura.pelotaJugador);
         this.forma = new CircleShape();
         this.radioPelota = 0.5f;
-        this.forma.setRadius(radioPelota); // (TODO ver el radio de la pelota);
+        this.forma.setRadius(radioPelota);
 
         //Definición de propiedades físicas
         this.fixtureDef = new FixtureDef();
@@ -63,28 +64,34 @@ public class Jugador {
         this.mundo = pantalla.getMundo();
         this.body = mundo.createBody(bodyDef);
 
-       body.createFixture(forma, 0.5f).setUserData(this);
+        body.createFixture(forma, 0.5f).setUserData(this);
         forma.dispose(); // ????
+
+        body.setLinearVelocity(new Vector2(1.0f, 0.0f));
 
         mundo.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
                 Fixture fa = contact.getFixtureA();
                 Fixture fb = contact.getFixtureB();
-
+                Fixture jugador = null;
                 if (fa == null || fb == null) return;
                 if (fa.getUserData() == Jugador.this) {
-
-                    Vector2 velocidad = fa.getBody().getLinearVelocity();
-                    fa.getBody().setLinearVelocity(velocidad.rotate(180.0f));
-
+                    jugador = fa;
                 } else if (fb.getUserData() == Jugador.this) {
-
-                    Vector2 velocidad = fb.getBody().getLinearVelocity();
-                    fb.getBody().setLinearVelocity(velocidad.rotate(180.0f));
-
+                    jugador = fb;
                 }
+                WorldManifold worldManifold = contact.getWorldManifold();
 
+                //TODO (juan) ver como se puede mejorar esto.
+                // http://www.iteramos.com/pregunta/32746/como-calcular-el-angulo-de-rebote
+                Vector2 v = jugador.getBody().getLinearVelocity();
+                Vector2 n = worldManifold.getNormal();
+                Vector2 u =   n.scl(v.dot(n) / n.dot(n));
+                Vector2 w = new Vector2(v.x - u.x, v.y - u.y);  //v - u;
+
+                Vector2 nv = w.add(u.scl(-1.0f));
+                jugador.getBody().setLinearVelocity(nv);
             }
 
             @Override
@@ -97,6 +104,7 @@ public class Jugador {
 
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) {
+                Gdx.app.log("", impulse.toString());
             }
         });
 
@@ -112,7 +120,7 @@ public class Jugador {
         orientacion = orientacion / 10.0f;
 
         Vector2 velocidad = body.getLinearVelocity();
-        velocidad.set( (velocidad.x+orientacion)/2.0f, velocidad.y);
+        velocidad.set((velocidad.x + orientacion) / 2.0f, velocidad.y);
         body.setLinearVelocity(velocidad);
 
     }
