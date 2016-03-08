@@ -20,6 +20,8 @@ import jpal.games.gestor.GestorSprite;
  */
 public class Pantalla extends ScreenAdapter {
 
+    private Vector2 posicionParaVictoria;
+
     protected GestorPantalla gestor;
     protected String nombre;
 
@@ -67,25 +69,27 @@ public class Pantalla extends ScreenAdapter {
         this.stage = stage;
     }
 
-
-
     public void setPantallaSiguiente(Pantalla pantallaSiguiente) {
         this.pantallaSiguiente = pantallaSiguiente;
     }
 
+    public void setPosicionParaGanar(Vector2 posicionVictoria) {
+        this.posicionParaVictoria = posicionVictoria;
+    }
 
     @Override
     public void render(float delta) {
         Vector2 pos = jugador.getPosicion();
 
+        if(posicionParaVictoria.dst(pos)  <= 2.0f ) {
+            Gdx.app.log("", "¡GANASTE!");
+            gestor.cargarSiguienetPantalla(this);
+        }
+
         if(hayAcelerometro) {
-
             Vector3 aceleracion = new Vector3(Gdx.input.getAccelerometerX(), Gdx.input.getAccelerometerY(),Gdx.input.getAccelerometerZ());
-
             if(aceleracion.len2() > 200.0f) {
-
                 jugador.impulsar();
-
             }
 
             float orientacion = Gdx.input.getAccelerometerY();

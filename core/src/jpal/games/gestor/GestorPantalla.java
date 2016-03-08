@@ -1,6 +1,7 @@
 package jpal.games.gestor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -117,11 +118,12 @@ public class GestorPantalla {
         Stage stage = new Stage();
 
         Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
+        pantalla.setPosicionParaGanar(new Vector2());
         crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
         crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
         crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
-        crearRectangulo( 11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
-        crearRectangulo( 11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
+        crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
+        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
 
         return pantalla;
     }
@@ -155,4 +157,9 @@ public class GestorPantalla {
     }
 
 
+    public void cargarSiguienetPantalla(Pantalla pantalla) {
+
+        //TODO (juan) cargarSiguienetPantalla
+
+    }
 }
