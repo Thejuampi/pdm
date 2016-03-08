@@ -79,6 +79,15 @@ public class Pantalla extends ScreenAdapter {
         Vector2 pos = jugador.getPosicion();
 
         if(hayAcelerometro) {
+
+            Vector3 aceleracion = new Vector3(Gdx.input.getAccelerometerX(), Gdx.input.getAccelerometerY(),Gdx.input.getAccelerometerZ());
+
+            if(aceleracion.len2() > 200.0f) {
+
+                jugador.impulsar();
+
+            }
+
             float orientacion = Gdx.input.getAccelerometerY();
             jugador.moverPorOrientacion(orientacion);
         }

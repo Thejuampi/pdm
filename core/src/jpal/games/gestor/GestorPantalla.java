@@ -102,7 +102,7 @@ public class GestorPantalla {
         Pantalla menuPrincipal = new Pantalla("Menu principal", null, null, this, mundoPrincipal, juego) {
             @Override
             public void render(float delta) {
-                if(stage != null) {
+                if (stage != null) {
                     stage.act();
                     stage.draw();
                 }
@@ -117,7 +117,11 @@ public class GestorPantalla {
         Stage stage = new Stage();
 
         Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
-        crearRectangulo(0,0,10.0f,1.0f, mundo, true);
+        crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
+        crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
+        crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
+        crearRectangulo( 11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
+        crearRectangulo( 11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
 
         return pantalla;
     }
@@ -130,17 +134,17 @@ public class GestorPantalla {
         Body pBody;
         BodyDef def = new BodyDef();
 
-        if(esEstatico)
+        if (esEstatico)
             def.type = BodyDef.BodyType.StaticBody;
         else
             def.type = BodyDef.BodyType.DynamicBody;
 
-        def.position.set(x , y);
+        def.position.set(x, y);
         def.fixedRotation = true;
         pBody = mundo.createBody(def);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(ancho / 2 , alto / 2 ); // TODO (juan) ver si es necesario convertir coordenadas
+        shape.setAsBox(ancho / 2, alto / 2); // TODO (juan) ver si es necesario convertir coordenadas
 
 
         pBody.createFixture(shape, 1.0f);

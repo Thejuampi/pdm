@@ -67,8 +67,6 @@ public class Jugador {
         body.createFixture(forma, 0.5f).setUserData(this);
         forma.dispose(); // ????
 
-        body.setLinearVelocity(new Vector2(1.0f, 0.0f));
-
         mundo.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
@@ -104,7 +102,7 @@ public class Jugador {
 
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) {
-                Gdx.app.log("", impulse.toString());
+//                Gdx.app.log("", impulse.toString());
             }
         });
 
@@ -116,12 +114,19 @@ public class Jugador {
     }
 
     public void moverPorOrientacion(float orientacion) {
-
-        orientacion = orientacion / 10.0f;
-
+        orientacion = orientacion / 2.0f;
         Vector2 velocidad = body.getLinearVelocity();
         velocidad.set((velocidad.x + orientacion) / 2.0f, velocidad.y);
         body.setLinearVelocity(velocidad);
+    }
 
+    /**
+     * Solamente impulsa si la pelota esta rebotando para arriba
+     */
+    public void impulsar() {
+        Vector2 vel = body.getLinearVelocity();
+        if(vel.y <= 10.0f && vel.y >= -0.1f ) {
+            body.applyLinearImpulse(0.0f, 0.5f, 0.0f, 0.0f, true);
+        }
     }
 }
