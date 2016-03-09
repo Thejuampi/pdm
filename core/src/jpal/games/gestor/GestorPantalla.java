@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,6 +18,7 @@ import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.google.common.collect.Lists;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import jpal.games.BounceandoGame;
@@ -44,6 +48,11 @@ public class GestorPantalla {
         logger = new Logger("GestorPantalla");
         skin = new Skin();
         mundo = new World(Constantes.gravedad, true);
+
+        //Se agregan solas a la lista de pantallas.
+        crearPantalla1();
+//        crearPantalla2();
+//        crearPantalla3();
     }
 
     public void setJuego(BounceandoGame juego) {
@@ -81,7 +90,7 @@ public class GestorPantalla {
         TextButton botonNuevoJuego = BotonesFactory.crearBoton("Nuevo Juego", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Pantalla pantalla = crearPantalla1();
+                Pantalla pantalla = pantallas.getFirst();
                 juego.setPantallaActual(pantalla);
             }
         });
@@ -93,7 +102,6 @@ public class GestorPantalla {
                 Gdx.app.exit();
             }
         });
-
 
         int alto = Gdx.graphics.getHeight();
         int ancho = Gdx.graphics.getWidth();
@@ -142,6 +150,33 @@ public class GestorPantalla {
         return pantalla;
     }
 
+    public Pantalla crearPantalla2() {
+        Stage stage = new Stage();
+
+        Pantalla pantalla = crearPantalla("Pantalla 2", mundo, stage);
+        pantalla.setPosicionParaGanar(new Vector2());
+        crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
+        crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
+        crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
+        crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
+        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
+
+        return pantalla;
+    }
+
+    public Pantalla crearPantalla3() {
+        Stage stage = new Stage();
+
+        Pantalla pantalla = crearPantalla("Pantalla 3", mundo, stage);
+        pantalla.setPosicionParaGanar(new Vector2());
+        crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
+        crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
+        crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
+        crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
+        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
+
+        return pantalla;
+    }
 
     /**
      * Crea un rectánguno y lo agrega al mundo
@@ -162,7 +197,6 @@ public class GestorPantalla {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(ancho / 2, alto / 2); // TODO (juan) ver si es necesario convertir coordenadas
 
-
         pBody.createFixture(shape, 1.0f);
 
 //        pBody.setTransform(pBody.getPosition(), (float)Math.toRadians(90.0));
@@ -170,6 +204,44 @@ public class GestorPantalla {
         return pBody;
     }
 
+
+    /**
+     * Crea un circulo
+     * @param x La coordenada x inicial
+     * @param y La coordenada y inicial
+     * @param radio El radio del circulo
+     * @return El cuerpo creado
+     */
+    private Body crearCirculo(float x, float y, float radio)
+    {
+        // creamos definicion del cuerpo
+        BodyDef bodyDef = new BodyDef();
+        // sera de tipo dinamico
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        // establecemos la posicion
+        bodyDef.position.set(x, y);
+
+        // creamos un cuerpo con esta definicion en el mundo
+        Body body = mundo.createBody(bodyDef);
+
+        // creamos el adorno para el cuerpo anterior
+        FixtureDef fixtureDef = new FixtureDef();
+        // creaamos una forma circular de radio r
+        CircleShape circle = new CircleShape();
+        circle.setRadius(radio);
+        fixtureDef.shape = circle;
+        // establecemos propiedades fisicas
+        fixtureDef.density = 0.5f;
+        fixtureDef.friction = 0.4f;
+        fixtureDef.restitution = 0.6f;
+
+        // agregamos el adorno al cuerpo
+        Fixture fixture = body.createFixture(fixtureDef);
+
+        // liberamos la forma que creamos (ya no la necesitamos)
+        circle.dispose();
+        return body;
+    }
 
     public void cargarSiguienetPantalla(Pantalla pantalla) {
 
