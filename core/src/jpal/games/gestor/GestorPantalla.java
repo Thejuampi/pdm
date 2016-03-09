@@ -94,8 +94,22 @@ public class GestorPantalla {
             }
         });
 
-        botonNuevoJuego.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 100);
-        botonSalir.setPosition(Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 8, (Gdx.graphics.getHeight() / 2) + 0);
+
+        int alto = Gdx.graphics.getHeight();
+        int ancho = Gdx.graphics.getWidth();
+
+        // la idea es que la pantalla tenga una resolucion virtual de ~16x9
+        // cada boton tiene un tamaño de 6x2 con una separación de 3 unidades a lo alto
+        // el x en ambos es igual, lo que varia es el y
+
+        float anchoBotones = 6.0f / 16.0f * ancho;
+        float altoBotones = 2.0f / 9.0f * alto;
+
+        botonNuevoJuego.setSize(anchoBotones, altoBotones);
+        botonNuevoJuego.setPosition((ancho - anchoBotones) / 2.0f, 7.0f / 9.0f * (alto - altoBotones));
+
+        botonSalir.setSize(anchoBotones, altoBotones);
+        botonSalir.setPosition((ancho - anchoBotones) / 2.0f, 3.0f / 9.0f * (alto - altoBotones));
 
         stage.addActor(botonNuevoJuego);
         stage.addActor(botonSalir);

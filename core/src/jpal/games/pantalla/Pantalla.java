@@ -23,6 +23,7 @@ public class Pantalla extends ScreenAdapter {
     private Vector2 posicionParaVictoria;
 
     protected GestorPantalla gestor;
+
     protected String nombre;
 
     protected Pantalla pantallaAnterior;
