@@ -9,4 +9,8 @@ public interface Constantes {
 
     public static final Vector2 gravedad = new Vector2(0.0f,-9.8f);
 
+    public static final Integer GANAR_ID = 1;
+
+    public static final Integer PERDER_ID = -1;
+
 }

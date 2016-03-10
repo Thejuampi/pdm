@@ -14,6 +14,7 @@ import java.util.List;
 import jpal.games.gestor.GestorCamara;
 import jpal.games.gestor.GestorPantalla;
 import jpal.games.pantalla.Pantalla;
+import jpal.games.utiles.PerderExcepcion;
 
 public class BounceandoGame extends ApplicationAdapter {
 
@@ -25,15 +26,11 @@ public class BounceandoGame extends ApplicationAdapter {
 
     private GestorCamara gestorCamara;
 
-//    private GestorTextura gestorTextura;
-
     private List<Pantalla> pantallas;
 
     private Pantalla pantallaActual;
 
-//    private Box2DDebugRenderer b2dr;
-
-	@Override
+    @Override
 	public void create () {
         logger = new Logger("logger", Logger.DEBUG);
         logger.debug("create()");
@@ -67,7 +64,7 @@ public class BounceandoGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gestorCamara.actualizarCamara();
-        pantallaActual.render(Gdx.graphics.getDeltaTime());
+        gestorPantalla.getPantallaActual().render(Gdx.graphics.getDeltaTime());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package jpal.games;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
+import jpal.games.gestor.Constantes;
 import jpal.games.gestor.GestorCamara;
 import jpal.games.pantalla.Pantalla;
 
@@ -41,7 +41,7 @@ public class Jugador {
 
 //    private static GestorTextura gestorTextura = GestorTextura.get();
 
-    public Jugador(Pantalla pantalla) {
+    public Jugador(final Pantalla pantalla) {
         gestorCamara = GestorCamara.get();
 //        this.sprite = new Sprite(gestorTextura.pelotaJugador);
         this.forma = new CircleShape();
@@ -73,7 +73,14 @@ public class Jugador {
                 Fixture fa = contact.getFixtureA();
                 Fixture fb = contact.getFixtureB();
                 Fixture jugador = null;
-                if (fa == null || fb == null) return;
+                //reviso que se puedan usar los datos sin que lanze una excepcion
+                if (fa == null || fb == null || (fa.getUserData() == null && fb.getUserData() == null )) return;
+                if( Constantes.GANAR_ID.equals(fb.getUserData()) || Constantes.GANAR_ID.equals(fa.getUserData()) ) {
+                    pantalla.accionAlGanar();
+                    return;
+                } else if (Constantes.PERDER_ID.equals(fb.getUserData()) || Constantes.PERDER_ID.equals(fa.getUserData())) {
+                    pantalla.accionAlPerder();
+                }
                 if (fa.getUserData() == Jugador.this) {
                     jugador = fa;
                 } else if (fb.getUserData() == Jugador.this) {
@@ -89,6 +96,7 @@ public class Jugador {
                 Vector2 w = new Vector2(v.x - u.x, v.y - u.y);  //v - u;
 
                 Vector2 nv = w.add(u.scl(-1.0f));
+                nv.scl(0.7f); // como la restitucion no me da bola, la seteo a pata
                 jugador.getBody().setLinearVelocity(nv);
             }
 
@@ -122,11 +130,12 @@ public class Jugador {
 
     /**
      * Solamente impulsa si la pelota esta rebotando para arriba
+     * @param magnitud magnitud al cuadrado de la aceleración
      */
-    public void impulsar() {
+    public void impulsar(float magnitud) {
         Vector2 vel = body.getLinearVelocity();
         if(vel.y <= 10.0f && vel.y >= -0.1f ) {
-            body.applyLinearImpulse(0.0f, 0.5f, 0.0f, 0.0f, true);
+            body.applyLinearImpulse(0.0f, magnitud/500.0f, 0.0f, 0.0f, true);
         }
     }
 }

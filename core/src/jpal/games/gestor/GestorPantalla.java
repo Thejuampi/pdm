@@ -42,15 +42,20 @@ public class GestorPantalla {
     private World mundo;
 
     BounceandoGame juego;
+    private Pantalla pantallaActual = null;
+
+    public Pantalla getPantallaActual() {
+        return pantallaActual;
+    }
 
     private GestorPantalla() {
         pantallas = Lists.newLinkedList();
         logger = new Logger("GestorPantalla");
         skin = new Skin();
-        mundo = new World(Constantes.gravedad, true);
+//        mundo = new World(Constantes.gravedad, true);
 
         //Se agregan solas a la lista de pantallas.
-        crearPantalla1();
+//        crearPantalla1();
 //        crearPantalla2();
 //        crearPantalla3();
     }
@@ -90,7 +95,7 @@ public class GestorPantalla {
         TextButton botonNuevoJuego = BotonesFactory.crearBoton("Nuevo Juego", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Pantalla pantalla = pantallas.getFirst();
+                Pantalla pantalla = crearPantalla1();
                 juego.setPantallaActual(pantalla);
             }
         });
@@ -132,28 +137,48 @@ public class GestorPantalla {
             }
         };
 
+        pantallaActual = menuPrincipal;
         menuPrincipal.setStage(stage);
         return menuPrincipal;
     }
 
     public Pantalla crearPantalla1() {
-        Stage stage = new Stage();
+        Gdx.app.log("crearPantalla1()","Creando pantalla 1");
 
+        Stage stage = new Stage();
+        World mundo = new World(Constantes.gravedad, false );
         Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
+        pantallaActual = pantalla;
         pantalla.setPosicionParaGanar(new Vector2());
         crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
         crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
         crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
         crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
         crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
+
+        // Separador
+        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 15.0f, mundo, true);
+
+        //la otra pared de la derecha
+        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 15.0f, mundo, true);
+
+        //El lugar al que tengo que llegar para ganar
+        crearRectangulo(24.75f, 0.0f, 7.0f, 1.0f, mundo, true ,Constantes.GANAR_ID);
+
+        //El piso que si te caes perdes.
+        crearRectangulo(20f,-4f,50f,1f,mundo, true, Constantes.PERDER_ID);
 
         return pantalla;
     }
 
     public Pantalla crearPantalla2() {
-        Stage stage = new Stage();
 
-        Pantalla pantalla = crearPantalla("Pantalla 2", mundo, stage);
+        Gdx.app.log("crearPantalla2()","Creando pantalla 2");
+
+        Stage stage = new Stage();
+        World mundo = new World(Constantes.gravedad, false );
+        Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
+        pantallaActual = pantalla;
         pantalla.setPosicionParaGanar(new Vector2());
         crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
         crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
@@ -161,13 +186,33 @@ public class GestorPantalla {
         crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
         crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
 
+        // Separador
+        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 15.0f, mundo, true);
+
+        //Si los tocas, perdes!
+        crearRectangulo(15.5f + 7.0f, 10.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+        crearRectangulo(20.0f + 7.0f, 10.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+
+        //la otra pared de la derecha
+        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 15.0f, mundo, true);
+
+        //El lugar al que tengo que llegar para ganar
+        crearRectangulo(24.75f, 0.0f, 7.0f, 1.0f, mundo, true, Constantes.GANAR_ID);
+
+        //El piso que si te caes perdes.
+        crearRectangulo(20f,-4f,50f,1f,mundo, true, Constantes.PERDER_ID);
+
         return pantalla;
+
     }
 
     public Pantalla crearPantalla3() {
-        Stage stage = new Stage();
+        Gdx.app.log("crearPantalla3()","Creando pantalla 3");
 
-        Pantalla pantalla = crearPantalla("Pantalla 3", mundo, stage);
+        Stage stage = new Stage();
+        World mundo = new World(Constantes.gravedad, false );
+        Pantalla pantalla = crearPantalla("Pantalla 1", mundo, stage);
+        pantallaActual = pantalla;
         pantalla.setPosicionParaGanar(new Vector2());
         crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
         crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
@@ -175,13 +220,40 @@ public class GestorPantalla {
         crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
         crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
 
+        // Separador
+        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 15.0f, mundo, true);
+
+        //Si los tocas, perdes!
+        crearRectangulo(15.5f + 7.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+        crearRectangulo(20.0f + 7.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+
+        //la otra pared de la derecha
+        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 15.0f, mundo, true);
+
+        //Si los tocas, perdes!
+        crearRectangulo(15.5f + 7.0f, 2.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+        crearRectangulo(20.0f + 7.0f, 2.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+
+
+        //El lugar al que tengo que llegar para ganar
+        crearRectangulo(24.75f, 0.0f, 7.0f, 1.0f, mundo, true , Constantes.GANAR_ID);
+
+        //El piso que si te caes perdes.
+        crearRectangulo(20f,-4f,50f,1f,mundo, true, Constantes.PERDER_ID);
+
         return pantalla;
+
+    }
+
+
+    protected Body crearRectangulo(float x, float y, float ancho, float alto, World mundo, boolean esEstatico){
+        return crearRectangulo(x,y,ancho, alto, mundo, esEstatico, null);
     }
 
     /**
      * Crea un rectánguno y lo agrega al mundo
      */
-    protected Body crearRectangulo(float x, float y, float ancho, float alto, World mundo, boolean esEstatico) {
+    protected Body crearRectangulo(float x, float y, float ancho, float alto, World mundo, boolean esEstatico, Object userData) {
         Body pBody;
         BodyDef def = new BodyDef();
 
@@ -192,14 +264,17 @@ public class GestorPantalla {
 
         def.position.set(x, y);
         def.fixedRotation = true;
-        pBody = mundo.createBody(def);
+        pBody = pantallaActual.getMundo().createBody(def);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(ancho / 2, alto / 2); // TODO (juan) ver si es necesario convertir coordenadas
 
-        pBody.createFixture(shape, 1.0f);
+        if(userData != null) {
+            pBody.createFixture(shape, 1.0f).setUserData(userData);
+        }else {
+            pBody.createFixture(shape, 1.0f);
+        }
 
-//        pBody.setTransform(pBody.getPosition(), (float)Math.toRadians(90.0));
         shape.dispose();
         return pBody;
     }
