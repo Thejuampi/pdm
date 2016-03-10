@@ -218,17 +218,17 @@ public class GestorPantalla {
         crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
         crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
         crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
-        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
+//        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
 
         // Separador
-        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 15.0f, mundo, true);
+        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 10.0f, mundo, true);
 
         //Si los tocas, perdes!
-        crearRectangulo(15.5f + 7.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
-        crearRectangulo(20.0f + 7.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+        crearRectangulo(15.5f + 6.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
+        crearRectangulo(20.0f + 6.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
 
         //la otra pared de la derecha
-        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 15.0f, mundo, true);
+        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 10.0f, mundo, true);
 
         //Si los tocas, perdes!
         crearRectangulo(15.5f + 7.0f, 2.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
@@ -239,7 +239,7 @@ public class GestorPantalla {
         crearRectangulo(24.75f, 0.0f, 7.0f, 1.0f, mundo, true , Constantes.GANAR_ID);
 
         //El piso que si te caes perdes.
-        crearRectangulo(20f,-4f,50f,1f,mundo, true, Constantes.PERDER_ID);
+        crearRectangulo(30f,-4f,60f,1f,mundo, true, Constantes.PERDER_ID);
 
         return pantalla;
 
