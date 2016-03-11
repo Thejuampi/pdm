@@ -88,7 +88,6 @@ public class Jugador {
                 }
                 WorldManifold worldManifold = contact.getWorldManifold();
 
-                //TODO (juan) ver como se puede mejorar esto.
                 // http://www.iteramos.com/pregunta/32746/como-calcular-el-angulo-de-rebote
                 Vector2 v = jugador.getBody().getLinearVelocity();
                 Vector2 n = worldManifold.getNormal();

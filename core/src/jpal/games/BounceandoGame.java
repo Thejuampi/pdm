@@ -2,19 +2,14 @@ package jpal.games;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Logger;
-import com.google.common.collect.Lists;
-
-import java.util.List;
 
 import jpal.games.gestor.GestorCamara;
 import jpal.games.gestor.GestorPantalla;
-import jpal.games.pantalla.Pantalla;
-import jpal.games.utiles.PerderExcepcion;
 
 public class BounceandoGame extends ApplicationAdapter {
 
@@ -26,25 +21,23 @@ public class BounceandoGame extends ApplicationAdapter {
 
     private GestorCamara gestorCamara;
 
-    private List<Pantalla> pantallas;
+    public boolean hayAcelerometro;
 
-    private Pantalla pantallaActual;
+    public boolean hayGiroscopio ;
 
     @Override
 	public void create () {
         logger = new Logger("logger", Logger.DEBUG);
         logger.debug("create()");
-        pantallas = Lists.newArrayList();
         batch = new SpriteBatch();
         gestorPantalla = GestorPantalla.get();
         gestorCamara = GestorCamara.get();
 
+        hayAcelerometro = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
+        hayGiroscopio   = Gdx.input.isPeripheralAvailable(Input.Peripheral.Compass);
+
         gestorPantalla.setJuego(this);
-        Pantalla menuPrincipal = gestorPantalla.crearMenuPrincipal();
-        pantallas.add(menuPrincipal);
-
-        pantallaActual = menuPrincipal;
-
+        gestorPantalla.crearMenuPrincipal();
     }
 
     public GestorCamara getGestorCamara() {
@@ -78,10 +71,6 @@ public class BounceandoGame extends ApplicationAdapter {
         logger.debug("resume()");
     }
 
-    public void setPantallaActual(Pantalla pantalla) {
-        this.pantallaActual = pantalla;
-    }
-
     @Override
     public void resize(int width, int height) {
 //        this.gestorCamara
@@ -94,7 +83,6 @@ public class BounceandoGame extends ApplicationAdapter {
         batch.dispose();
 //        gestorTextura.dispose();
         gestorCamara.dispose();
-
-        for(Screen pantalla : pantallas) pantalla.dispose();
+        gestorPantalla.dispose();
     }
 }
