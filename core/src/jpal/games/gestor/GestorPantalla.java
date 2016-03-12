@@ -136,23 +136,10 @@ public class GestorPantalla {
         World mundo = new World(Constantes.gravedad, false );
         Pantalla pantalla = crearPantalla("Pantalla 1",1, mundo, stage);
         pantallaActual = pantalla;
-        crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
-        crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
-        crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
-        crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
-        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
 
-        // Separador
-        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 15.0f, mundo, true);
 
-        //la otra pared de la derecha
-        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 15.0f, mundo, true);
 
-        //El lugar al que tengo que llegar para ganar
-        crearRectangulo(24.75f, 0.0f, 7.0f, 1.0f, mundo, true ,Constantes.GANAR_ID);
 
-        //El piso que si te caes perdes.
-        crearRectangulo(20f, -4f, 50f, 1f, mundo, true, Constantes.PERDER_ID);
 
         return pantalla;
     }

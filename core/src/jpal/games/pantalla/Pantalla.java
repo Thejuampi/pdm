@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -40,11 +45,19 @@ public class Pantalla extends ScreenAdapter {
 
     Box2DDebugRenderer debugRender;
 
+    TiledMap mapaTiled;
+
+    TiledMapRenderer mapRenderer;
+
     private final float x0 = 0.0f;
     private final float y0 = 0.0f;
 
     private final float x1 = 50.0f;
     private final float y1 = 20.0f;
+
+    private float ppt_x;
+    private float ppt_y;
+
     private Skin skin = buildSkin();
 
     public Pantalla(String nombre, Integer id, GestorPantalla gestor, World mundo, BounceandoGame juego) {
@@ -56,6 +69,17 @@ public class Pantalla extends ScreenAdapter {
         jugador = new Jugador(this);
         this.juego = juego;
         debugRender = new Box2DDebugRenderer();
+        mapaTiled = new TmxMapLoader().load("mapa1.tmx");
+
+        TiledMapTileLayer capaTerreno = (TiledMapTileLayer) mapaTiled.getLayers().get("terreno");
+
+        ppt_x = capaTerreno.getTileWidth();
+        ppt_y = capaTerreno.getTileHeight();
+
+        float escalaUnitaria = 1f/94.0f; // TODO (juan) ver como usar esto...
+        mapRenderer = new BunceandoRenderizadorOrtogonalInvertido(mapaTiled, escalaUnitaria, juego.getBatch());
+        mapRenderer.setView(juego.getGestorCamara().getCamara());
+
         init();
     }
 
@@ -86,6 +110,8 @@ public class Pantalla extends ScreenAdapter {
 
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
         debugRender.render(mundo, juego.getMatrizProyeccion());
+
+        mapRenderer.render();
 
         mundo.step(1.0f / 60.0f, 6, 2); // TODO (juan) ver esto..
 

@@ -142,4 +142,8 @@ public class GestorCamara implements Screen {
     public void actualizarCamara() {
         camara.update();
     }
+
+    public OrthographicCamera getCamara() {
+        return camara;
+    }
 }
