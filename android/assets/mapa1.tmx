@@ -1,151 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="50" height="20" tilewidth="94" tileheight="40" nextobjectid="7">
- <tileset firstgid="1" name="sprites" tilewidth="94" tileheight="160">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="50" height="20" tilewidth="128" tileheight="128" nextobjectid="49">
+ <tileset firstgid="1" name="tiles" tilewidth="128" tileheight="128">
   <tile id="0">
-   <image width="94" height="160" source="PlanetCute PNG/Brown Block.png"/>
+   <image width="128" height="128" source="desierto/Tile/16.png"/>
   </tile>
   <tile id="1">
-   <image width="94" height="160" source="PlanetCute PNG/Character Boy.png"/>
+   <image width="128" height="128" source="desierto/Tile/15.png"/>
   </tile>
   <tile id="2">
-   <image width="94" height="160" source="PlanetCute PNG/Character Cat Girl.png"/>
+   <image width="128" height="128" source="desierto/Tile/14.png"/>
   </tile>
   <tile id="3">
-   <image width="94" height="160" source="PlanetCute PNG/Character Horn Girl.png"/>
+   <image width="128" height="128" source="desierto/Tile/13.png"/>
   </tile>
   <tile id="4">
-   <image width="94" height="160" source="PlanetCute PNG/Character Pink Girl.png"/>
+   <image width="128" height="128" source="desierto/Tile/12.png"/>
   </tile>
   <tile id="5">
-   <image width="94" height="160" source="PlanetCute PNG/Character Princess Girl.png"/>
+   <image width="128" height="128" source="desierto/Tile/11.png"/>
   </tile>
   <tile id="6">
-   <image width="94" height="160" source="PlanetCute PNG/Chest Closed.png"/>
+   <image width="128" height="128" source="desierto/Tile/10.png"/>
   </tile>
   <tile id="7">
-   <image width="94" height="160" source="PlanetCute PNG/Chest Lid.png"/>
+   <image width="128" height="128" source="desierto/Tile/9.png"/>
   </tile>
   <tile id="8">
-   <image width="94" height="160" source="PlanetCute PNG/Chest Open.png"/>
+   <image width="128" height="128" source="desierto/Tile/8.png"/>
   </tile>
   <tile id="9">
-   <image width="94" height="160" source="PlanetCute PNG/Dirt Block.png"/>
+   <image width="128" height="128" source="desierto/Tile/7.png"/>
   </tile>
   <tile id="10">
-   <image width="94" height="160" source="PlanetCute PNG/Door Tall Closed.png"/>
+   <image width="128" height="128" source="desierto/Tile/6.png"/>
   </tile>
   <tile id="11">
-   <image width="94" height="160" source="PlanetCute PNG/Door Tall Open.png"/>
+   <image width="128" height="128" source="desierto/Tile/5.png"/>
   </tile>
   <tile id="12">
-   <image width="94" height="160" source="PlanetCute PNG/Enemy Bug.png"/>
+   <image width="128" height="128" source="desierto/Tile/4.png"/>
   </tile>
   <tile id="13">
-   <image width="94" height="160" source="PlanetCute PNG/Grass Block.png"/>
+   <image width="128" height="128" source="desierto/Tile/3.png"/>
   </tile>
   <tile id="14">
-   <image width="94" height="160" source="PlanetCute PNG/Heart.png"/>
+   <image width="128" height="128" source="desierto/Tile/2.png"/>
   </tile>
   <tile id="15">
-   <image width="94" height="160" source="PlanetCute PNG/Key.png"/>
-  </tile>
-  <tile id="16">
-   <image width="94" height="160" source="PlanetCute PNG/Plain Block.png"/>
-  </tile>
-  <tile id="17">
-   <image width="94" height="160" source="PlanetCute PNG/Ramp East.png"/>
-  </tile>
-  <tile id="18">
-   <image width="94" height="160" source="PlanetCute PNG/Ramp North.png"/>
-  </tile>
-  <tile id="19">
-   <image width="94" height="160" source="PlanetCute PNG/Ramp South.png"/>
-  </tile>
-  <tile id="20">
-   <image width="94" height="160" source="PlanetCute PNG/Ramp West.png"/>
-  </tile>
-  <tile id="21">
-   <image width="94" height="160" source="PlanetCute PNG/Rock.png"/>
-  </tile>
-  <tile id="22">
-   <image width="94" height="160" source="PlanetCute PNG/Roof East.png"/>
-  </tile>
-  <tile id="23">
-   <image width="94" height="160" source="PlanetCute PNG/Roof North.png"/>
-  </tile>
-  <tile id="24">
-   <image width="94" height="160" source="PlanetCute PNG/Roof North East.png"/>
-  </tile>
-  <tile id="25">
-   <image width="94" height="160" source="PlanetCute PNG/Roof North West.png"/>
-  </tile>
-  <tile id="26">
-   <image width="94" height="160" source="PlanetCute PNG/Roof South.png"/>
-  </tile>
-  <tile id="27">
-   <image width="94" height="160" source="PlanetCute PNG/Roof South East.png"/>
-  </tile>
-  <tile id="28">
-   <image width="94" height="160" source="PlanetCute PNG/Roof South West.png"/>
-  </tile>
-  <tile id="29">
-   <image width="94" height="160" source="PlanetCute PNG/Roof West.png"/>
-  </tile>
-  <tile id="30">
-   <image width="94" height="160" source="PlanetCute PNG/Selector.png"/>
-  </tile>
-  <tile id="31">
-   <image width="94" height="160" source="PlanetCute PNG/SpeechBubble.png"/>
-  </tile>
-  <tile id="32">
-   <image width="94" height="160" source="PlanetCute PNG/Star.png"/>
-  </tile>
-  <tile id="33">
-   <image width="94" height="160" source="PlanetCute PNG/Stone Block.png"/>
-  </tile>
-  <tile id="34">
-   <image width="94" height="160" source="PlanetCute PNG/Stone Block Tall.png"/>
-  </tile>
-  <tile id="35">
-   <image width="94" height="160" source="PlanetCute PNG/Tree Short.png"/>
-  </tile>
-  <tile id="36">
-   <image width="94" height="160" source="PlanetCute PNG/Tree Tall.png"/>
-  </tile>
-  <tile id="37">
-   <image width="94" height="160" source="PlanetCute PNG/Tree Ugly.png"/>
-  </tile>
-  <tile id="38">
-   <image width="94" height="160" source="PlanetCute PNG/Wall Block.png"/>
-  </tile>
-  <tile id="39">
-   <image width="94" height="160" source="PlanetCute PNG/Wall Block Tall.png"/>
-  </tile>
-  <tile id="40">
-   <image width="94" height="160" source="PlanetCute PNG/Water Block.png"/>
-  </tile>
-  <tile id="41">
-   <image width="94" height="160" source="PlanetCute PNG/Window Tall.png"/>
-  </tile>
-  <tile id="42">
-   <image width="94" height="160" source="PlanetCute PNG/Wood Block.png"/>
-  </tile>
-  <tile id="43">
-   <image width="47" height="80" source="PlanetCute PNG/Gem Blue.png"/>
-  </tile>
-  <tile id="44">
-   <image width="47" height="80" source="PlanetCute PNG/Gem Green.png"/>
-  </tile>
-  <tile id="45">
-   <image width="47" height="80" source="PlanetCute PNG/Gem Orange.png"/>
+   <image width="128" height="128" source="desierto/Tile/1.png"/>
   </tile>
  </tileset>
+ <tileset firstgid="17" name="objetos" tilewidth="313" tileheight="260">
+  <tile id="0">
+   <image width="313" height="260" source="desierto/Objects/Tree.png"/>
+  </tile>
+  <tile id="1">
+   <image width="101" height="99" source="desierto/Objects/StoneBlock.png"/>
+  </tile>
+  <tile id="2">
+   <image width="124" height="73" source="desierto/Objects/Stone.png"/>
+  </tile>
+  <tile id="3">
+   <image width="150" height="51" source="desierto/Objects/Skeleton.png"/>
+  </tile>
+  <tile id="4">
+   <image width="84" height="87" source="desierto/Objects/SignArrow.png"/>
+  </tile>
+  <tile id="5">
+   <image width="85" height="88" source="desierto/Objects/Sign.png"/>
+  </tile>
+  <tile id="6">
+   <image width="102" height="50" source="desierto/Objects/Grass (2).png"/>
+  </tile>
+  <tile id="7">
+   <image width="102" height="50" source="desierto/Objects/Grass (1).png"/>
+  </tile>
+  <tile id="8">
+   <image width="101" height="101" source="desierto/Objects/Crate.png"/>
+  </tile>
+  <tile id="9">
+   <image width="86" height="96" source="desierto/Objects/Cactus (3).png"/>
+  </tile>
+  <tile id="10">
+   <image width="70" height="45" source="desierto/Objects/Cactus (2).png"/>
+  </tile>
+  <tile id="11">
+   <image width="108" height="111" source="desierto/Objects/Cactus (1).png"/>
+  </tile>
+  <tile id="12">
+   <image width="131" height="74" source="desierto/Objects/Bush (2).png"/>
+  </tile>
+  <tile id="13">
+   <image width="145" height="88" source="desierto/Objects/Bush (1).png"/>
+  </tile>
+ </tileset>
+ <layer name="fondo" width="50" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20MH6AAAACAtwEPoAAB
+  </data>
+ </layer>
  <layer name="terreno" width="50" height="20">
   <data encoding="base64" compression="zlib">
-   eJztkbENwCAMBKlTMESqIPbfD7m7uIKKN/ikFwJRvH2lnMG3u0DyI31okT60SB9a3Oiju1OJWR/+n7rHjkTiVB8rvMhuVnw0xO4PEgnOYSjNYXutCLvyPYIP9mFX31Pdx8wc6j4GVC0JmA==
+   eJxjZmBgYBrimJFhFAxWIAilxQbUFeQDfgKYb+CcRhLgIYC5B85pJIFRfyCAOBJbhtoOJBJwEMAsOPQxM4yW50MBSA+0A/AAcSLEBBgGd1lNbD7gZRh6ZRw2MND+EAFiYShblAJzBtofbAyE2yGyWMSQ88NgaNPgq/fQ3YrsLl4segeyLYDPbnS34pMb9Qd1wHDxBwB6mQj6
   </data>
  </layer>
  <objectgroup name="objetos">
-  <object id="6" name="gema" gid="44" x="492" y="390" width="47" height="80"/>
+  <object id="26" x="0" y="1920" width="640" height="640"/>
+  <object id="27" x="896" y="2048" width="640" height="512"/>
+  <object id="28" x="0" y="1920" width="128"/>
+  <object id="40" name="pared-limites" x="0" y="1920">
+   <polyline points="0,0 0,-1920 6400,-1920 6400,640"/>
+  </object>
+  <object id="41" x="1792" y="1024" width="1024" height="64"/>
+  <object id="42" x="1024" y="1536" width="1024" height="64"/>
+  <object id="44" x="1792" y="1920" width="1280" height="640"/>
+  <object id="45" x="2304" y="1408" width="512" height="32"/>
+  <object id="46" x="0" y="512" width="1152" height="640"/>
+  <object id="47" name="linea-muerte" x="32" y="2560">
+   <polyline points="0,0 6368,0"/>
+  </object>
  </objectgroup>
 </map>

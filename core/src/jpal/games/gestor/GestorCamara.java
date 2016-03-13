@@ -3,12 +3,9 @@ package jpal.games.gestor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Logger;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
@@ -83,10 +80,10 @@ public class GestorCamara implements Screen {
      * @param y
      */
     public void setPosicionCamara(float x, float y) {
-        if (x >= x0 && x <= x1) {
+        if (x >= x0 + 8.3f && x <= x1 - 5.0f) {
             this.camara.position.x = x;
         }
-        if (y >= y0 && y <= y1) {
+        if (y >= y0 + 5.0f && y <= y1 - 5.0f) {
             this.camara.position.y = y;
         }
     }

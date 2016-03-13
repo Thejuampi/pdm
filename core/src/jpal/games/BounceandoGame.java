@@ -13,8 +13,9 @@ import jpal.games.gestor.GestorPantalla;
 
 public class BounceandoGame extends ApplicationAdapter {
 
-    private SpriteBatch batch;
     private Logger logger;
+
+    private SpriteBatch batch;
 
     //Gestion
     private GestorPantalla gestorPantalla;
@@ -58,12 +59,12 @@ public class BounceandoGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gestorCamara.actualizarCamara();
         gestorPantalla.getPantallaActual().render(Gdx.graphics.getDeltaTime());
+
     }
 
     @Override
     public void pause() {
         logger.debug("pause()");
-
     }
 
     @Override
@@ -81,7 +82,6 @@ public class BounceandoGame extends ApplicationAdapter {
     public void dispose() {
         super.dispose();
         batch.dispose();
-//        gestorTextura.dispose();
         gestorCamara.dispose();
         gestorPantalla.dispose();
     }

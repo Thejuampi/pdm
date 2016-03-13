@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -64,6 +63,7 @@ public class Pantalla extends ScreenAdapter {
         this.nombre = nombre;
         this.gestor = gestor;
         this.mundo = mundo;
+//        mundo.setGravity(new Vector2(0f,0f));
         this.id = id;
 //        this.gestorSprite = GestorSprite.get();
         jugador = new Jugador(this);
@@ -76,8 +76,11 @@ public class Pantalla extends ScreenAdapter {
         ppt_x = capaTerreno.getTileWidth();
         ppt_y = capaTerreno.getTileHeight();
 
-        float escalaUnitaria = 1f/94.0f; // TODO (juan) ver como usar esto...
-        mapRenderer = new BunceandoRenderizadorOrtogonalInvertido(mapaTiled, escalaUnitaria, juego.getBatch());
+        ConstructorDeCuerpos.construirCuerpos(mapaTiled, ppt_x, ppt_y, mundo, "objetos");
+
+        float escalaUnitaria = 1f / ppt_x; // TODO (juan) ver como usar esto...
+        mapRenderer = new BunceandoRenderizadorOrtogonalInvertido(mapaTiled, escalaUnitaria);
+
         mapRenderer.setView(juego.getGestorCamara().getCamara());
 
         init();
@@ -111,6 +114,7 @@ public class Pantalla extends ScreenAdapter {
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
         debugRender.render(mundo, juego.getMatrizProyeccion());
 
+        mapRenderer.setView(juego.getGestorCamara().getCamara());
         mapRenderer.render();
 
         mundo.step(1.0f / 60.0f, 6, 2); // TODO (juan) ver esto..

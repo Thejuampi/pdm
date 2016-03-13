@@ -32,7 +32,7 @@ public class ConstructorDeCuerpos {
 
     public static Array<Body> construirCuerpos(Map mapaDeTiles, float ppt_x, float ppt_y, World mundo, String nombreLayer) {
         ConstructorDeCuerpos.ppt_x = ppt_x;
-        ConstructorDeCuerpos.ppt_y = ppt_y;
+        ConstructorDeCuerpos.ppt_y = ppt_x; // No estoy seguro porque, pero solo anda cuando son iguales
         MapObjects objetos = mapaDeTiles.getLayers().get(nombreLayer != null ? nombreLayer : "objetos").getObjects();
 
         Array<Body> cuerpos = new Array<Body>();
@@ -71,12 +71,16 @@ public class ConstructorDeCuerpos {
     private static PolygonShape crearRectangulo(RectangleMapObject objetoRectangulo) {
         Rectangle rectangulo = objetoRectangulo.getRectangle();
         PolygonShape poligono = new PolygonShape();
-        Vector2 tamanio = new Vector2((rectangulo.x + rectangulo.width * 0.5f) / ppt_x,
-                (rectangulo.y + rectangulo.height * 0.5f) / ppt_y);
-        poligono.setAsBox(rectangulo.width * 0.5f / ppt_x,
+        Vector2 tamanio = new Vector2(
+                (rectangulo.x + rectangulo.width * 0.5f) / ppt_x,
+                (rectangulo.y + rectangulo.height * 0.5f) / ppt_y
+        );
+        poligono.setAsBox(
+                rectangulo.width * 0.5f / ppt_x,
                 rectangulo.height * 0.5f / ppt_y,
                 tamanio,
-                0.0f);
+                0.0f
+        );
         return poligono;
     }
 
@@ -102,7 +106,7 @@ public class ConstructorDeCuerpos {
 //            System.out.println(vertices[i]);
             //Transformo los verticies, x -> [i]; y -> [i+1]
             verticesMundo[i] = vertices[i] / ppt_x;
-            verticesMundo[i+1] = vertices[i+1] / ppt_y;
+            verticesMundo[i + 1] = vertices[i + 1] / ppt_y;
         }
 
         poligono.set(verticesMundo);

@@ -1,12 +1,8 @@
 package jpal.games.gestor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.google.common.collect.Lists;
 
@@ -133,7 +128,7 @@ public class GestorPantalla {
         Gdx.app.log("crearPantalla1()","Creando pantalla 1");
 
         Stage stage = new Stage();
-        World mundo = new World(Constantes.gravedad, false );
+        World mundo = new World(Constantes.gravedad, true);
         Pantalla pantalla = crearPantalla("Pantalla 1",1, mundo, stage);
         pantallaActual = pantalla;
 
