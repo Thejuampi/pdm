@@ -13,4 +13,8 @@ public interface Constantes {
 
     public static final Integer PERDER_ID = -1;
 
+    public static final Integer MONEDA_ID = 500;
+
+    public static final Integer MONEDA_3_ID = 501;
+
 }

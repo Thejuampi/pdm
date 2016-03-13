@@ -6,16 +6,22 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.Iterator;
 
 import jpal.games.BounceandoGame;
 import jpal.games.Jugador;
@@ -43,6 +49,12 @@ public class Pantalla extends ScreenAdapter {
     Jugador jugador;
 
     Box2DDebugRenderer debugRender;
+
+    public Array<Body> paraEliminar = new Array<Body>(10);
+
+    public TiledMap getMapaTiled() {
+        return mapaTiled;
+    }
 
     TiledMap mapaTiled;
 
@@ -73,13 +85,16 @@ public class Pantalla extends ScreenAdapter {
 
         TiledMapTileLayer capaTerreno = (TiledMapTileLayer) mapaTiled.getLayers().get("terreno");
 
+        MapLayer capaObjetos = mapaTiled.getLayers().get("colectables");
+
         ppt_x = capaTerreno.getTileWidth();
         ppt_y = capaTerreno.getTileHeight();
 
         ConstructorDeCuerpos.construirCuerpos(mapaTiled, ppt_x, ppt_y, mundo, "objetos");
+        ConstructorDeCuerpos.construirColectables(mapaTiled, ppt_x, ppt_y, mundo, "colectables");
 
         float escalaUnitaria = 1f / ppt_x; // TODO (juan) ver como usar esto...
-        mapRenderer = new BunceandoRenderizadorOrtogonalInvertido(mapaTiled, escalaUnitaria);
+        mapRenderer = new OrthogonalTiledMapRenderer(mapaTiled, escalaUnitaria);
 
         mapRenderer.setView(juego.getGestorCamara().getCamara());
 
@@ -93,6 +108,12 @@ public class Pantalla extends ScreenAdapter {
     @Override
     public void render(float delta) {
         Vector2 pos = jugador.getPosicion();
+
+        for (Iterator<Body> iterator = paraEliminar.iterator(); iterator.hasNext(); ) {
+            Body cuerpo = iterator.next();
+            mundo.destroyBody(cuerpo);
+            iterator.remove();
+        }
 
         if (juego.hayGiroscopio) {
 
@@ -111,13 +132,14 @@ public class Pantalla extends ScreenAdapter {
             jugador.moverPorOrientacion(orientacion);
         }
 
+        mundo.step(1.0f / 60.0f, 6, 2);
+
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
         debugRender.render(mundo, juego.getMatrizProyeccion());
 
         mapRenderer.setView(juego.getGestorCamara().getCamara());
         mapRenderer.render();
 
-        mundo.step(1.0f / 60.0f, 6, 2); // TODO (juan) ver esto..
 
         if (stage != null) {
             stage.act();

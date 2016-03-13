@@ -8,6 +8,10 @@ import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -30,6 +34,58 @@ public class ConstructorDeCuerpos {
     private static float ppt_x; // pixeles por tile en x
     private static float ppt_y; // pixeles por tile en y
 
+
+    /**
+     * 5 horas para hacer esto...
+     *
+     * @param mapaDeTiles
+     * @param ppt_x
+     * @param ppt_y
+     * @param mundo
+     * @param nombreLayer
+     * @return
+     */
+    public static Array<TiledMapTile> construirColectables(Map mapaDeTiles, float ppt_x, float ppt_y, World mundo, String nombreLayer) {
+
+        ConstructorDeCuerpos.ppt_x = ppt_x;
+        ConstructorDeCuerpos.ppt_y = ppt_x; // No estoy seguro porque, pero solo anda cuando son iguales
+
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapaDeTiles.getLayers().get(nombreLayer != null ? nombreLayer : "colectables");
+
+        Array<TiledMapTile> tiles = new Array<TiledMapTile>();
+
+        float anchoTile = layer.getTileWidth();
+        float altoTile = layer.getTileHeight();
+
+        for (int fila = 0; fila < layer.getHeight(); fila++) {
+            for (int columna = 0; columna < layer.getTileWidth(); columna++) {
+
+                TiledMapTileLayer.Cell celda = layer.getCell(columna, fila);
+
+                Shape forma = null;
+
+                if (celda != null) {
+
+                    TiledMapTile tile = celda.getTile();
+                    if ("moneda".equals(tile.getProperties().get("tipo", null, String.class))) {
+                        AnimatedTiledMapTile aTile = (AnimatedTiledMapTile) tile;
+                        forma = crearCirculo(new CircleMapObject(anchoTile * (0.25f + columna), altoTile * (0.25f + fila), anchoTile / 4.0f));
+                    }
+                    BodyDef definicionDeCuerpo = new BodyDef();
+                    definicionDeCuerpo.type = BodyDef.BodyType.StaticBody;
+                    Body cuerpo = mundo.createBody(definicionDeCuerpo);
+                    Moneda moneda = new Moneda(cuerpo, (AnimatedTiledMapTile) tile, 1, columna, fila);
+                    cuerpo.createFixture(forma, 1).setUserData(moneda);
+                    tiles.add(moneda);
+                    forma.dispose();
+                }
+            }
+        }
+
+        return tiles;
+
+    }
+
     public static Array<Body> construirCuerpos(Map mapaDeTiles, float ppt_x, float ppt_y, World mundo, String nombreLayer) {
         ConstructorDeCuerpos.ppt_x = ppt_x;
         ConstructorDeCuerpos.ppt_y = ppt_x; // No estoy seguro porque, pero solo anda cuando son iguales
@@ -39,7 +95,7 @@ public class ConstructorDeCuerpos {
 
         for (MapObject objeto : objetos) {
 
-            if (objeto instanceof TextureMapObject) {
+            if (objeto instanceof TextureMapObject || objeto instanceof TiledMapTileMapObject) {
                 continue;
             }
 
@@ -91,7 +147,7 @@ public class ConstructorDeCuerpos {
     private static CircleShape crearCirculo(CircleMapObject circleObject) {
         Circle circulo = circleObject.getCircle();
         CircleShape forma = new CircleShape();
-        forma.setRadius(circulo.radius / ppt_x); // TODO (juan) ver como mejorar esto
+        forma.setRadius(circulo.radius / ppt_x);
         forma.setPosition(new Vector2(circulo.x / ppt_x, circulo.y / ppt_y));
         return forma;
     }
@@ -113,8 +169,8 @@ public class ConstructorDeCuerpos {
         return poligono;
     }
 
-    private static ChainShape crearPolilinea(PolylineMapObject polylineObject) {
-        float[] vertices = polylineObject.getPolyline().getTransformedVertices();
+    private static ChainShape crearPolilinea(PolylineMapObject objetoPolilinea) {
+        float[] vertices = objetoPolilinea.getPolyline().getTransformedVertices();
         Vector2[] verticesMundo = new Vector2[vertices.length / 2];
 
         for (int i = 0; i < vertices.length / 2; ++i) {

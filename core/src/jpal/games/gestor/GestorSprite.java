@@ -27,9 +27,5 @@ public class GestorSprite {
         pelota = new Sprite(gestorTextura.pelotaJugador);
     }
 
-    public Sprite crearSuelo() {
-        Sprite suelo = new Sprite(gestorTextura.bloquePasto);
-        return suelo;
-    }
 
 }

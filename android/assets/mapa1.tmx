@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="50" height="20" tilewidth="128" tileheight="128" nextobjectid="73">
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="50" height="20" tilewidth="128" tileheight="128" nextobjectid="86">
  <tileset firstgid="1" name="tiles" tilewidth="128" tileheight="128">
   <tile id="0">
    <image width="128" height="128" source="desierto/Tile/16.png"/>
@@ -134,9 +134,13 @@
   <object id="44" x="1792" y="1920" width="1280" height="640"/>
   <object id="45" x="2304" y="1408" width="512" height="32"/>
   <object id="46" x="0" y="512" width="1152" height="640"/>
-  <object id="47" name="linea-muerte" x="32" y="2560">
+  <object id="47" name="linea-muerte" type="1" x="32" y="2560">
    <polyline points="0,0 6368,0"/>
   </object>
-  <object id="71" gid="38" x="544" y="1792" width="64" height="64"/>
  </objectgroup>
+ <layer name="colectables" width="50" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt1bEJADAMA0FNo/1HTBtMIKRIIfEHxq2/stTF27Ro63nhsRPNhsSWxJsBnFlZvzLlzpuWDgDAXws7GgLT
+  </data>
+ </layer>
 </map>

@@ -13,10 +13,6 @@ public class GestorTextura implements Disposable{
 
     private TextureAtlas atlas;
 
-    public final TextureRegion bloqueMadera;
-
-    public final TextureRegion bloquePasto;
-
     public final TextureRegion pelotaJugador;
 
     private static GestorTextura instance;
@@ -30,10 +26,10 @@ public class GestorTextura implements Disposable{
 
     private GestorTextura() {
 
-        atlas = new TextureAtlas(files.internal("bounceando.pack"));
+        atlas = new TextureAtlas(files.internal("altas.pack"));
 
-        bloqueMadera = atlas.findRegion(Regiones.WOOD_BLOCK);
-        bloquePasto = atlas.findRegion(Regiones.GRASS_BLOCK);
+//        bloqueMadera = atlas.findRegion(Regiones.WOOD_BLOCK);
+//        bloquePasto = atlas.findRegion(Regiones.GRASS_BLOCK);
         pelotaJugador = atlas.findRegion(Regiones.WHITE_POOL_BALL);
 
     }
