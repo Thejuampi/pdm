@@ -3,6 +3,7 @@ package jpal.games;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -65,13 +66,11 @@ public class Jugador implements InputProcessor {
 
     public Jugador(final Pantalla pantalla) {
         gestorCamara = GestorCamara.get();
-//        this.sprite = new Sprite(gestorTextura.pelotaJugador);
         this.radioPelota = 0.5f;
         this.izq = false;
         this.der = false;
         this.arr = false;
         this.aba = false;
-
 
         this.sprite = new Sprite(GestorSprite.get().pelota);
         this.mundo = pantalla.getMundo();
@@ -281,5 +280,9 @@ public class Jugador implements InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public void draw(SpriteBatch batch) {
+        batch.draw(sprite, this.body.getPosition().x, this.body.getPosition().y, 128f, 128f);
     }
 }

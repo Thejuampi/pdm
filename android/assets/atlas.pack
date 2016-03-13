@@ -1,0 +1,33 @@
+
+atlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+fondo-comun
+  rotate: false
+  xy: 1, 517
+  size: 989, 514
+  orig: 989, 514
+  offset: 0, 0
+  index: -1
+fondo-desierto
+  rotate: false
+  xy: 1, 1
+  size: 685, 514
+  orig: 685, 514
+  offset: 0, 0
+  index: -1
+fondo-selva
+  rotate: false
+  xy: 688, 1
+  size: 685, 514
+  orig: 685, 514
+  offset: 0, 0
+  index: -1
+pelota
+  rotate: false
+  xy: 992, 903
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

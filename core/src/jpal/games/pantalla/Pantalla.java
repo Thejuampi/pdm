@@ -94,7 +94,7 @@ public class Pantalla extends ScreenAdapter {
         ConstructorDeCuerpos.construirColectables(mapaTiled, ppt_x, ppt_y, mundo, "colectables");
 
         float escalaUnitaria = 1f / ppt_x; // TODO (juan) ver como usar esto...
-        mapRenderer = new OrthogonalTiledMapRenderer(mapaTiled, escalaUnitaria);
+        mapRenderer = new OrthogonalTiledMapRenderer(mapaTiled, escalaUnitaria, juego.getBatch());
 
         mapRenderer.setView(juego.getGestorCamara().getCamara());
 
@@ -115,31 +115,36 @@ public class Pantalla extends ScreenAdapter {
             iterator.remove();
         }
 
-        if (juego.hayGiroscopio) {
-
-            //
-
-        }
-
         if (juego.hayAcelerometro) {
             Vector3 aceleracion = new Vector3(Gdx.input.getAccelerometerX(), Gdx.input.getAccelerometerY(), Gdx.input.getAccelerometerZ());
             float magnitud = aceleracion.len2();
             if (magnitud > 200.0f) {
                 jugador.impulsar(magnitud);
             }
+            if (!juego.hayCompass) {
+                float orientacion = Gdx.input.getAccelerometerY();
+                jugador.moverPorOrientacion(orientacion);
+            } else {
+                float orientacion = Gdx.input.getPitch();
+                orientacion /= -7.0f;
+                jugador.moverPorOrientacion(orientacion);
+            }
 
-            float orientacion = Gdx.input.getAccelerometerY();
-            jugador.moverPorOrientacion(orientacion);
         }
 
         mundo.step(1.0f / 60.0f, 6, 2);
 
+//        jugador.update();
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
         debugRender.render(mundo, juego.getMatrizProyeccion());
 
         mapRenderer.setView(juego.getGestorCamara().getCamara());
         mapRenderer.render();
 
+//        juego.getBatch().setProjectionMatrix(juego.getMatrizProyeccion());
+        juego.getBatch().begin();
+        jugador.draw(juego.getBatch());
+        juego.getBatch().end();
 
         if (stage != null) {
             stage.act();

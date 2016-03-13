@@ -1,0 +1,339 @@
+
+nose.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+PlanetCuteShadowMockup
+  rotate: false
+  xy: 1, 411
+  size: 820, 560
+  orig: 820, 560
+  offset: 0, 0
+  index: -1
+Roof South West
+  rotate: false
+  xy: 823, 811
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Ramp South
+  rotate: false
+  xy: 919, 811
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Character Pink Girl
+  rotate: false
+  xy: 823, 649
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Roof North
+  rotate: false
+  xy: 919, 649
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Tree Short
+  rotate: false
+  xy: 823, 487
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Window Tall
+  rotate: false
+  xy: 919, 487
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Wood Block
+  rotate: false
+  xy: 823, 325
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Roof North East
+  rotate: false
+  xy: 919, 325
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Brown Block
+  rotate: false
+  xy: 1, 249
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Ramp North
+  rotate: false
+  xy: 1, 87
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Gem Green
+  rotate: false
+  xy: 1, 5
+  size: 47, 80
+  orig: 47, 80
+  offset: 0, 0
+  index: -1
+Gem Blue
+  rotate: false
+  xy: 50, 5
+  size: 47, 80
+  orig: 47, 80
+  offset: 0, 0
+  index: -1
+Tree Ugly
+  rotate: false
+  xy: 97, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Gem Orange
+  rotate: false
+  xy: 97, 329
+  size: 47, 80
+  orig: 47, 80
+  offset: 0, 0
+  index: -1
+Rock
+  rotate: false
+  xy: 99, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Ramp East
+  rotate: false
+  xy: 193, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Stone Block Tall
+  rotate: false
+  xy: 195, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Chest Open
+  rotate: false
+  xy: 289, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Roof East
+  rotate: false
+  xy: 291, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+SpeechBubble
+  rotate: false
+  xy: 385, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Character Boy
+  rotate: false
+  xy: 387, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Chest Closed
+  rotate: false
+  xy: 481, 249
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Stone Block
+  rotate: false
+  xy: 577, 249
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Star
+  rotate: false
+  xy: 673, 249
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Character Horn Girl
+  rotate: false
+  xy: 769, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Selector
+  rotate: false
+  xy: 865, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Plain Block
+  rotate: false
+  xy: 483, 87
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Character Princess Girl
+  rotate: false
+  xy: 579, 87
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Enemy Bug
+  rotate: false
+  xy: 675, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Heart
+  rotate: false
+  xy: 771, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Roof South
+  rotate: false
+  xy: 867, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+
+nose2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Wall Block Tall
+  rotate: false
+  xy: 1, 325
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Water Block
+  rotate: false
+  xy: 1, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Character Cat Girl
+  rotate: false
+  xy: 97, 325
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Tree Tall
+  rotate: false
+  xy: 1, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Dirt Block
+  rotate: false
+  xy: 97, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Grass Block
+  rotate: false
+  xy: 193, 325
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Door Tall Closed
+  rotate: false
+  xy: 97, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Door Tall Open
+  rotate: false
+  xy: 193, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Roof North West
+  rotate: false
+  xy: 289, 325
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Key
+  rotate: false
+  xy: 193, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Roof South East
+  rotate: false
+  xy: 289, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Chest Lid
+  rotate: false
+  xy: 385, 325
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Ramp West
+  rotate: false
+  xy: 289, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Wall Block
+  rotate: false
+  xy: 385, 163
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1
+Roof West
+  rotate: false
+  xy: 385, 1
+  size: 94, 160
+  orig: 94, 160
+  offset: 0, 0
+  index: -1

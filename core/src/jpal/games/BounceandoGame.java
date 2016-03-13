@@ -28,7 +28,7 @@ public class BounceandoGame extends ApplicationAdapter {
 
     public boolean hayAcelerometro;
 
-    public boolean hayGiroscopio ;
+    public boolean hayCompass;
 
     public BitmapFont font;
 
@@ -51,7 +51,7 @@ public class BounceandoGame extends ApplicationAdapter {
         font.setColor(Color.BROWN);
 
         hayAcelerometro = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
-        hayGiroscopio   = Gdx.input.isPeripheralAvailable(Input.Peripheral.Compass);
+        hayCompass = Gdx.input.isPeripheralAvailable(Input.Peripheral.Compass);
 
         gestorPantalla.setJuego(this);
         gestorPantalla.crearMenuPrincipal();

@@ -14,6 +14,9 @@ public class GestorTextura implements Disposable{
     private TextureAtlas atlas;
 
     public final TextureRegion pelotaJugador;
+    public final TextureRegion fondoSelva;
+    public final TextureRegion fondoDesierto;
+    public final TextureRegion fondoComun;
 
     private static GestorTextura instance;
 
@@ -26,11 +29,11 @@ public class GestorTextura implements Disposable{
 
     private GestorTextura() {
 
-        atlas = new TextureAtlas(files.internal("altas.pack"));
-
-//        bloqueMadera = atlas.findRegion(Regiones.WOOD_BLOCK);
-//        bloquePasto = atlas.findRegion(Regiones.GRASS_BLOCK);
-        pelotaJugador = atlas.findRegion(Regiones.WHITE_POOL_BALL);
+        atlas = new TextureAtlas(files.internal("atlas.pack"));
+        pelotaJugador = atlas.findRegion("pelota");
+        fondoComun = atlas.findRegion("fondo-comun");
+        fondoDesierto = atlas.findRegion("fondo-desierto");
+        fondoSelva = atlas.findRegion("fondo-selva");
 
     }
 
@@ -38,14 +41,4 @@ public class GestorTextura implements Disposable{
     public void dispose() {
         atlas.dispose();
     }
-}
-
-interface Regiones {
-
-    public static final String
-            GRASS_BLOCK = "Grass Block",
-            WOOD_BLOCK  ="Wood Block",
-            WHITE_POOL_BALL = "white-pool-ball";
-
-
 }

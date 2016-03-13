@@ -2,11 +2,7 @@ package jpal.games.gestor;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-/**
- * Created by juan on 08/02/16.
- * NO USAR!
- */
-@Deprecated
+
 public class GestorSprite {
 
     public Sprite pelota;
@@ -26,6 +22,5 @@ public class GestorSprite {
         gestorTextura = GestorTextura.get();
         pelota = new Sprite(gestorTextura.pelotaJugador);
     }
-
 
 }
