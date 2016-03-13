@@ -3,9 +3,13 @@ package jpal.games;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Logger;
 
 import jpal.games.gestor.GestorCamara;
@@ -26,6 +30,8 @@ public class BounceandoGame extends ApplicationAdapter {
 
     public boolean hayGiroscopio ;
 
+    public BitmapFont font;
+
     @Override
 	public void create () {
         logger = new Logger("logger", Logger.DEBUG);
@@ -33,6 +39,16 @@ public class BounceandoGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         gestorPantalla = GestorPantalla.get();
         gestorCamara = GestorCamara.get();
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 24; // en pixeles...
+        parameter.shadowColor = Color.LIGHT_GRAY;
+
+        font = generator.generateFont(parameter); // font size 12 pixels
+        generator.dispose(); // don't forget to dispose to avoid memory leaks!
+
+        font.setColor(Color.BROWN);
 
         hayAcelerometro = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
         hayGiroscopio   = Gdx.input.isPeripheralAvailable(Input.Peripheral.Compass);
@@ -59,6 +75,15 @@ public class BounceandoGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gestorCamara.actualizarCamara();
         gestorPantalla.getPantallaActual().render(Gdx.graphics.getDeltaTime());
+
+        batch.begin();
+
+        Vector3 pos = new Vector3(4f, 4f, 0f);
+        gestorCamara.mundoToPantalla(pos);
+
+        font.draw(batch, "PRUEBA DE MENSAJE", pos.x, pos.y);
+
+        batch.end();
 
     }
 
