@@ -1,19 +1,28 @@
 package jpal.games;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
+import jpal.games.gestor.Constantes;
 import jpal.games.gestor.GestorCamara;
 import jpal.games.pantalla.Pantalla;
 
 /**
  * Created by juan on 24/02/16.
  */
-public class Jugador {
+public class Jugador implements InputProcessor {
 
     private final float radioPelota;
 
@@ -27,10 +36,14 @@ public class Jugador {
 
     GestorCamara gestorCamara;
 
+    private boolean izq, der, arr, aba;
+
     /**
      * Referencia al mundo, no se si es necesario utilizar por el momento
      */
     private World mundo;
+
+    private int vidas = 1; // arranca con 1 vida
 
 //    private static GestorTextura gestorTextura = GestorTextura.get();
 
@@ -38,8 +51,12 @@ public class Jugador {
         gestorCamara = GestorCamara.get();
 //        this.sprite = new Sprite(gestorTextura.pelotaJugador);
         this.radioPelota = 0.5f;
-        this.mundo = pantalla.getMundo();
+        this.izq = false;
+        this.der = false;
+        this.arr = false;
+        this.aba = false;
 
+        this.mundo = pantalla.getMundo();
         this.bodyDef = new BodyDef();
         bodyDef.position.set(3.0f, radioPelota * 10);
         bodyDef.fixedRotation = true; // para que no rote?
@@ -50,57 +67,59 @@ public class Jugador {
         this.forma.setRadius(radioPelota);
 
         this.fixtureDef = new FixtureDef();
-        this.fixtureDef.restitution = 1.0f;
+//        this.fixtureDef.restitution = 1.0f;
         this.fixtureDef.shape = forma;
         body.createFixture(forma, 0.5f).setUserData(this);
 
-        forma.dispose(); // ????
+        forma.dispose();
 
-//        mundo.setContactListener(new ContactListener() {
-//            @Override
-//            public void beginContact(Contact contact) {
-//                Fixture fa = contact.getFixtureA();
-//                Fixture fb = contact.getFixtureB();
-//                Fixture jugador = null;
-//                //reviso que se puedan usar los datos sin que lanze una excepcion
-//                if (fa == null || fb == null || (fa.getUserData() == null && fb.getUserData() == null )) return;
-//                if( Constantes.GANAR_ID.equals(fb.getUserData()) || Constantes.GANAR_ID.equals(fa.getUserData()) ) {
-//                    pantalla.accionAlGanar();
-//                    return;
-//                } else if (Constantes.PERDER_ID.equals(fb.getUserData()) || Constantes.PERDER_ID.equals(fa.getUserData())) {
-//                    pantalla.accionAlPerder();
-//                }
-//                if (fa.getUserData() == Jugador.this) {
-//                    jugador = fa;
-//                } else if (fb.getUserData() == Jugador.this) {
-//                    jugador = fb;
-//                }
-//                WorldManifold worldManifold = contact.getWorldManifold();
-//
-//                // http://www.iteramos.com/pregunta/32746/como-calcular-el-angulo-de-rebote
-//                Vector2 v = jugador.getBody().getLinearVelocity();
-//                Vector2 n = worldManifold.getNormal();
-//                Vector2 u =   n.scl(v.dot(n) / n.dot(n));
-//                Vector2 w = new Vector2(v.x - u.x, v.y - u.y);  //v - u;
-//
-//                Vector2 nv = w.add(u.scl(-1.0f));
-//                nv.scl(0.7f); // como la restitucion no me da bola, la seteo a pata
-//                jugador.getBody().setLinearVelocity(nv);
-//            }
-//
-//            @Override
-//            public void endContact(Contact contact) {
-//            }
-//
-//            @Override
-//            public void preSolve(Contact contact, Manifold oldManifold) {
-//            }
-//
-//            @Override
-//            public void postSolve(Contact contact, ContactImpulse impulse) {
+
+        mundo.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+                Fixture fa = contact.getFixtureA();
+                Fixture fb = contact.getFixtureB();
+                Fixture jugador = null;
+                //reviso que se puedan usar los datos sin que lanze una excepcion
+                if (fa == null || fb == null || (fa.getUserData() == null && fb.getUserData() == null))
+                    return;
+                if (Constantes.GANAR_ID.equals(fb.getUserData()) || Constantes.GANAR_ID.equals(fa.getUserData())) {
+                    pantalla.accionAlGanar();
+                    return;
+                } else if (Constantes.PERDER_ID.equals(fb.getUserData()) || Constantes.PERDER_ID.equals(fa.getUserData())) {
+                    pantalla.accionAlPerder();
+                }
+                if (fa.getUserData() == Jugador.this) {
+                    jugador = fa;
+                } else if (fb.getUserData() == Jugador.this) {
+                    jugador = fb;
+                }
+                WorldManifold worldManifold = contact.getWorldManifold();
+
+                // http://www.iteramos.com/pregunta/32746/como-calcular-el-angulo-de-rebote
+                Vector2 v = jugador.getBody().getLinearVelocity();
+                Vector2 n = worldManifold.getNormal();
+                Vector2 u = n.scl(v.dot(n) / n.dot(n));
+                Vector2 w = new Vector2(v.x - u.x, v.y - u.y);  //v - u;
+
+                Vector2 nv = w.add(u.scl(-1.0f));
+                nv.scl(0.7f); // como la restitucion no me da bola, la seteo a pata
+                jugador.getBody().setLinearVelocity(nv);
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
 //                Gdx.app.log("", impulse.toString());
-//            }
-//        });
+            }
+        });
 
     }
 
@@ -118,12 +137,87 @@ public class Jugador {
 
     /**
      * Solamente impulsa si la pelota esta rebotando para arriba
+     *
      * @param magnitud magnitud al cuadrado de la aceleración
      */
     public void impulsar(float magnitud) {
         Vector2 vel = body.getLinearVelocity();
-        if(vel.y <= 10.0f && vel.y >= -0.1f ) {
-            body.applyLinearImpulse(0.0f, magnitud/500.0f, 0.0f, 0.0f, true);
+        if (vel.y <= 10.0f && vel.y >= -0.1f) {
+            body.applyLinearImpulse(0.0f, magnitud / 500.0f, 0.0f, 0.0f, true);
         }
+    }
+
+    public void agregarVida() {
+        this.vidas += 1;
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+
+        switch (keycode) {
+            case Input.Keys.LEFT:
+                izq = true;
+                break;
+            case Input.Keys.RIGHT:
+                der = true;
+                break;
+            case Input.Keys.UP:
+                arr = true;
+                break;
+            case Input.Keys.DOWN:
+                aba = true;
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        switch (keycode) {
+            case Input.Keys.LEFT:
+                izq = false;
+                break;
+            case Input.Keys.RIGHT:
+                der = false;
+                break;
+            case Input.Keys.UP:
+                arr = false;
+                break;
+            case Input.Keys.DOWN:
+                aba = false;
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }
