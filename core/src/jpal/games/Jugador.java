@@ -206,10 +206,12 @@ public class Jugador implements InputProcessor {
         TiledMapTileLayer layer = (TiledMapTileLayer) pantalla.getMapaTiled().getLayers().get("colectables");
         layer.setCell((int) moneda.x, (int) moneda.y, new Cell());
 
-        puntaje += moneda.getPuntaje();
+        pantalla.hud.agregarPuntaje(moneda.getPuntaje());
         Gdx.app.log("jungarMoneda()", "Moneda juntada");
         Gdx.app.log("jungarMoneda()", String.valueOf(puntaje));
         if (puntaje % 20 == 0) {
+
+            pantalla.hud.agregarVida(1);
             vidas += 1;
         }
     }

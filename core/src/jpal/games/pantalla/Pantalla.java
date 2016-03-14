@@ -36,8 +36,6 @@ public class Pantalla extends ScreenAdapter {
 
     protected BounceandoGame juego;
 
-//    protected GestorSprite gestorSprite;
-
     protected Stage stage;
 
     World mundo;
@@ -58,7 +56,7 @@ public class Pantalla extends ScreenAdapter {
 
     Music musicaFondo;
 
-    private Hud hud;
+    public Hud hud;
 
     public void detenerMusicaFondo() {
         if (musicaFondo != null && musicaFondo.isPlaying()) {
@@ -75,16 +73,10 @@ public class Pantalla extends ScreenAdapter {
         jugador = new Jugador(this);
         this.juego = juego;
         this.hud = new Hud(juego.getBatch());
-        if (nombre != "") {
+        if (id > 0) {
             musicaFondo = Gdx.audio.newMusic(Gdx.files.internal("sonidos/musica_fondo.mp3"));
             musicaFondo.setLooping(true);
             musicaFondo.play();
-        }
-
-        if (nombre == null || "".equals(nombre)) {
-
-            // Es el menu principal
-
         } else {
 
             debugRender = new Box2DDebugRenderer();
@@ -98,7 +90,7 @@ public class Pantalla extends ScreenAdapter {
             ConstructorDeCuerpos.construirCuerpos(mapaTiled, ppt_x, ppt_y, mundo, "objetos");
             ConstructorDeCuerpos.construirColectables(mapaTiled, ppt_x, ppt_y, mundo, "colectables");
 
-            float escalaUnitaria = 1f / ppt_x; // TODO (juan) ver como usar esto...
+            float escalaUnitaria = 1f / ppt_x;
             mapRenderer = new OrthogonalTiledMapRenderer(mapaTiled, escalaUnitaria, juego.getBatch());
 
             mapRenderer.setView(juego.getGestorCamara().getCamara());
@@ -114,7 +106,7 @@ public class Pantalla extends ScreenAdapter {
     @Override
     public void render(float delta) {
         Vector2 pos = jugador.getPosicion();
-        hud.update(delta);
+        hud.actualizar(delta);
 
         for (Iterator<Body> iterator = paraEliminar.iterator(); iterator.hasNext(); ) {
             Body cuerpo = iterator.next();
@@ -150,7 +142,12 @@ public class Pantalla extends ScreenAdapter {
         juego.getBatch().setProjectionMatrix(juego.getMatrizProyeccion());
         juego.getBatch().begin();
         jugador.dibujar(juego.getBatch());
+
+
         juego.getBatch().end();
+
+        juego.getBatch().setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
 
         if (stage != null) {
             stage.act();
@@ -173,23 +170,6 @@ public class Pantalla extends ScreenAdapter {
 
 
     }
-
-//    private static Skin buildSkin() {
-//        Skin skin = new Skin();
-//        String defecto = "default";
-//        String fondo = "backgroud";
-//
-//        BitmapFont font = new BitmapFont();
-//        Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 10, Pixmap.Format.RGB888);
-//
-//        skin.add(defecto, font);
-//
-//        //Create a texture
-//        pixmap.setColor(Color.WHITE);
-//        pixmap.fill();
-//        skin.add(fondo, new Texture(pixmap));
-//        return skin;
-//    }
 
     public void accionAlGanar() {
         gestor.accionAlGanar();

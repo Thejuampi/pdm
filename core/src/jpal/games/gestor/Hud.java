@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -16,69 +17,82 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class Hud implements Disposable {
 
+    public static final String FORMATO_LABEL_VIDA = "%01d";
+    public static final String FORMATO_LABEL_PUNTAJE = "%06d";
+    public static final String FORMATO_LABEL_TIEMPO = "%03d";
     public Stage stage;
     private FitViewport viewport;
 
-    //score && time tracking variables
-    private Integer worldTimer;
-    private float timeCount;
-    private static Integer score;
-    private boolean timeUp;
+    private Integer limiteTiempo;
+    private float tiempoTranscurrido;
+    private static Integer puntaje;
+    private boolean tiempoAlcanzado;
 
-    //Scene2D Widgets
-    private Label countdownLabel, timeLabel, linkLabel;
-    private static Label scoreLabel;
+    private static Label labelTiempoRestante, labelTiuloTiempoRestante, labelTituloPuntaje;
+    private static Label labelPuntaje;
+    private static Label labelTituloVidas;
 
-    public Hud(SpriteBatch sb) {
-        //define tracking variables
-        worldTimer = 250;
-        timeCount = 0;
-        score = 0;
+    public int vidas;
+    private Label labelVidas;
 
-        //setup the HUD viewport using a new camera seperate from gamecam
-        //define stage using that viewport and games spritebatch
+    public Hud(SpriteBatch spriteBatch) {
+        limiteTiempo = 250;
+        tiempoTranscurrido = 0;
+        puntaje = 0;
+        vidas = 3;
+
         viewport = new FitViewport((float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight(), new OrthographicCamera());
-        stage = new Stage(viewport, sb);
+        stage = new Stage(viewport, spriteBatch);
 
-        //define labels using the String, and a Label style consisting of a font and color
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel = new Label("LEFTOVER TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        linkLabel = new Label("POINTS", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        FreeTypeFontGenerator generadoDeFuentes = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parametrosDeFuente = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-        //define a table used to organize hud's labels
-        Table table = new Table();
-        table.top();
-        table.setFillParent(true);
+        parametrosDeFuente.size = 32;
+        parametrosDeFuente.shadowColor = Color.LIGHT_GRAY;
+        parametrosDeFuente.color = Color.WHITE;
 
-        //add labels to table, padding the top, and giving them all equal width with expandX
-        table.add(linkLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
-        table.row();
-        table.add(scoreLabel).expandX();
-        table.add(countdownLabel).expandX();
+        BitmapFont font = generadoDeFuentes.generateFont(parametrosDeFuente);
+        generadoDeFuentes.dispose();
 
-        //add table to the stage
-        stage.addActor(table);
+        labelTiempoRestante = new Label(String.format("%03d", limiteTiempo), new Label.LabelStyle(font, Color.WHITE));
+        labelPuntaje = new Label(String.format("%06d", puntaje), new Label.LabelStyle(font, Color.WHITE));
+        labelVidas = new Label(String.format("%01d", vidas), new Label.LabelStyle(font, Color.WHITE));
 
+        labelTiuloTiempoRestante = new Label("Tiempo Restante", new Label.LabelStyle(font, Color.WHITE));
+        labelTituloPuntaje = new Label("Puntos", new Label.LabelStyle(font, Color.WHITE));
+        labelTituloVidas = new Label("Vidas", new Label.LabelStyle(font, Color.WHITE));
+
+        Table tabla = new Table();
+        tabla.top();
+        tabla.setFillParent(true);
+
+        tabla.add(labelTituloPuntaje).expandX().padTop(10);
+        tabla.add(labelTiuloTiempoRestante).expandX().padTop(10);
+        tabla.add(labelTituloVidas).expandX().padTop(10);
+        tabla.row();
+        tabla.add(labelPuntaje).expandX();
+        tabla.add(labelTiempoRestante).expandX();
+        tabla.add(labelVidas).expandX();
+
+        stage.addActor(tabla);
     }
 
-    public void update(float dt) {
-        timeCount += dt;
-        if (timeCount >= 1) {
-            if (worldTimer > 0) {
-                worldTimer--;
+    public void actualizar(float delta) {
+        tiempoTranscurrido += delta;
+        if (tiempoTranscurrido >= 1) {
+            if (limiteTiempo > 0) {
+                limiteTiempo--;
             } else {
-                timeUp = true;
+                tiempoAlcanzado = true;
             }
-            countdownLabel.setText(String.format("%03d", worldTimer));
-            timeCount = 0;
+            labelTiempoRestante.setText(String.format(FORMATO_LABEL_TIEMPO, limiteTiempo));
+            tiempoTranscurrido = 0;
         }
     }
 
-    public static void addScore(int value) {
-        score += value;
-        scoreLabel.setText(String.format("%06d", score));
+    public static void agregarPuntaje(int value) {
+        puntaje += value;
+        labelPuntaje.setText(String.format(FORMATO_LABEL_PUNTAJE, puntaje));
     }
 
     @Override
@@ -86,16 +100,20 @@ public class Hud implements Disposable {
         stage.dispose();
     }
 
-    public boolean isTimeUp() {
-        return timeUp;
+    public boolean limiteTiempoAlcanzado() {
+        return tiempoAlcanzado;
     }
 
-
-    public static Label getScoreLabel() {
-        return scoreLabel;
+    public static Label getLabelPuntaje() {
+        return labelPuntaje;
     }
 
-    public static Integer getScore() {
-        return score;
+    public static Integer getPuntaje() {
+        return puntaje;
+    }
+
+    public void agregarVida(int i) {
+        vidas += i;
+        labelVidas.setText(String.format(FORMATO_LABEL_VIDA, vidas));
     }
 }

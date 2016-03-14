@@ -191,12 +191,13 @@ public class GestorPantalla {
     }
 
     public void accionAlPerder() {
-        int vidas = pantallaActual.jugador.getVidas();
+//        int vidas = pantallaActual.jugador.getVidas();
+        int vidas = pantallaActual.hud.vidas;
         if (vidas == 1) {
             mostrarMensajeGameOver();
         } else if (vidas > 1) {
-
             pantallaActual.jugador.quitarUnaVida();
+            pantallaActual.hud.agregarVida(-1);
             recargarPantallaActual(pantallaActual.getId());
         }
     }
