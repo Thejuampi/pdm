@@ -1,5 +1,6 @@
 package jpal.games.pantalla;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -10,7 +11,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
@@ -19,10 +19,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+
+import jpal.games.gestor.Constantes;
 
 /**
  * Adaptado por juan on 12/03/16.
@@ -95,7 +98,7 @@ public class ConstructorDeCuerpos {
 
         for (MapObject objeto : objetos) {
 
-            if (objeto instanceof TextureMapObject || objeto instanceof TiledMapTileMapObject) {
+            if (objeto instanceof TextureMapObject) {
                 continue;
             }
 
@@ -113,10 +116,20 @@ public class ConstructorDeCuerpos {
                 continue;
             }
 
+
             BodyDef definicionDeCuerpo = new BodyDef();
             definicionDeCuerpo.type = BodyDef.BodyType.StaticBody;
             Body cuerpo = mundo.createBody(definicionDeCuerpo);
-            cuerpo.createFixture(forma, 1);
+            Fixture fixture = cuerpo.createFixture(forma, 1);
+            if ("linea-muerte".equals(objeto.getName())) {
+                Gdx.app.log("ConstructorDeCuerpos", "Creando objeto perder");
+                fixture.setUserData(Constantes.PERDER_ID);
+            }
+            if ("linea-ganar".equals(objeto.getName())) {
+                Gdx.app.log("ConstructorDeCuerpos", "Creando objeto ganar");
+                fixture.setUserData(Constantes.GANAR_ID);
+            }
+
 
             cuerpos.add(cuerpo);
             forma.dispose();

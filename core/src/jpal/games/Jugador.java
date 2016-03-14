@@ -1,5 +1,6 @@
 package jpal.games;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -60,7 +61,8 @@ public class Jugador implements InputProcessor {
 
 //    private static GestorTextura gestorTextura = GestorTextura.get();
 
-    public void update() {
+    public void actualizar() {
+//        sprite.setCenter(64f,64f);
         sprite.setPosition(body.getPosition().x, body.getPosition().x);
     }
 
@@ -72,7 +74,7 @@ public class Jugador implements InputProcessor {
         this.arr = false;
         this.aba = false;
 
-        this.sprite = new Sprite(GestorSprite.get().pelota);
+        this.sprite = new Sprite(GestorSprite.get().getPelota());
         this.mundo = pantalla.getMundo();
         this.pantalla = pantalla;
         this.bodyDef = new BodyDef();
@@ -179,6 +181,8 @@ public class Jugador implements InputProcessor {
         layer.setCell((int) moneda.x, (int) moneda.y, new Cell());
 
         puntaje += moneda.getPuntaje();
+        Gdx.app.log("jungarMoneda()", "Moneda juntada");
+        Gdx.app.log("jungarMoneda()", String.valueOf(puntaje));
         if (puntaje % 20 == 0) {
             vidas += 1;
         }
@@ -209,7 +213,9 @@ public class Jugador implements InputProcessor {
     }
 
     public void agregarVida() {
-        this.vidas += 1;
+        ++vidas;
+        Gdx.app.log("Jugador", "Jugador Ganó un vida!");
+        Gdx.app.log("Jugador", "Vidas restantes: " + vidas);
     }
 
     @Override
@@ -282,7 +288,19 @@ public class Jugador implements InputProcessor {
         return false;
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(sprite, this.body.getPosition().x, this.body.getPosition().y, 128f, 128f);
+    public void dibujar(SpriteBatch batch) {
+//        Vector2 posicion =  body.getLocalPoint(body.getPosition());
+        Vector2 posicion = body.getPosition();
+        batch.draw(sprite, posicion.x - (0.5f), posicion.y - (0.5f), 1f, 1f); // tamaño 1 porque la pelota tiene radio .5f
+    }
+
+    public int getVidas() {
+        return vidas;
+    }
+
+    public void quitarUnaVida() {
+        --vidas;
+        Gdx.app.log("Jugador", "Jugador Perdió un vida!");
+        Gdx.app.log("Jugador", "Vidas restantes: " + vidas);
     }
 }

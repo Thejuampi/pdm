@@ -2,11 +2,6 @@ package jpal.games.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -18,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Iterator;
@@ -46,7 +40,7 @@ public class Pantalla extends ScreenAdapter {
 
     World mundo;
 
-    Jugador jugador;
+    public Jugador jugador;
 
     Box2DDebugRenderer debugRender;
 
@@ -60,45 +54,38 @@ public class Pantalla extends ScreenAdapter {
 
     TiledMapRenderer mapRenderer;
 
-    private final float x0 = 0.0f;
-    private final float y0 = 0.0f;
-
-    private final float x1 = 50.0f;
-    private final float y1 = 20.0f;
-
-    private float ppt_x;
-    private float ppt_y;
-
-    private Skin skin = buildSkin();
-
     public Pantalla(String nombre, Integer id, GestorPantalla gestor, World mundo, BounceandoGame juego) {
         this.nombre = nombre;
         this.gestor = gestor;
         this.mundo = mundo;
-//        mundo.setGravity(new Vector2(0f,0f));
         this.id = id;
-//        this.gestorSprite = GestorSprite.get();
         jugador = new Jugador(this);
         this.juego = juego;
-        debugRender = new Box2DDebugRenderer();
-        mapaTiled = new TmxMapLoader().load("mapa1.tmx");
 
-        TiledMapTileLayer capaTerreno = (TiledMapTileLayer) mapaTiled.getLayers().get("terreno");
+        if (nombre == null || "".equals(nombre)) {
 
-        MapLayer capaObjetos = mapaTiled.getLayers().get("colectables");
+            // Es el menu principal
 
-        ppt_x = capaTerreno.getTileWidth();
-        ppt_y = capaTerreno.getTileHeight();
+        } else {
 
-        ConstructorDeCuerpos.construirCuerpos(mapaTiled, ppt_x, ppt_y, mundo, "objetos");
-        ConstructorDeCuerpos.construirColectables(mapaTiled, ppt_x, ppt_y, mundo, "colectables");
+            debugRender = new Box2DDebugRenderer();
+            mapaTiled = new TmxMapLoader().load(nombre + ".tmx");
 
-        float escalaUnitaria = 1f / ppt_x; // TODO (juan) ver como usar esto...
-        mapRenderer = new OrthogonalTiledMapRenderer(mapaTiled, escalaUnitaria, juego.getBatch());
+            TiledMapTileLayer capaTerreno = (TiledMapTileLayer) mapaTiled.getLayers().get("terreno");
 
-        mapRenderer.setView(juego.getGestorCamara().getCamara());
+            float ppt_x = capaTerreno.getTileWidth();
+            float ppt_y = capaTerreno.getTileHeight();
 
-        init();
+            ConstructorDeCuerpos.construirCuerpos(mapaTiled, ppt_x, ppt_y, mundo, "objetos");
+            ConstructorDeCuerpos.construirColectables(mapaTiled, ppt_x, ppt_y, mundo, "colectables");
+
+            float escalaUnitaria = 1f / ppt_x; // TODO (juan) ver como usar esto...
+            mapRenderer = new OrthogonalTiledMapRenderer(mapaTiled, escalaUnitaria, juego.getBatch());
+
+            mapRenderer.setView(juego.getGestorCamara().getCamara());
+
+            init();
+        }
     }
 
     public void setStage(Stage stage) {
@@ -134,16 +121,16 @@ public class Pantalla extends ScreenAdapter {
 
         mundo.step(1.0f / 60.0f, 6, 2);
 
-//        jugador.update();
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
         debugRender.render(mundo, juego.getMatrizProyeccion());
 
         mapRenderer.setView(juego.getGestorCamara().getCamara());
         mapRenderer.render();
 
-//        juego.getBatch().setProjectionMatrix(juego.getMatrizProyeccion());
+        juego.getBatch().setProjectionMatrix(juego.getMatrizProyeccion());
+//        jugador.actualizar();
         juego.getBatch().begin();
-        jugador.draw(juego.getBatch());
+        jugador.dibujar(juego.getBatch());
         juego.getBatch().end();
 
         if (stage != null) {
@@ -165,29 +152,29 @@ public class Pantalla extends ScreenAdapter {
 
     }
 
-    private static Skin buildSkin() {
-        Skin skin = new Skin();
-        String defecto = "default";
-        String fondo = "backgroud";
-
-        BitmapFont font = new BitmapFont();
-        Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 10, Pixmap.Format.RGB888);
-
-        skin.add(defecto, font);
-
-        //Create a texture
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        skin.add(fondo, new Texture(pixmap));
-        return skin;
-    }
+//    private static Skin buildSkin() {
+//        Skin skin = new Skin();
+//        String defecto = "default";
+//        String fondo = "backgroud";
+//
+//        BitmapFont font = new BitmapFont();
+//        Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 10, Pixmap.Format.RGB888);
+//
+//        skin.add(defecto, font);
+//
+//        //Create a texture
+//        pixmap.setColor(Color.WHITE);
+//        pixmap.fill();
+//        skin.add(fondo, new Texture(pixmap));
+//        return skin;
+//    }
 
     public void accionAlGanar() {
-        gestor.cargarSiguienetPantalla();
+        gestor.accionAlGanar();
     }
 
     public void accionAlPerder() {
-        gestor.crearMenuPrincipal();
+        gestor.accionAlPerder();
     }
 
     public World getMundo() {

@@ -28,6 +28,6 @@ pelota
   rotate: false
   xy: 992, 903
   size: 128, 128
-  orig: 128, 128
+  orig: 64, 64
   offset: 0, 0
   index: -1

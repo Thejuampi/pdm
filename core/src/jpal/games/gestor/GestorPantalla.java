@@ -32,6 +32,7 @@ public class GestorPantalla {
     public Skin skin;
 
     BounceandoGame juego;
+
     private Pantalla pantallaActual = null;
 
     public Pantalla getPantallaActual() {
@@ -56,11 +57,6 @@ public class GestorPantalla {
 
     /**
      * Crea una pantalla y la agrega a la lista de pantallas
-     * @param nombre
-     * @param id
-     * @param mundo
-     * @param stage
-     * @return
      */
     public Pantalla crearPantalla(String nombre, Integer id, World mundo, Stage stage) {
         Pantalla nuevaPantalla = new Pantalla(nombre, id, this, mundo, juego);
@@ -109,7 +105,8 @@ public class GestorPantalla {
         stage.addActor(botonNuevoJuego);
         stage.addActor(botonSalir);
 
-        Pantalla menuPrincipal = new Pantalla("Menu principal",0, this, mundoPrincipal, juego) {
+        // Por defecto, pantalla 0 es menu principal
+        Pantalla menuPrincipal = new Pantalla("", 0, this, mundoPrincipal, juego) {
             @Override
             public void render(float delta) {
                 if (stage != null) {
@@ -125,101 +122,47 @@ public class GestorPantalla {
     }
 
     public Pantalla crearPantalla1() {
-        Gdx.app.log("crearPantalla1()","Creando pantalla 1");
+        Gdx.app.log("crearPantalla1()", "Creando pantalla 1");
 
         Stage stage = new Stage();
         World mundo = new World(Constantes.gravedad, true);
-        Pantalla pantalla = crearPantalla("Pantalla 1",1, mundo, stage);
+        Pantalla pantalla = crearPantalla("mapa1", 1, mundo, stage);
         pantallaActual = pantalla;
-
-
-
-
 
         return pantalla;
     }
 
     public Pantalla crearPantalla2() {
 
-        Gdx.app.log("crearPantalla2()","Creando pantalla 2");
-
+        Gdx.app.log("crearPantalla2()", "Creando pantalla 2");
         Stage stage = new Stage();
-        World mundo = new World(Constantes.gravedad, false );
-        Pantalla pantalla = crearPantalla("Pantalla 1", 2, mundo, stage);
+        World mundo = new World(Constantes.gravedad, true);
+        Pantalla pantalla = crearPantalla("mapa2", 2, mundo, stage);
         pantallaActual = pantalla;
-        crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
-        crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
-        crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
-        crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
-        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
-
-        // Separador
-        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 15.0f, mundo, true);
-
-        //Si los tocas, perdes!
-        crearRectangulo(15.5f + 7.0f, 10.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
-        crearRectangulo(20.0f + 7.0f, 10.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
-
-        //la otra pared de la derecha
-        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 15.0f, mundo, true);
-
-        //El lugar al que tengo que llegar para ganar
-        crearRectangulo(24.75f, 0.0f, 7.0f, 1.0f, mundo, true, Constantes.GANAR_ID);
-
-        //El piso que si te caes perdes.
-        crearRectangulo(20f,-4f,50f,1f,mundo, true, Constantes.PERDER_ID);
 
         return pantalla;
 
     }
 
     public Pantalla crearPantalla3() {
-        Gdx.app.log("crearPantalla3()","Creando pantalla 3");
-
+        Gdx.app.log("crearPantalla3()", "Creando pantalla 3");
         Stage stage = new Stage();
-        World mundo = new World(Constantes.gravedad, false );
-        Pantalla pantalla = crearPantalla("Pantalla 1", 3, mundo, stage);
+        World mundo = new World(Constantes.gravedad, true);
+        Pantalla pantalla = crearPantalla("mapa3", 3, mundo, stage);
         pantallaActual = pantalla;
-        crearRectangulo(0, 0, 10.0f, 1.0f, mundo, true);
-        crearRectangulo(0, 3.75f, 8.0f, 1.0f, mundo, true);
-        crearRectangulo(-4.5f, 5.5f, 1.0f, 10.0f, mundo, true);
-        crearRectangulo(11.5f, 0.0f, 10.0f, 1.0f, mundo, true);
-//        crearRectangulo(11.5f, 4.0f, 10.0f, 1.0f, mundo, true);
-
-        // Separador
-        crearRectangulo(13.5f + 7.5f, 5.0f, 1.0f, 10.0f, mundo, true);
-
-        //Si los tocas, perdes!
-        crearRectangulo(15.5f + 6.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
-        crearRectangulo(20.0f + 6.0f, 6.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
-
-        //la otra pared de la derecha
-        crearRectangulo(22.0f + 7.0f, 5.0f, 1.0f, 10.0f, mundo, true);
-
-        //Si los tocas, perdes!
-        crearRectangulo(15.5f + 7.0f, 2.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
-        crearRectangulo(20.0f + 7.0f, 2.5f, 3.0f, 1.0f, mundo, true, Constantes.PERDER_ID);
-
-
-        //El lugar al que tengo que llegar para ganar
-        crearRectangulo(24.75f, 0.0f, 7.0f, 1.0f, mundo, true , Constantes.GANAR_ID);
-
-        //El piso que si te caes perdes.
-        crearRectangulo(30f,-4f,60f,1f,mundo, true, Constantes.PERDER_ID);
 
         return pantalla;
-
     }
 
 
-    protected Body crearRectangulo(float x, float y, float ancho, float alto, World mundo, boolean esEstatico){
-        return crearRectangulo(x,y,ancho, alto, mundo, esEstatico, null);
+    protected Body crearRectangulo(float x, float y, float ancho, float alto, boolean esEstatico) {
+        return crearRectangulo(x, y, ancho, alto, esEstatico, null);
     }
 
     /**
      * Crea un rectánguno y lo agrega al mundo
      */
-    protected Body crearRectangulo(float x, float y, float ancho, float alto, World mundo, boolean esEstatico, Object userData) {
+    protected Body crearRectangulo(float x, float y, float ancho, float alto, boolean esEstatico, Object userData) {
         Body pBody;
         BodyDef def = new BodyDef();
 
@@ -235,9 +178,9 @@ public class GestorPantalla {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(ancho, alto); // TODO (juan) ver si es necesario convertir coordenadas
 
-        if(userData != null) {
+        if (userData != null) {
             pBody.createFixture(shape, 1.0f).setUserData(userData);
-        }else {
+        } else {
             pBody.createFixture(shape, 1.0f);
         }
 
@@ -247,8 +190,8 @@ public class GestorPantalla {
 
 
     public void cargarSiguienetPantalla() {
-        if(this.pantallaActual != null) {
-            switch(pantallaActual.getId()) {
+        if (this.pantallaActual != null) {
+            switch (pantallaActual.getId()) {
                 case 0:
                     crearPantalla1();
                     return;
@@ -258,6 +201,8 @@ public class GestorPantalla {
                 case 2:
                     crearPantalla3();
                     return;
+                case 3:
+                    crearMenuPrincipal();
             }
         }
     }
@@ -265,6 +210,43 @@ public class GestorPantalla {
     public void dispose() {
 
 
+    }
 
+    public void accionAlGanar() {
+        this.cargarSiguienetPantalla();
+    }
+
+    public void accionAlPerder() {
+        int vidas = pantallaActual.jugador.getVidas();
+        if (vidas == 1) {
+            mostrarMensajeGameOver();
+        } else if (vidas > 1) {
+
+            pantallaActual.jugador.quitarUnaVida();
+            recargarPantallaActual(pantallaActual.getId());
+        }
+    }
+
+    private void mostrarMensajeGameOver() {
+        //TODO (juan)
+
+
+    }
+
+    private void recargarPantallaActual(Integer id) {
+        pantallaActual.dispose();
+        switch (id) {
+            case 0:
+                crearMenuPrincipal();
+                return;
+            case 1:
+                crearPantalla1();
+                return;
+            case 2:
+                crearPantalla2();
+                return;
+            case 3:
+                crearPantalla3();
+        }
     }
 }

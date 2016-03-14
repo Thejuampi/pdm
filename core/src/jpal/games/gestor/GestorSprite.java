@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class GestorSprite {
 
-    public Sprite pelota;
+    private Sprite pelota;
 
     GestorTextura gestorTextura;
 
@@ -23,4 +23,8 @@ public class GestorSprite {
         pelota = new Sprite(gestorTextura.pelotaJugador);
     }
 
+    public Sprite getPelota() {
+        //retorno una copia
+        return new Sprite(pelota);
+    }
 }
