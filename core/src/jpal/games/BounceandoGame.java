@@ -78,7 +78,7 @@ public class BounceandoGame extends ApplicationAdapter {
 
         batch.begin();
 
-        Vector3 pos = new Vector3(4f, 4f, 0f);
+        Vector3 pos = new Vector3(gestorPantalla.getPantallaActual().jugador.getPosicion(), 0f);
         gestorCamara.mundoToPantalla(pos);
 
         font.draw(batch, "PRUEBA DE MENSAJE", pos.x, pos.y);

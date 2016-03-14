@@ -2,6 +2,7 @@ package jpal.games.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -20,6 +21,7 @@ import java.util.Iterator;
 import jpal.games.BounceandoGame;
 import jpal.games.Jugador;
 import jpal.games.gestor.GestorPantalla;
+import jpal.games.gestor.Hud;
 
 /**
  * Created by juan on 06/02/16.
@@ -54,6 +56,17 @@ public class Pantalla extends ScreenAdapter {
 
     TiledMapRenderer mapRenderer;
 
+    Music musicaFondo;
+
+    private Hud hud;
+
+    public void detenerMusicaFondo() {
+        if (musicaFondo != null && musicaFondo.isPlaying()) {
+            musicaFondo.setLooping(false);
+            musicaFondo.stop();
+        }
+    }
+
     public Pantalla(String nombre, Integer id, GestorPantalla gestor, World mundo, BounceandoGame juego) {
         this.nombre = nombre;
         this.gestor = gestor;
@@ -61,6 +74,12 @@ public class Pantalla extends ScreenAdapter {
         this.id = id;
         jugador = new Jugador(this);
         this.juego = juego;
+        this.hud = new Hud(juego.getBatch());
+        if (nombre != "") {
+            musicaFondo = Gdx.audio.newMusic(Gdx.files.internal("sonidos/musica_fondo.mp3"));
+            musicaFondo.setLooping(true);
+            musicaFondo.play();
+        }
 
         if (nombre == null || "".equals(nombre)) {
 
@@ -95,6 +114,7 @@ public class Pantalla extends ScreenAdapter {
     @Override
     public void render(float delta) {
         Vector2 pos = jugador.getPosicion();
+        hud.update(delta);
 
         for (Iterator<Body> iterator = paraEliminar.iterator(); iterator.hasNext(); ) {
             Body cuerpo = iterator.next();
@@ -128,7 +148,6 @@ public class Pantalla extends ScreenAdapter {
         mapRenderer.render();
 
         juego.getBatch().setProjectionMatrix(juego.getMatrizProyeccion());
-//        jugador.actualizar();
         juego.getBatch().begin();
         jugador.dibujar(juego.getBatch());
         juego.getBatch().end();
@@ -144,6 +163,9 @@ public class Pantalla extends ScreenAdapter {
         super.dispose();
         if (stage != null) {
             stage.dispose();
+        }
+        if (hud != null) {
+            hud.dispose();
         }
     }
 
@@ -171,9 +193,11 @@ public class Pantalla extends ScreenAdapter {
 
     public void accionAlGanar() {
         gestor.accionAlGanar();
+        detenerMusicaFondo();
     }
 
     public void accionAlPerder() {
+        detenerMusicaFondo();
         gestor.accionAlPerder();
     }
 

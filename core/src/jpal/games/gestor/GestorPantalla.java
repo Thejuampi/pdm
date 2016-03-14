@@ -1,9 +1,7 @@
 package jpal.games.gestor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,6 +33,10 @@ public class GestorPantalla {
 
     private Pantalla pantallaActual = null;
 
+    private Sound sonidoBienvenida;
+
+    private Sound sonidoIniciarJuegoNuevo;
+
     public Pantalla getPantallaActual() {
         return pantallaActual;
     }
@@ -42,6 +44,8 @@ public class GestorPantalla {
     private GestorPantalla() {
         pantallas = Lists.newLinkedList();
         skin = new Skin();
+        sonidoBienvenida = Gdx.audio.newSound(Gdx.files.internal("sonidos/inicio_juego_bienvenida.wav"));
+        sonidoIniciarJuegoNuevo = Gdx.audio.newSound(Gdx.files.internal("sonidos/iniciar_nuevo_juego.wav"));
     }
 
     public void setJuego(BounceandoGame juego) {
@@ -67,6 +71,9 @@ public class GestorPantalla {
 
     public Pantalla crearMenuPrincipal() {
         World mundoPrincipal = new World(Constantes.gravedad, false); // no es necesario para el menú
+
+        sonidoBienvenida.play();
+
 
         Stage stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), juego.getBatch());
         Gdx.input.setInputProcessor(stage);
@@ -124,6 +131,8 @@ public class GestorPantalla {
     public Pantalla crearPantalla1() {
         Gdx.app.log("crearPantalla1()", "Creando pantalla 1");
 
+        sonidoIniciarJuegoNuevo.play();
+
         Stage stage = new Stage();
         World mundo = new World(Constantes.gravedad, true);
         Pantalla pantalla = crearPantalla("mapa1", 1, mundo, stage);
@@ -153,41 +162,6 @@ public class GestorPantalla {
 
         return pantalla;
     }
-
-
-    protected Body crearRectangulo(float x, float y, float ancho, float alto, boolean esEstatico) {
-        return crearRectangulo(x, y, ancho, alto, esEstatico, null);
-    }
-
-    /**
-     * Crea un rectánguno y lo agrega al mundo
-     */
-    protected Body crearRectangulo(float x, float y, float ancho, float alto, boolean esEstatico, Object userData) {
-        Body pBody;
-        BodyDef def = new BodyDef();
-
-        if (esEstatico)
-            def.type = BodyDef.BodyType.StaticBody;
-        else
-            def.type = BodyDef.BodyType.DynamicBody;
-
-        def.position.set(x, y);
-        def.fixedRotation = true;
-        pBody = pantallaActual.getMundo().createBody(def);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(ancho, alto); // TODO (juan) ver si es necesario convertir coordenadas
-
-        if (userData != null) {
-            pBody.createFixture(shape, 1.0f).setUserData(userData);
-        } else {
-            pBody.createFixture(shape, 1.0f);
-        }
-
-        shape.dispose();
-        return pBody;
-    }
-
 
     public void cargarSiguienetPantalla() {
         if (this.pantallaActual != null) {

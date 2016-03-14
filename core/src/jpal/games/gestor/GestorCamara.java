@@ -33,6 +33,9 @@ public class GestorCamara implements Screen {
 
     private OrthographicCamera camara;
 
+    OrthographicCamera camaraHud;
+
+
     private Viewport viewport;
 
     /**
@@ -64,9 +67,8 @@ public class GestorCamara implements Screen {
 
         camara = new OrthographicCamera();
         camara.setToOrtho(false, anchoCamara, altoCamara);
-//        camara = new OrthographicCamera(640,480);
-//        viewport = new ScreenViewport(camara);
 
+//        camaraHud = new OrthographicCamera(anchoPantalla, altoPantalla);
     }
 
     public Matrix4 getMatrizProyeccion() {

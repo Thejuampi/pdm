@@ -3,6 +3,7 @@ package jpal.games;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -34,6 +35,8 @@ public class Jugador implements InputProcessor {
 
     private final float radioPelota;
 
+    private final Sound sonidoGanarTodo;
+
     private CircleShape forma;
 
     private FixtureDef fixtureDef;
@@ -59,6 +62,16 @@ public class Jugador implements InputProcessor {
 
     private int vidas = 1; // arranca con 1 vida
 
+    private boolean permiteImpulso = true;
+
+    private Sound rebote;
+
+    private Sound sonidoJuntaMoneda;
+
+    private Sound sonidoMuere;
+
+    private Sound sonidoGanar;
+
 //    private static GestorTextura gestorTextura = GestorTextura.get();
 
     public void actualizar() {
@@ -73,7 +86,11 @@ public class Jugador implements InputProcessor {
         this.der = false;
         this.arr = false;
         this.aba = false;
-
+        this.rebote = Gdx.audio.newSound(Gdx.files.internal("sonidos/jugador_rebota.wav"));
+        this.sonidoJuntaMoneda = Gdx.audio.newSound(Gdx.files.internal("sonidos/junta_moneda.wav"));
+        sonidoMuere = Gdx.audio.newSound(Gdx.files.internal("sonidos/jugador_muere.wav"));
+        sonidoGanar = Gdx.audio.newSound(Gdx.files.internal("sonidos/jugador_gana.wav"));
+        sonidoGanarTodo = Gdx.audio.newSound(Gdx.files.internal("sonidos/jugador_gana_todo.wav"));
         this.sprite = new Sprite(GestorSprite.get().getPelota());
         this.mundo = pantalla.getMundo();
         this.pantalla = pantalla;
@@ -87,7 +104,6 @@ public class Jugador implements InputProcessor {
         this.forma.setRadius(radioPelota);
 
         this.fixtureDef = new FixtureDef();
-//        this.fixtureDef.restitution = 1.0f;
         this.fixtureDef.shape = forma;
         body.createFixture(forma, 0.5f).setUserData(this);
 
@@ -132,9 +148,13 @@ public class Jugador implements InputProcessor {
 
     private boolean intentarGanarOPerder(Fixture fa, Fixture fb, Pantalla pantalla) {
         if (Constantes.GANAR_ID.equals(fb.getUserData()) || Constantes.GANAR_ID.equals(fa.getUserData())) {
+
+
             pantalla.accionAlGanar();
             return true;
         } else if (Constantes.PERDER_ID.equals(fb.getUserData()) || Constantes.PERDER_ID.equals(fa.getUserData())) {
+
+
             pantalla.accionAlPerder();
             return true;
         }
@@ -160,8 +180,12 @@ public class Jugador implements InputProcessor {
         } else if (fb.getUserData() == Jugador.this) {
             jugador = fb;
         }
-        WorldManifold worldManifold = contact.getWorldManifold();
 
+        rebote.play();
+
+
+        WorldManifold worldManifold = contact.getWorldManifold();
+        permiteImpulso = true;
         // http://www.iteramos.com/pregunta/32746/como-calcular-el-angulo-de-rebote
         Vector2 v = jugador.getBody().getLinearVelocity();
         Vector2 n = worldManifold.getNormal();
@@ -174,6 +198,8 @@ public class Jugador implements InputProcessor {
     }
 
     private void juntarMoneda(Fixture fixture, Pantalla pantalla) {
+        sonidoJuntaMoneda.play();
+
         Moneda moneda = (Moneda) fixture.getUserData();
         fixture.setUserData(null);
         pantalla.paraEliminar.add(moneda.getCuerpo());
@@ -196,8 +222,12 @@ public class Jugador implements InputProcessor {
     public void moverPorOrientacion(float orientacion) {
         orientacion = orientacion / 2.0f;
         Vector2 velocidad = body.getLinearVelocity();
-        velocidad.set((velocidad.x + orientacion) / 2.0f, velocidad.y);
-        body.setLinearVelocity(velocidad);
+
+        if (velocidad.y > 0.1f) {
+            velocidad.set((velocidad.x + orientacion) / 2.0f, velocidad.y);
+            body.setLinearVelocity(velocidad);
+        }
+
     }
 
     /**
@@ -207,8 +237,8 @@ public class Jugador implements InputProcessor {
      */
     public void impulsar(float magnitud) {
         Vector2 vel = body.getLinearVelocity();
-        if (vel.y <= 10.0f && vel.y >= -0.1f) {
-            body.applyLinearImpulse(0.0f, magnitud / 500.0f, 0.0f, 0.0f, true);
+        if (vel.y <= 4.0f && vel.y >= -0.1f) {
+            body.applyLinearImpulse(0.0f, magnitud / 350.0f, 0.0f, 0.0f, true);
         }
     }
 
