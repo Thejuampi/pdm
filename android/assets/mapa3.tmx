@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="256" tileheight="256" nextobjectid="33">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="256" tileheight="256" nextobjectid="41">
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256">
   <tile id="0">
    <image width="256" height="256" source="scifi/Tiles/Tile (15).png"/>
@@ -115,7 +115,24 @@
    <image width="177" height="238" source="scifi/Objects/Barrel (1).png"/>
   </tile>
  </tileset>
- <tileset firstgid="38" source="moneda.tsx"/>
+ <tileset firstgid="38" name="moneda" tilewidth="64" tileheight="64">
+  <image source="general/moneda.png" width="512" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="tipo" value="moneda"/>
+   </properties>
+   <animation>
+    <frame tileid="0" duration="100"/>
+    <frame tileid="1" duration="100"/>
+    <frame tileid="2" duration="100"/>
+    <frame tileid="3" duration="100"/>
+    <frame tileid="4" duration="100"/>
+    <frame tileid="5" duration="100"/>
+    <frame tileid="6" duration="100"/>
+    <frame tileid="7" duration="100"/>
+   </animation>
+  </tile>
+ </tileset>
  <layer name="fondo" width="50" height="20">
   <data encoding="base64" compression="zlib">
    eJztz7ENACAMA0HXDJD9R2UBakjQWbreX0kKAAAeWQ0+TOg4TUevjhtdOv7u2BEnUpM=
@@ -123,12 +140,12 @@
  </layer>
  <layer name="terreno" width="50" height="20">
   <data encoding="base64" compression="zlib">
-   eJztltEKwjAMRbfXbdo62ZM+7P+/0g42iJc0TUyrCLtwGXSJyWlNtetOfVPr/oxCjPSupj6pE5KvxBdnnEfeGlPymDwIMSNYirWoZ/rw1JgK72sz9Jl1zZ56VIsh1z+VtKeafEkWhph5/lpbHxoGnFN0i7tBI9qXRjinLe4FqnvynHwz9KURx9FqXjcd+1w6Zy9HSwZar1THw2FhWLr3vV2M9VpzPA22/m5EqCd9v2jcDOZmCzkeBksceG8fZ6eZRY63dIfW4qDnFPZa3NlxHJjL8Uo5+PkeDlzn1nI9SXGDIgfzTg6ZI2QY/o2j9J+hxPECOpYb6Q==
+   eJztlt0KwjAMhbubXWzT1smu9ML3f0o72CCGND9Li0w8cBh0icnXmmofQuh/wGfRa3smJoZ7V1NH6sTsK/DFGeeRt8aUPWYPTMyIzMVa1BF9eGpMwvvaDF1hXbOnHtViKPUPxe2pJp+ThSEVnt/W2oeGAc8pdou7QSPYl0Z4TlvcC1D37Dn7ZuhLI4qj1byu2vdZOmcvR0sGWE+q4+GwMCzhc28XY73WHE+Drb8bCdXjvl8wbkamZgtzPAzmOPC9vZ+dZhYpXukOrcUBzylutaizozhwLsXL5eDP93DgdWqt1BMXNyhycN6fg+eIBYazcUj/GSSONxhMHRU=
   </data>
  </layer>
  <layer name="colectables" width="50" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgeQBeJ1kXi08oedPYoGAWjYPAAXQL0KBjeYDSeaQcoCdvhEi+0bGPQCmBzLzn+oKffh1oYj4JRMApGAbUAADeRA7I=
+   eJzt0MEJACAMQ9FOk/1H9CCCl4JF1LTmgeDxN2b14HWAg6mLqSUia/fwe/+N++H8GbD1VKWdz9G23eoOmJ7E7GymvUUkswbFBwKt
   </data>
  </layer>
  <objectgroup name="objetos">
@@ -204,6 +221,15 @@
   </object>
   <object id="32" name="linea-gana" x="10880" y="512">
    <polyline points="0,0 0,-384"/>
+  </object>
+  <object id="35" name="linea-muerte" x="3840" y="1933">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="39" name="linea-muerte" x="9216" y="3456">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="40" name="linea-muerte" x="7936" y="3712">
+   <polyline points="0,0 256,0"/>
   </object>
  </objectgroup>
 </map>

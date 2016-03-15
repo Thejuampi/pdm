@@ -2,10 +2,15 @@ package jpal.games.gestor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -69,18 +74,123 @@ public class GestorPantalla {
         return nuevaPantalla;
     }
 
+    public Pantalla crearPantallaPerder() {
+
+        World mundo = new World(Constantes.gravedad, false); // no es necesario para el menú
+        Stage stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), juego.getBatch());
+
+        TextButton botonContinuar = BotonesFactory.crearBoton("Continuar", new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                recargarPantallaActual(pantallaActual.getId());
+            }
+        });
+        TextButton botonSalir = BotonesFactory.crearBoton("Salir", new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("", "Boton Salir presionado");
+                Gdx.app.exit();
+            }
+        });
+
+        FreeTypeFontGenerator generadoDeFuentes = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parametrosDeFuente = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        parametrosDeFuente.size = 56;//(int) 32f*alto/720;
+        parametrosDeFuente.shadowColor = Color.LIGHT_GRAY;
+        parametrosDeFuente.color = Color.WHITE;
+
+        BitmapFont fuente = generadoDeFuentes.generateFont(parametrosDeFuente);
+
+        Label labelGanar = new Label("¿Quieres Volver a Intentar?", new Label.LabelStyle(fuente, Color.WHITE));
+
+        Table tabla = new Table();
+        tabla.top();
+        tabla.setFillParent(true);
+
+        tabla.add(labelGanar).expandX().padTop(20f);
+        tabla.row();
+        tabla.add(botonContinuar).expandX().padTop(20f);
+        tabla.row();
+        tabla.add(botonSalir).expandX().padTop(20f);
+        tabla.row();
+
+        stage.addActor(tabla);
+
+        //Le seteo el mismo id para pdoer recargar la pantalla.
+        Pantalla pantalla = new Pantalla("", pantallaActual.getId(), this, mundo, juego) {
+            @Override
+            public void render(float delta) {
+                if (stage != null) {
+                    stage.act();
+                    stage.draw();
+                }
+            }
+        };
+
+        pantallaActual = pantalla;
+        pantalla.setStage(stage);
+        return pantalla;
+    }
+
+    public Pantalla crearPantallaGanar() {
+        World mundo = new World(Constantes.gravedad, false); // no es necesario para el menú
+        Stage stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), juego.getBatch());
+
+        TextButton botonContinuar = BotonesFactory.crearBoton("Continuar", new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                cargarSiguienetPantalla();
+            }
+        });
+
+        FreeTypeFontGenerator generadoDeFuentes = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parametrosDeFuente = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parametrosDeFuente.size = 56;
+        parametrosDeFuente.shadowColor = Color.LIGHT_GRAY;
+        parametrosDeFuente.color = Color.BLACK;
+
+        BitmapFont fuente = generadoDeFuentes.generateFont(parametrosDeFuente);
+
+        Label labelGanar = new Label("GANASTE!", new Label.LabelStyle(fuente, Color.BLACK));
+
+        Table tabla = new Table();
+        tabla.top();
+        tabla.setFillParent(true);
+
+        tabla.add(labelGanar).expandX();
+        tabla.row();
+        tabla.add(botonContinuar).expandX();
+        tabla.row();
+
+        stage.addActor(tabla);
+
+        //le seteo el mismo id para poder cargar la pantalla siguiente
+        Pantalla pantalla = new Pantalla("", pantallaActual.getId(), this, mundo, juego) {
+            @Override
+            public void render(float delta) {
+                if (stage != null) {
+                    stage.act();
+                    stage.draw();
+                }
+            }
+        };
+
+        pantallaActual = pantalla;
+        pantalla.setStage(stage);
+        return pantalla;
+    }
+
     public Pantalla crearMenuPrincipal() {
         World mundoPrincipal = new World(Constantes.gravedad, false); // no es necesario para el menú
-
         sonidoBienvenida.play();
-
 
         Stage stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), juego.getBatch());
         Gdx.input.setInputProcessor(stage);
-
         TextButton botonNuevoJuego = BotonesFactory.crearBoton("Nuevo Juego", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                pantallaActual.dispose();
                 crearPantalla1();
             }
         });
@@ -95,10 +205,6 @@ public class GestorPantalla {
 
         int alto = Gdx.graphics.getHeight();
         int ancho = Gdx.graphics.getWidth();
-
-        // la idea es que la pantalla tenga una resolucion virtual de ~16x9
-        // cada boton tiene un tamaño de 6x2 con una separación de 3 unidades a lo alto
-        // el x en ambos es igual, lo que varia es el y
 
         float anchoBotones = 6.0f / 16.0f * ancho;
         float altoBotones = 2.0f / 9.0f * alto;
@@ -136,21 +242,22 @@ public class GestorPantalla {
         Stage stage = new Stage();
         World mundo = new World(Constantes.gravedad, true);
         Pantalla pantalla = crearPantalla("mapa1", 1, mundo, stage);
+        pantalla.setFondo(GestorTextura.get().fondoDesierto);
+
         pantallaActual = pantalla;
 
         return pantalla;
     }
 
     public Pantalla crearPantalla2() {
-
         Gdx.app.log("crearPantalla2()", "Creando pantalla 2");
         Stage stage = new Stage();
         World mundo = new World(Constantes.gravedad, true);
         Pantalla pantalla = crearPantalla("mapa2", 2, mundo, stage);
+        pantalla.setFondo(GestorTextura.get().fondoSelva);
+
         pantallaActual = pantalla;
-
         return pantalla;
-
     }
 
     public Pantalla crearPantalla3() {
@@ -159,12 +266,12 @@ public class GestorPantalla {
         World mundo = new World(Constantes.gravedad, true);
         Pantalla pantalla = crearPantalla("mapa3", 3, mundo, stage);
         pantallaActual = pantalla;
-
         return pantalla;
     }
 
     public void cargarSiguienetPantalla() {
         if (this.pantallaActual != null) {
+            pantallaActual.dispose();
             switch (pantallaActual.getId()) {
                 case 0:
                     crearPantalla1();
@@ -182,8 +289,9 @@ public class GestorPantalla {
     }
 
     public void dispose() {
-
-
+        if (pantallaActual != null) {
+            pantallaActual.dispose();
+        }
     }
 
     public void accionAlGanar() {
@@ -191,21 +299,23 @@ public class GestorPantalla {
     }
 
     public void accionAlPerder() {
-//        int vidas = pantallaActual.jugador.getVidas();
-        int vidas = pantallaActual.hud.vidas;
-        if (vidas == 1) {
-            mostrarMensajeGameOver();
-        } else if (vidas > 1) {
-            pantallaActual.jugador.quitarUnaVida();
-            pantallaActual.hud.agregarVida(-1);
-            recargarPantallaActual(pantallaActual.getId());
-        }
+
+        crearPantallaPerder();
+
+//        int vidas = pantallaActual.hud.vidas;
+//        if (vidas == 1) {
+//            mostrarMensajeGameOver();
+//        } else if (vidas > 1) {
+//            pantallaActual.jugador.quitarUnaVida();
+//            pantallaActual.hud.agregarVida(-1);
+//            recargarPantallaActual(pantallaActual.getId());
+//        }
     }
 
     private void mostrarMensajeGameOver() {
         //TODO (juan)
-
-
+        pantallaActual.dispose();
+        crearMenuPrincipal();
     }
 
     private void recargarPantallaActual(Integer id) {

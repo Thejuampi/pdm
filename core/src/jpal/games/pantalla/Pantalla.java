@@ -3,6 +3,7 @@ package jpal.games.pantalla;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Iterator;
@@ -44,6 +46,15 @@ public class Pantalla extends ScreenAdapter {
 
     Box2DDebugRenderer debugRender;
 
+    public void setFondo(TextureRegion fondo) {
+        this.fondo = fondo;
+        fondoRelleno = new TiledDrawable(fondo);
+    }
+
+    private TextureRegion fondo;
+
+    private TiledDrawable fondoRelleno;
+
     public Array<Body> paraEliminar = new Array<Body>(10);
 
     public TiledMap getMapaTiled() {
@@ -71,13 +82,13 @@ public class Pantalla extends ScreenAdapter {
         this.mundo = mundo;
         this.id = id;
         jugador = new Jugador(this);
+//        juego.getGestorCamara().setPosicionCamaraForzada(jugador.getPosicion().x, jugador.getPosicion().y);
         this.juego = juego;
         this.hud = new Hud(juego.getBatch());
         if (id > 0) {
             musicaFondo = Gdx.audio.newMusic(Gdx.files.internal("sonidos/musica_fondo.mp3"));
             musicaFondo.setLooping(true);
             musicaFondo.play();
-
 
             debugRender = new Box2DDebugRenderer();
             mapaTiled = new TmxMapLoader().load(nombre + ".tmx");
@@ -105,9 +116,11 @@ public class Pantalla extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Vector2 pos = jugador.getPosicion();
+        if (jugador.actualizar()) {
+            return;
+        }
         hud.actualizar(delta);
-
+        Vector2 pos = jugador.getPosicion();
         for (Iterator<Body> iterator = paraEliminar.iterator(); iterator.hasNext(); ) {
             Body cuerpo = iterator.next();
             mundo.destroyBody(cuerpo);
@@ -134,7 +147,16 @@ public class Pantalla extends ScreenAdapter {
         mundo.step(1.0f / 60.0f, 6, 2);
 
         juego.getGestorCamara().setPosicionCamara(pos.x, pos.y);
-        debugRender.render(mundo, juego.getMatrizProyeccion());
+        //XXX Habilitar para ver los body de Box2D
+//        debugRender.render(mundo, juego.getMatrizProyeccion());
+
+        if (fondo != null) {
+            juego.getBatch().begin();
+            int alto = Gdx.graphics.getHeight();
+            int ancho = Gdx.graphics.getWidth();
+            fondoRelleno.draw(juego.getBatch(), 0f, 0f, 0f, 0f, ancho, alto, ancho / fondo.getRegionWidth(), alto / fondo.getRegionHeight(), 0f);
+            juego.getBatch().end();
+        }
 
         mapRenderer.setView(juego.getGestorCamara().getCamara());
         mapRenderer.render();
@@ -142,8 +164,6 @@ public class Pantalla extends ScreenAdapter {
         juego.getBatch().setProjectionMatrix(juego.getMatrizProyeccion());
         juego.getBatch().begin();
         jugador.dibujar(juego.getBatch());
-
-
         juego.getBatch().end();
 
         juego.getBatch().setProjectionMatrix(hud.stage.getCamera().combined);
@@ -164,6 +184,17 @@ public class Pantalla extends ScreenAdapter {
         if (hud != null) {
             hud.dispose();
         }
+        if (this.mapaTiled != null) {
+            this.mapaTiled.dispose();
+        }
+        if (this.musicaFondo != null) {
+            this.musicaFondo.dispose();
+        }
+
+        Array<Body> cuerpos = new Array<Body>(this.mundo.getBodyCount());
+        mundo.getBodies(cuerpos);
+        for (Body body : cuerpos) mundo.destroyBody(body);
+        this.mundo.dispose();
     }
 
     protected void init() {
@@ -172,8 +203,8 @@ public class Pantalla extends ScreenAdapter {
     }
 
     public void accionAlGanar() {
-        gestor.accionAlGanar();
         detenerMusicaFondo();
+        gestor.accionAlGanar();
     }
 
     public void accionAlPerder() {

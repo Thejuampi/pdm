@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import static com.badlogic.gdx.math.MathUtils.clamp;
+
 /**
  * Created by juan on 06/02/16.
  */
@@ -47,7 +49,7 @@ public class GestorCamara implements Screen {
     private float y1 = ALTO_MUNDO;
 
     public static GestorCamara get() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new GestorCamara();
         }
         return INSTANCE;
@@ -58,17 +60,16 @@ public class GestorCamara implements Screen {
         this.logger = new Logger("GestorCamara");
 
         altoPantalla = (float) Gdx.graphics.getHeight();
-        anchoPantalla = (float)Gdx.graphics.getWidth();
+        anchoPantalla = (float) Gdx.graphics.getWidth();
 
-        relacionAspecto = anchoPantalla/altoPantalla;
+        relacionAspecto = anchoPantalla / altoPantalla;
 
         altoCamara = 10.0f;
-        anchoCamara = altoCamara *relacionAspecto;
+        anchoCamara = altoCamara * relacionAspecto;
 
         camara = new OrthographicCamera();
         camara.setToOrtho(false, anchoCamara, altoCamara);
 
-//        camaraHud = new OrthographicCamera(anchoPantalla, altoPantalla);
     }
 
     public Matrix4 getMatrizProyeccion() {
@@ -78,16 +79,33 @@ public class GestorCamara implements Screen {
     /**
      * Utilizar para posicionar la camara en el mundo.
      * Controla que no se salga de los limites
+     *
      * @param x
      * @param y
      */
     public void setPosicionCamara(float x, float y) {
-        if (x >= x0 + 8.3f && x <= x1 - 5.0f) {
-            this.camara.position.x = x;
-        }
-        if (y >= y0 + 5.0f && y <= y1 - 5.0f) {
-            this.camara.position.y = y;
-        }
+
+//        this.camara.position.x = x;
+//        this.camara.position.y = y;
+        camara.position.x = clamp(x, 8.3f, 50 - 8.3f);
+        camara.position.y = clamp(y, 5f, 15f);
+
+//        if (x >= x0 + 8.3f && x <= x1 - 5.0f) {
+//            this.camara.position.x = x;
+//        } else {
+//            if(x >= x0) {
+//                this.camara.position.x = x0;// + 8.3f;
+//            } else {
+//                this.camara.position.x = x1;//-5f;
+//            }
+//        }
+//        if (y >= y0 + 5.0f && y <= y1 - 5.0f) {
+//            this.camara.position.y = y;
+//        }else if(y >= y0) {
+//            this.camara.position.y = y0;
+//        } else {
+//            this.camara.position.y = y0;
+//        }
     }
 
     public void panallaToMundo(Vector3 pos) {

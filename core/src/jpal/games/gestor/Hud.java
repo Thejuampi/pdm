@@ -25,15 +25,15 @@ public class Hud implements Disposable {
 
     private Integer limiteTiempo;
     private float tiempoTranscurrido;
-    private static Integer puntaje;
     private boolean tiempoAlcanzado;
-
     private static Label labelTiempoRestante, labelTiuloTiempoRestante, labelTituloPuntaje;
+
     private static Label labelPuntaje;
+    private Label labelVidas;
     private static Label labelTituloVidas;
 
-    public int vidas;
-    private Label labelVidas;
+    public static int vidas;
+    public static int puntaje;
 
     public Hud(SpriteBatch spriteBatch) {
         limiteTiempo = 250;
@@ -49,7 +49,7 @@ public class Hud implements Disposable {
 
         parametrosDeFuente.size = 32;
         parametrosDeFuente.shadowColor = Color.LIGHT_GRAY;
-        parametrosDeFuente.color = Color.WHITE;
+        parametrosDeFuente.color = Color.BLACK;
 
         BitmapFont font = generadoDeFuentes.generateFont(parametrosDeFuente);
         generadoDeFuentes.dispose();
@@ -58,9 +58,9 @@ public class Hud implements Disposable {
         labelPuntaje = new Label(String.format("%06d", puntaje), new Label.LabelStyle(font, Color.WHITE));
         labelVidas = new Label(String.format("%01d", vidas), new Label.LabelStyle(font, Color.WHITE));
 
-        labelTiuloTiempoRestante = new Label("Tiempo Restante", new Label.LabelStyle(font, Color.WHITE));
-        labelTituloPuntaje = new Label("Puntos", new Label.LabelStyle(font, Color.WHITE));
-        labelTituloVidas = new Label("Vidas", new Label.LabelStyle(font, Color.WHITE));
+        labelTiuloTiempoRestante = new Label("Tiempo Restante", new Label.LabelStyle(font, Color.BLACK));
+        labelTituloPuntaje = new Label("Puntos", new Label.LabelStyle(font, Color.BLACK));
+        labelTituloVidas = new Label("Vidas", new Label.LabelStyle(font, Color.BLACK));
 
         Table tabla = new Table();
         tabla.top();
@@ -90,9 +90,10 @@ public class Hud implements Disposable {
         }
     }
 
-    public static void agregarPuntaje(int value) {
-        puntaje += value;
-        labelPuntaje.setText(String.format(FORMATO_LABEL_PUNTAJE, puntaje));
+    public static void agregarPuntaje(int puntaje) {
+        Gdx.app.log("agregarPuntaje() ", String.valueOf(puntaje));
+        Hud.puntaje += puntaje;
+        labelPuntaje.setText(String.format(FORMATO_LABEL_PUNTAJE, Hud.puntaje));
     }
 
     @Override
@@ -113,7 +114,8 @@ public class Hud implements Disposable {
     }
 
     public void agregarVida(int i) {
-        vidas += i;
+        Gdx.app.log("agregarVida() ", String.valueOf(i));
+        Hud.vidas += i;
         labelVidas.setText(String.format(FORMATO_LABEL_VIDA, vidas));
     }
 }

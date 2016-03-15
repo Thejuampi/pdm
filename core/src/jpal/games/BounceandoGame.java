@@ -37,16 +37,6 @@ public class BounceandoGame extends ApplicationAdapter {
         gestorPantalla = GestorPantalla.get();
         gestorCamara = GestorCamara.get();
 
-//        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
-//        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-//        parameter.size = 24; // en pixeles...
-//        parameter.shadowColor = Color.LIGHT_GRAY;
-//
-//        font = generator.generateFont(parameter); // font size 12 pixels
-//        generator.dispose(); // don't forget to dispose to avoid memory leaks!
-
-//        font.setColor(Color.BROWN);
-
         hayAcelerometro = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
         hayCompass = Gdx.input.isPeripheralAvailable(Input.Peripheral.Compass);
 

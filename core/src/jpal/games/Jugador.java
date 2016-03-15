@@ -1,8 +1,6 @@
 package jpal.games;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,7 +29,7 @@ import static com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 /**
  * Created by juan on 24/02/16.
  */
-public class Jugador implements InputProcessor {
+public class Jugador {
 
     private final float radioPelota;
 
@@ -51,18 +49,11 @@ public class Jugador implements InputProcessor {
 
     private Pantalla pantalla;
 
-    private boolean izq, der, arr, aba;
-
     private Integer puntaje = 0;
 
-    /**
-     * Referencia al mundo, no se si es necesario utilizar por el momento
-     */
     private World mundo;
 
-    private int vidas = 1; // arranca con 1 vida
-
-    private boolean permiteImpulso = true;
+    private int vidas = 3; // arranca con 3 vidas
 
     private Sound rebote;
 
@@ -72,20 +63,13 @@ public class Jugador implements InputProcessor {
 
     private Sound sonidoGanar;
 
-//    private static GestorTextura gestorTextura = GestorTextura.get();
+    private boolean cargarPantallaSiguiente = false;
 
-    public void actualizar() {
-//        sprite.setCenter(64f,64f);
-        sprite.setPosition(body.getPosition().x, body.getPosition().x);
-    }
+    private boolean perderUnaVida = false;
 
     public Jugador(final Pantalla pantalla) {
         gestorCamara = GestorCamara.get();
         this.radioPelota = 0.5f;
-        this.izq = false;
-        this.der = false;
-        this.arr = false;
-        this.aba = false;
         this.rebote = Gdx.audio.newSound(Gdx.files.internal("sonidos/jugador_rebota.wav"));
         this.sonidoJuntaMoneda = Gdx.audio.newSound(Gdx.files.internal("sonidos/junta_moneda.wav"));
         sonidoMuere = Gdx.audio.newSound(Gdx.files.internal("sonidos/jugador_muere.wav"));
@@ -134,7 +118,6 @@ public class Jugador implements InputProcessor {
 
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) {
-//                Gdx.app.log("", impulse.toString());
             }
         });
 
@@ -148,14 +131,15 @@ public class Jugador implements InputProcessor {
 
     private boolean intentarGanarOPerder(Fixture fa, Fixture fb, Pantalla pantalla) {
         if (Constantes.GANAR_ID.equals(fb.getUserData()) || Constantes.GANAR_ID.equals(fa.getUserData())) {
+            sonidoGanar.play();
+//            pantalla.accionAlGanar();
+            this.cargarPantallaSiguiente = true;
 
-
-            pantalla.accionAlGanar();
             return true;
         } else if (Constantes.PERDER_ID.equals(fb.getUserData()) || Constantes.PERDER_ID.equals(fa.getUserData())) {
-
-
-            pantalla.accionAlPerder();
+            sonidoMuere.play();
+            this.perderUnaVida = true;
+//            pantalla.accionAlPerder();
             return true;
         }
         return false;
@@ -185,7 +169,6 @@ public class Jugador implements InputProcessor {
 
 
         WorldManifold worldManifold = contact.getWorldManifold();
-        permiteImpulso = true;
         // http://www.iteramos.com/pregunta/32746/como-calcular-el-angulo-de-rebote
         Vector2 v = jugador.getBody().getLinearVelocity();
         Vector2 n = worldManifold.getNormal();
@@ -209,8 +192,7 @@ public class Jugador implements InputProcessor {
         pantalla.hud.agregarPuntaje(moneda.getPuntaje());
         Gdx.app.log("jungarMoneda()", "Moneda juntada");
         Gdx.app.log("jungarMoneda()", String.valueOf(puntaje));
-        if (puntaje % 20 == 0) {
-
+        if (pantalla.hud.puntaje % 20 == 0) {
             pantalla.hud.agregarVida(1);
             vidas += 1;
         }
@@ -250,78 +232,20 @@ public class Jugador implements InputProcessor {
         Gdx.app.log("Jugador", "Vidas restantes: " + vidas);
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
+    public boolean actualizar() {
 
-        switch (keycode) {
-            case Input.Keys.LEFT:
-                izq = true;
-                break;
-            case Input.Keys.RIGHT:
-                der = true;
-                break;
-            case Input.Keys.UP:
-                arr = true;
-                break;
-            case Input.Keys.DOWN:
-                aba = true;
-                break;
+        if (this.cargarPantallaSiguiente) {
+            pantalla.accionAlGanar();
+            return true;
+        } else if (this.perderUnaVida) {
+            pantalla.accionAlPerder();
+            return true;
         }
 
-        return true;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        switch (keycode) {
-            case Input.Keys.LEFT:
-                izq = false;
-                break;
-            case Input.Keys.RIGHT:
-                der = false;
-                break;
-            case Input.Keys.UP:
-                arr = false;
-                break;
-            case Input.Keys.DOWN:
-                aba = false;
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
         return false;
     }
 
     public void dibujar(SpriteBatch batch) {
-//        Vector2 posicion =  body.getLocalPoint(body.getPosition());
         Vector2 posicion = body.getPosition();
         batch.draw(sprite, posicion.x - (0.5f), posicion.y - (0.5f), 1f, 1f); // tamaño 1 porque la pelota tiene radio .5f
     }
