@@ -85,7 +85,7 @@ public class Pantalla extends ScreenAdapter {
 //        juego.getGestorCamara().setPosicionCamaraForzada(jugador.getPosicion().x, jugador.getPosicion().y);
         this.juego = juego;
         this.hud = new Hud(juego.getBatch());
-        if (id > 0) {
+        if (id > 0 && nombre != "") {
             musicaFondo = Gdx.audio.newMusic(Gdx.files.internal("sonidos/musica_fondo.mp3"));
             musicaFondo.setLooping(true);
             musicaFondo.play();
@@ -103,7 +103,6 @@ public class Pantalla extends ScreenAdapter {
 
             float escalaUnitaria = 1f / ppt_x;
             mapRenderer = new OrthogonalTiledMapRenderer(mapaTiled, escalaUnitaria, juego.getBatch());
-
             mapRenderer.setView(juego.getGestorCamara().getCamara());
 
             init();
