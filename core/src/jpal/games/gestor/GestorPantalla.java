@@ -78,6 +78,7 @@ public class GestorPantalla {
 
         World mundo = new World(Constantes.gravedad, false); // no es necesario para el menú
         Stage stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), juego.getBatch());
+        Gdx.input.setInputProcessor(stage);
 
         TextButton botonContinuar = BotonesFactory.crearBoton("Continuar", new ChangeListener() {
             @Override
@@ -136,7 +137,7 @@ public class GestorPantalla {
     public Pantalla crearPantallaGanar() {
         World mundo = new World(Constantes.gravedad, false); // no es necesario para el menú
         Stage stage = new Stage(new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()), juego.getBatch());
-
+        Gdx.input.setInputProcessor(stage);
         TextButton botonContinuar = BotonesFactory.crearBoton("Continuar", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

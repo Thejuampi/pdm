@@ -53,7 +53,7 @@ public class Jugador {
 
     private World mundo;
 
-    private int vidas = 3; // arranca con 3 vidas
+    private static int vidas = 3; // arranca con 3 vidas
 
     private Sound rebote;
 
@@ -68,6 +68,10 @@ public class Jugador {
     private boolean perderUnaVida = false;
 
     public Jugador(final Pantalla pantalla) {
+        this(pantalla, -1f, -1f);
+    }
+
+    public Jugador(final Pantalla pantalla, float x, float y) {
         gestorCamara = GestorCamara.get();
         this.radioPelota = 0.5f;
         this.rebote = Gdx.audio.newSound(Gdx.files.internal("sonidos/jugador_rebota.wav"));
@@ -79,7 +83,7 @@ public class Jugador {
         this.mundo = pantalla.getMundo();
         this.pantalla = pantalla;
         this.bodyDef = new BodyDef();
-        bodyDef.position.set(3.0f, radioPelota * 10);
+        bodyDef.position.set(x != -1f ? x : 3.0f, y != -1f ? y : radioPelota * 10);
         bodyDef.fixedRotation = true; // para que no rote?
         this.bodyDef.type = BodyDef.BodyType.DynamicBody; // el jugador es un cuerpo dinamico (interactua fisicamente con el mundo)
         this.body = mundo.createBody(bodyDef);

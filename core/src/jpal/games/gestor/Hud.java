@@ -32,14 +32,16 @@ public class Hud implements Disposable {
     private Label labelVidas;
     private static Label labelTituloVidas;
 
-    public static int vidas;
+    public static int vidas = -1;
     public static int puntaje;
 
     public Hud(SpriteBatch spriteBatch) {
         limiteTiempo = 250;
         tiempoTranscurrido = 0;
         puntaje = 0;
-        vidas = 3;
+        if (vidas == -1) {
+            vidas = 3;
+        }
 
         viewport = new FitViewport((float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight(), new OrthographicCamera());
         stage = new Stage(viewport, spriteBatch);
@@ -115,7 +117,7 @@ public class Hud implements Disposable {
 
     public void agregarVida(int i) {
         Gdx.app.log("agregarVida() ", String.valueOf(i));
-        Hud.vidas += i;
-        labelVidas.setText(String.format(FORMATO_LABEL_VIDA, vidas));
+        Hud.vidas = Hud.vidas + i;
+        labelVidas.setText(String.format(FORMATO_LABEL_VIDA, Hud.vidas));
     }
 }

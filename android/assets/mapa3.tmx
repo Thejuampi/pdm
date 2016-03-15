@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="256" tileheight="256" nextobjectid="41">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="256" tileheight="256" nextobjectid="42">
  <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256">
   <tile id="0">
    <image width="256" height="256" source="scifi/Tiles/Tile (15).png"/>
@@ -135,12 +135,12 @@
  </tileset>
  <layer name="fondo" width="50" height="20">
   <data encoding="base64" compression="zlib">
-   eJztz7ENACAMA0HXDJD9R2UBakjQWbreX0kKAAAeWQ0+TOg4TUevjhtdOv7u2BEnUpM=
+   eJztzzENADAMA0HPBRD+UEugcxpFZ+l2fyUpAAD45Az4oKOv47UtHR1dOnZ3XLt2UwE=
   </data>
  </layer>
  <layer name="terreno" width="50" height="20">
   <data encoding="base64" compression="zlib">
-   eJztlt0KwjAMhbubXWzT1smu9ML3f0o72CCGND9Li0w8cBh0icnXmmofQuh/wGfRa3smJoZ7V1NH6sTsK/DFGeeRt8aUPWYPTMyIzMVa1BF9eGpMwvvaDF1hXbOnHtViKPUPxe2pJp+ThSEVnt/W2oeGAc8pdou7QSPYl0Z4TlvcC1D37Dn7ZuhLI4qj1byu2vdZOmcvR0sGWE+q4+GwMCzhc28XY73WHE+Drb8bCdXjvl8wbkamZgtzPAzmOPC9vZ+dZhYpXukOrcUBzylutaizozhwLsXL5eDP93DgdWqt1BMXNyhycN6fg+eIBYazcUj/GSSONxhMHRU=
+   eJztltsKwjAMhrubXezg6mRXeuH7P6UtOIghSZOlRSb+8DNoU5Kvx/UhhP4HfBY9398oxEh9NXUkz5J8AZ6dcR55c0zJY/IgxIzIUqxFHVGHJ8dU6K/N0DHtmjn1qBYDVz+UNKea8ZIsDJH5flu5Dg0DPqfYLe4GjWBdGuFz2uJegLolr8lXQ10aURytzmvWPs+ldfZytGSA+Up5PBwWhi18zu1mzNea42Gw9d2IKJ+0v7wcd4MlDnxv72unOYuYd0Wm7ohaHHCdcs1zoNeO4sBjMS/1FnB7w8uB26k2jkOKGxRj8Lg/h8yxMAxn4yj9M5Q4XvWmHN8=
   </data>
  </layer>
  <layer name="colectables" width="50" height="20">
@@ -160,9 +160,6 @@
   </object>
   <object id="4" x="3328" y="4608">
    <polyline points="0,0 0,-1536 256,-1536 256,-1792 512,-1792 512,-2048 1024,-2048 1024,-2304 1280,-2304 1280,-2560 -1024,-2560 -1024,0"/>
-  </object>
-  <object id="5" x="1280" y="4608">
-   <polyline points="0,0 0,-768 -1280,-768"/>
   </object>
   <object id="6" x="0" y="2304">
    <polyline points="0,0 256,0 256,-256 512,-256 512,-512 768,-512 768,-768 1024,-768 1024,-1024 1280,-1024 1280,-1536 0,-1536"/>
@@ -230,6 +227,9 @@
   </object>
   <object id="40" name="linea-muerte" x="7936" y="3712">
    <polyline points="0,0 256,0"/>
+  </object>
+  <object id="41" x="1280" y="4224">
+   <polyline points="0,0 0,-128 -1280,-128"/>
   </object>
  </objectgroup>
 </map>
