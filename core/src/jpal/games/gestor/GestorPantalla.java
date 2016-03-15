@@ -97,7 +97,7 @@ public class GestorPantalla {
         FreeTypeFontGenerator generadoDeFuentes = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parametrosDeFuente = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-        parametrosDeFuente.size = 56;//(int) 32f*alto/720;
+        parametrosDeFuente.size = (int) (32f * Gdx.graphics.getWidth() / 768f);//56;//(int) 32f*alto/720;
         parametrosDeFuente.shadowColor = Color.LIGHT_GRAY;
         parametrosDeFuente.color = Color.WHITE;
 
@@ -109,11 +109,11 @@ public class GestorPantalla {
         tabla.top();
         tabla.setFillParent(true);
 
-        tabla.add(labelGanar).expandX().padTop(20f);
+        tabla.add(labelGanar).expandX().padTop(32f);
         tabla.row();
-        tabla.add(botonContinuar).expandX().padTop(20f);
+        tabla.add(botonContinuar).expandX().padTop(32f);
         tabla.row();
-        tabla.add(botonSalir).expandX().padTop(20f);
+        tabla.add(botonSalir).expandX().padTop(32f);
         tabla.row();
 
         stage.addActor(tabla);
@@ -147,21 +147,21 @@ public class GestorPantalla {
 
         FreeTypeFontGenerator generadoDeFuentes = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parametrosDeFuente = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parametrosDeFuente.size = 56;
+        parametrosDeFuente.size = (int) (32f * Gdx.graphics.getWidth() / 768f);
         parametrosDeFuente.shadowColor = Color.LIGHT_GRAY;
-        parametrosDeFuente.color = Color.BLACK;
+        parametrosDeFuente.color = Color.WHITE;
 
         BitmapFont fuente = generadoDeFuentes.generateFont(parametrosDeFuente);
 
-        Label labelGanar = new Label("GANASTE!", new Label.LabelStyle(fuente, Color.BLACK));
+        Label labelGanar = new Label("GANASTE!", new Label.LabelStyle(fuente, Color.WHITE));
 
         Table tabla = new Table();
         tabla.top();
         tabla.setFillParent(true);
 
-        tabla.add(labelGanar).expandX();
+        tabla.add(labelGanar).expandX().padTop(32f);
         tabla.row();
-        tabla.add(botonContinuar).expandX();
+        tabla.add(botonContinuar).expandX().padTop(32f);
         tabla.row();
 
         stage.addActor(tabla);
@@ -296,12 +296,14 @@ public class GestorPantalla {
     }
 
     public void accionAlGanar() {
-        this.cargarSiguienetPantalla();
+        crearPantallaGanar();
+//        this.cargarSiguienetPantalla();
     }
 
     public void accionAlPerder() {
         int vidas = Hud.vidas;
         if (vidas == 1) {
+            Hud.vidas = 3;
             crearMenuPrincipal();
         } else if (vidas > 1) {
             pantallaActual.jugador.quitarUnaVida();
