@@ -77,7 +77,7 @@ public class Pantalla extends ScreenAdapter {
             musicaFondo = Gdx.audio.newMusic(Gdx.files.internal("sonidos/musica_fondo.mp3"));
             musicaFondo.setLooping(true);
             musicaFondo.play();
-        } else {
+
 
             debugRender = new Box2DDebugRenderer();
             mapaTiled = new TmxMapLoader().load(nombre + ".tmx");

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="256" tileheight="256" nextobjectid="33">
+ <tileset firstgid="1" name="tiles" tilewidth="256" tileheight="256">
+  <tile id="0">
+   <image width="256" height="256" source="scifi/Tiles/Tile (15).png"/>
+  </tile>
+  <tile id="1">
+   <image width="256" height="256" source="scifi/Tiles/Tile (14).png"/>
+  </tile>
+  <tile id="2">
+   <image width="256" height="256" source="scifi/Tiles/Tile (13).png"/>
+  </tile>
+  <tile id="3">
+   <image width="256" height="256" source="scifi/Tiles/Tile (12).png"/>
+  </tile>
+  <tile id="4">
+   <image width="256" height="256" source="scifi/Tiles/Tile (11).png"/>
+  </tile>
+  <tile id="5">
+   <image width="256" height="256" source="scifi/Tiles/Tile (10).png"/>
+  </tile>
+  <tile id="6">
+   <image width="256" height="256" source="scifi/Tiles/Tile (9).png"/>
+  </tile>
+  <tile id="7">
+   <image width="256" height="256" source="scifi/Tiles/Tile (8).png"/>
+  </tile>
+  <tile id="8">
+   <image width="256" height="256" source="scifi/Tiles/Tile (7).png"/>
+  </tile>
+  <tile id="9">
+   <image width="256" height="256" source="scifi/Tiles/Tile (6).png"/>
+  </tile>
+  <tile id="10">
+   <image width="256" height="256" source="scifi/Tiles/Tile (5).png"/>
+  </tile>
+  <tile id="11">
+   <image width="256" height="256" source="scifi/Tiles/Tile (4).png"/>
+  </tile>
+  <tile id="12">
+   <image width="256" height="256" source="scifi/Tiles/Tile (3).png"/>
+  </tile>
+  <tile id="13">
+   <image width="256" height="256" source="scifi/Tiles/Tile (2).png"/>
+  </tile>
+  <tile id="14">
+   <image width="256" height="256" source="scifi/Tiles/Tile (1).png"/>
+  </tile>
+  <tile id="15">
+   <image width="256" height="256" source="scifi/Tiles/Spike.png"/>
+  </tile>
+  <tile id="16">
+   <image width="256" height="256" source="scifi/Tiles/Fence (3).png"/>
+  </tile>
+  <tile id="17">
+   <image width="256" height="256" source="scifi/Tiles/Fence (2).png"/>
+  </tile>
+  <tile id="18">
+   <image width="256" height="256" source="scifi/Tiles/Fence (1).png"/>
+  </tile>
+  <tile id="19">
+   <image width="256" height="256" source="scifi/Tiles/BGTile (7).png"/>
+  </tile>
+  <tile id="20">
+   <image width="256" height="256" source="scifi/Tiles/BGTile (6).png"/>
+  </tile>
+  <tile id="21">
+   <image width="256" height="256" source="scifi/Tiles/BGTile (5).png"/>
+  </tile>
+  <tile id="22">
+   <image width="256" height="256" source="scifi/Tiles/BGTile (4).png"/>
+  </tile>
+  <tile id="23">
+   <image width="256" height="256" source="scifi/Tiles/BGTile (3).png"/>
+  </tile>
+  <tile id="24">
+   <image width="256" height="256" source="scifi/Tiles/BGTile (2).png"/>
+  </tile>
+  <tile id="25">
+   <image width="256" height="256" source="scifi/Tiles/BGTile (1).png"/>
+  </tile>
+  <tile id="26">
+   <image width="256" height="256" source="scifi/Tiles/Acid (2).png"/>
+  </tile>
+  <tile id="27">
+   <image width="256" height="256" source="scifi/Tiles/Acid (1).png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="29" name="objetos" tilewidth="357" tileheight="464">
+  <tile id="0">
+   <image width="72" height="257" source="scifi/Objects/Switch (2).png"/>
+  </tile>
+  <tile id="1">
+   <image width="72" height="257" source="scifi/Objects/Switch (1).png"/>
+  </tile>
+  <tile id="2">
+   <image width="357" height="361" source="scifi/Objects/Saw.png"/>
+  </tile>
+  <tile id="3">
+   <image width="281" height="464" source="scifi/Objects/DoorUnlocked.png"/>
+  </tile>
+  <tile id="4">
+   <image width="280" height="464" source="scifi/Objects/DoorOpen.png"/>
+  </tile>
+  <tile id="5">
+   <image width="280" height="464" source="scifi/Objects/DoorLocked.png"/>
+  </tile>
+  <tile id="6">
+   <image width="256" height="256" source="scifi/Objects/Box.png"/>
+  </tile>
+  <tile id="7">
+   <image width="177" height="238" source="scifi/Objects/Barrel (2).png"/>
+  </tile>
+  <tile id="8">
+   <image width="177" height="238" source="scifi/Objects/Barrel (1).png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="38" source="moneda.tsx"/>
+ <layer name="fondo" width="50" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztz7ENACAMA0HXDJD9R2UBakjQWbreX0kKAAAeWQ0+TOg4TUevjhtdOv7u2BEnUpM=
+  </data>
+ </layer>
+ <layer name="terreno" width="50" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztltEKwjAMRbfXbdo62ZM+7P+/0g42iJc0TUyrCLtwGXSJyWlNtetOfVPr/oxCjPSupj6pE5KvxBdnnEfeGlPymDwIMSNYirWoZ/rw1JgK72sz9Jl1zZ56VIsh1z+VtKeafEkWhph5/lpbHxoGnFN0i7tBI9qXRjinLe4FqnvynHwz9KURx9FqXjcd+1w6Zy9HSwZar1THw2FhWLr3vV2M9VpzPA22/m5EqCd9v2jcDOZmCzkeBksceG8fZ6eZRY63dIfW4qDnFPZa3NlxHJjL8Uo5+PkeDlzn1nI9SXGDIgfzTg6ZI2QY/o2j9J+hxPECOpYb6Q==
+  </data>
+ </layer>
+ <layer name="colectables" width="50" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgeQBeJ1kXi08oedPYoGAWjYPAAXQL0KBjeYDSeaQcoCdvhEi+0bGPQCmBzLzn+oKffh1oYj4JRMApGAbUAADeRA7I=
+  </data>
+ </layer>
+ <objectgroup name="objetos">
+  <object id="1" x="8960" y="4608">
+   <polyline points="0,0 0,-1024 512,-1024 512,-2048 1280,-2048 1280,-1280 1792,-1280 1792,0"/>
+  </object>
+  <object id="2" x="8192" y="4608">
+   <polyline points="0,0 0,-768 -512,-768 -512,0"/>
+  </object>
+  <object id="3" x="6912" y="4608">
+   <polyline points="0,0 0,-1536 -768,-1536 -768,0"/>
+  </object>
+  <object id="4" x="3328" y="4608">
+   <polyline points="0,0 0,-1536 256,-1536 256,-1792 512,-1792 512,-2048 1024,-2048 1024,-2304 1280,-2304 1280,-2560 -1024,-2560 -1024,0"/>
+  </object>
+  <object id="5" x="1280" y="4608">
+   <polyline points="0,0 0,-768 -1280,-768"/>
+  </object>
+  <object id="6" x="0" y="2304">
+   <polyline points="0,0 256,0 256,-256 512,-256 512,-512 768,-512 768,-768 1024,-768 1024,-1024 1280,-1024 1280,-1536 0,-1536"/>
+  </object>
+  <object id="7" x="6400" y="768">
+   <polyline points="0,0 1280,0 1280,512 1024,512 1024,768 768,768 768,1024 512,1024 512,768 256,768 256,512 0,512 0,0"/>
+  </object>
+  <object id="8" x="11520" y="4608">
+   <polyline points="0,0 0,-768 512,-768 512,-2560 1280,-2560"/>
+  </object>
+  <object id="9" x="10240" y="512">
+   <polyline points="0,0 1280,0 1280,256 1024,256 1024,512 768,512 768,768 512,768 512,512 256,512 256,256 0,256 0,0"/>
+  </object>
+  <object id="14" name="linea-muerte" x="1280" y="4224">
+   <polyline points="0,0 1024,0"/>
+  </object>
+  <object id="15" name="linea-muerte" x="3328" y="3456">
+   <polyline points="0,0 2816,0"/>
+  </object>
+  <object id="16" name="linea-muerte" x="6912" y="3968">
+   <polyline points="0,0 768,0"/>
+  </object>
+  <object id="17" name="linea-muerte" x="8192" y="3968">
+   <polyline points="0,0 768,0"/>
+  </object>
+  <object id="19" name="linea-muerte" x="10752" y="3968">
+   <polyline points="0,0 768,0"/>
+  </object>
+  <object id="20" name="linea-muerte" x="11776" y="3712">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="21" name="linea-muerte" x="12544" y="1920">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="22" name="linea-muerte" x="11264" y="384">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="23" name="linea-muerte" x="6912" y="640">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="24" name="linea-muerte" x="2816" y="1920">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="25" name="linea-muerte" x="3328" y="1920">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="26" name="linea-muerte" x="256" y="640">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="27" x="4608" y="1536" width="256" height="64"/>
+  <object id="28" x="5120" y="1280" width="256" height="64"/>
+  <object id="29" x="5632" y="1024" width="256" height="64"/>
+  <object id="30" x="8704" y="1536" width="256" height="64"/>
+  <object id="31" x="0" y="3840">
+   <polyline points="0,0 0,-3840 12800,-3840 12800,-1792"/>
+  </object>
+  <object id="32" name="linea-gana" x="10880" y="512">
+   <polyline points="0,0 0,-384"/>
+  </object>
+ </objectgroup>
+</map>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-down" width="50" height="20" tilewidth="128" tileheight="128" nextobjectid="87">
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="50" height="20" tilewidth="128" tileheight="128" nextobjectid="107">
  <tileset firstgid="1" name="tiles" tilewidth="128" tileheight="128">
   <tile id="0">
    <image width="128" height="128" source="desierto/Tile/16.png"/>
@@ -119,7 +119,7 @@
  </layer>
  <layer name="terreno" width="50" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjZmBgYBrimJFhFAxWIAilxQbUFeQDfgKYb+CcRhLgIYC5B85pJIFRfyCAOBJbhtoOJBJwEMAsOPQxM4yW50MBSA+0A/AAcSLEBBgGd1lNbD7gZRh6ZRw2MND+EAFiYShblAJzBtofbAyE2yGyWMSQ88NgaNPgq/fQ3YrsLl4segeyLYDPbnS34pMb9Qd1wHDxBwB6mQj6
+   eJztVgEOgjAMPMUYg6CCICTq/79pJESWBduybjCMlzQssHZ3tNuaANiu3Db4I1YU/fO2KAt3nBk7zcjlqvDNGDuq2cmQQLdnY9FB4SmY40NHY4wfEzlK8M4Vl6cDYzsituY819bRr6ANHP+u9G/4KR0ktSaJbb+7QH9Wh6w16T7IEdcZ54qldVQY7tFaEcdFh8862oPvQ8buIXM/xNDTUPeezdXklY/4UrHKMPQ/fS21ts2V+vZNh51vX3ky/3E6g45QPRu3/lp1vADWLwsZ
   </data>
  </layer>
  <objectgroup name="objetos">
@@ -134,14 +134,36 @@
   <object id="44" x="1792" y="1920" width="1280" height="640"/>
   <object id="45" x="2304" y="1408" width="512" height="32"/>
   <object id="46" x="0" y="512" width="1152" height="640"/>
-  <object id="47" name="linea-muerte" type="T" x="32" y="2560">
-   <polyline points="0,0 6368,0"/>
+  <object id="88" x="3072" y="2176">
+   <polyline points="0,0 768,0 768,384"/>
   </object>
-  <object id="86" name="linea-ganar" type="T" x="3008" y="896" width="288" height="32"/>
+  <object id="89" x="5888" y="2560">
+   <polyline points="0,0 0,-384 512,-384"/>
+  </object>
+  <object id="91" x="3840" y="1024" width="384" height="32"/>
+  <object id="93" x="4352" y="640" width="384" height="32"/>
+  <object id="94" x="4480" y="1408" width="384" height="32"/>
+  <object id="95" x="3968" y="1792" width="384" height="32"/>
+  <object id="96" x="5248" y="896" width="256" height="32"/>
+  <object id="97" x="5888" y="1280" width="256" height="32"/>
+  <object id="98" x="6176" y="2176" width="96"/>
+  <object id="99" x="6144" y="2176" width="128"/>
+  <object id="101" name="linea-ganar" x="6016" y="2176">
+   <polyline points="0,0 128,-64 256,-64 384,0"/>
+  </object>
+  <object id="102" name="linea-muerte" x="3840" y="2496">
+   <polyline points="0,0 2048,0"/>
+  </object>
+  <object id="103" name="linea-muerte" x="1536" y="2496">
+   <polyline points="0,0 256,0"/>
+  </object>
+  <object id="106" name="linea-muerte" x="640" y="2496">
+   <polyline points="0,0 256,0"/>
+  </object>
  </objectgroup>
  <layer name="colectables" width="50" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt1bEJADAMA0FNo/1HTBtMIKRIIfEHxq2/stTF27Ro63nhsRPNhsSWxJsBnFlZvzLlzpuWDgDAXws7GgLT
+   eJxjYBheQA0JDxcw3PxDClBDo8k1YyDDD90PQzEu6eXmwRw2g9lto4B0MJjjk9ZllhrD0Korh4o7CQF6+2O4hNsoGAWjYBSMNAAAkyYEKQ==
   </data>
  </layer>
 </map>

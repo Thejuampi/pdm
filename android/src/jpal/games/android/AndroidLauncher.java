@@ -15,6 +15,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 		config.useAccelerometer = true;
         config.useCompass = true;
+        config.useWakelock = true; // para que no se apague la pantalla
 
         initialize(new BounceandoGame(), config);
 	}

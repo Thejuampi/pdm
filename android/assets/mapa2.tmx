@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="128" tileheight="128" nextobjectid="35">
+ <tileset firstgid="1" name="moneda" tilewidth="64" tileheight="64">
+  <image source="general/moneda.png" width="512" height="64"/>
+  <tile id="5">
+   <animation>
+    <frame tileid="0" duration="100"/>
+    <frame tileid="1" duration="100"/>
+    <frame tileid="2" duration="100"/>
+    <frame tileid="3" duration="100"/>
+    <frame tileid="4" duration="100"/>
+    <frame tileid="5" duration="100"/>
+    <frame tileid="6" duration="100"/>
+    <frame tileid="7" duration="100"/>
+   </animation>
+  </tile>
+ </tileset>
+ <tileset firstgid="9" name="tiles" tilewidth="129" tileheight="129">
+  <tile id="0">
+   <image width="128" height="128" source="selva/tiles/18.png"/>
+  </tile>
+  <tile id="1">
+   <image width="128" height="99" source="selva/tiles/17.png"/>
+  </tile>
+  <tile id="2">
+   <image width="128" height="128" source="selva/tiles/16.png"/>
+  </tile>
+  <tile id="3">
+   <image width="128" height="93" source="selva/tiles/15.png"/>
+  </tile>
+  <tile id="4">
+   <image width="128" height="93" source="selva/tiles/14.png"/>
+  </tile>
+  <tile id="5">
+   <image width="128" height="93" source="selva/tiles/13.png"/>
+  </tile>
+  <tile id="6">
+   <image width="128" height="128" source="selva/tiles/12.png"/>
+  </tile>
+  <tile id="7">
+   <image width="128" height="128" source="selva/tiles/11.png"/>
+  </tile>
+  <tile id="8">
+   <image width="128" height="128" source="selva/tiles/10.png"/>
+  </tile>
+  <tile id="9">
+   <image width="128" height="128" source="selva/tiles/9.png"/>
+  </tile>
+  <tile id="10">
+   <image width="128" height="128" source="selva/tiles/8.png"/>
+  </tile>
+  <tile id="11">
+   <image width="128" height="128" source="selva/tiles/7.png"/>
+  </tile>
+  <tile id="12">
+   <image width="128" height="128" source="selva/tiles/6.png"/>
+  </tile>
+  <tile id="13">
+   <image width="128" height="128" source="selva/tiles/5.png"/>
+  </tile>
+  <tile id="14">
+   <image width="129" height="129" source="selva/tiles/4.png"/>
+  </tile>
+  <tile id="15">
+   <image width="128" height="128" source="selva/tiles/3.png"/>
+  </tile>
+  <tile id="16">
+   <image width="128" height="128" source="selva/tiles/2.png"/>
+  </tile>
+  <tile id="17">
+   <image width="128" height="128" source="selva/tiles/1.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="27" name="objetos" tilewidth="282" tileheight="301">
+  <tile id="0">
+   <image width="282" height="275" source="selva/objetos/Tree_3.png"/>
+  </tile>
+  <tile id="1">
+   <image width="282" height="301" source="selva/objetos/Tree_2.png"/>
+  </tile>
+  <tile id="2">
+   <image width="116" height="44" source="selva/objetos/Tree_1.png"/>
+  </tile>
+  <tile id="3">
+   <image width="90" height="54" source="selva/objetos/Stone.png"/>
+  </tile>
+  <tile id="4">
+   <image width="62" height="64" source="selva/objetos/Sign_2.png"/>
+  </tile>
+  <tile id="5">
+   <image width="63" height="65" source="selva/objetos/Sign_1.png"/>
+  </tile>
+  <tile id="6">
+   <image width="50" height="41" source="selva/objetos/Mushroom_2.png"/>
+  </tile>
+  <tile id="7">
+   <image width="49" height="41" source="selva/objetos/Mushroom_1.png"/>
+  </tile>
+  <tile id="8">
+   <image width="77" height="77" source="selva/objetos/Crate.png"/>
+  </tile>
+  <tile id="9">
+   <image width="73" height="46" source="selva/objetos/Bush (4).png"/>
+  </tile>
+  <tile id="10">
+   <image width="73" height="47" source="selva/objetos/Bush (3).png"/>
+  </tile>
+  <tile id="11">
+   <image width="133" height="65" source="selva/objetos/Bush (2).png"/>
+  </tile>
+  <tile id="12">
+   <image width="133" height="65" source="selva/objetos/Bush (1).png"/>
+  </tile>
+ </tileset>
+ <layer name="terreno" width="50" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztlVsLwjAMhfvqdajovOBd2f//h1ZYWDmkbZq1Q8XAeZnpyb4lpsb849PjVsj3bPXM7Hkx/PvurXZWW3h+6FmPfDnvHL4YldXSapKp/rH1WLW+rneOqK02CXlvrRV1XIaUuArzpBzUH813lDLMrWagaSSffpdyaEPbh9QoyUEMmjlMjZIcuCtKRl+OR4+zkh3eMLkNk6flcPewu4u5GrHz3B5HfxSe0XK4e5h2se/ujJ33/X8qqBHKdznupusffVff/uY46NlCwCO9j5DFl0t+KT2McZBCPCn3ai3Iw9q+Po5BEg7JHAzNMQJpOE6mm9dv5KD5ohnDfnL95nofyhuCg/NCDvTnaoXyfo3jBQxIH2w=
+  </data>
+ </layer>
+ <objectgroup name="objetos">
+  <object id="1" x="-32" y="1792" width="1056" height="768"/>
+  <object id="4" name="limite-mundo" x="0" y="1792">
+   <polyline points="0,0 0,-1792 6400,-1792 6400,768"/>
+  </object>
+  <object id="5" name="linea-muerte" type="T" x="1024" y="2560">
+   <polyline points="0,0 5376,0"/>
+  </object>
+  <object id="13" x="3584" y="1408" width="512" height="1152"/>
+  <object id="19" x="4224" y="800" width="768" height="32"/>
+  <object id="20" x="2688" y="1024">
+   <polyline points="0,0 0,256 384,256 384,0 512,0 512,-128 640,-128 640,-256 768,-256 768,-384 1152,-384 1152,-640 640,-640 640,-512 512,-512 512,-384 384,-384 384,-256 256,-256 256,-128 128,-128 128,0 0,0"/>
+  </object>
+  <object id="21" x="6144" y="384" width="256" height="2176"/>
+  <object id="24" x="1536" y="2560">
+   <polyline points="0,0 0,-1152 640,-1152 640,-1024 1024,-1024 1024,-896 1280,-896 1280,-768 1536,-768 1536,-384 1920,-384 1920,0"/>
+  </object>
+  <object id="25" x="4992" y="2560">
+   <polyline points="0,0 0,-768 -128,-768 -128,-896 -256,-896 -256,-1024 -384,-1024 -384,-1152 768,-1152 768,-1024 640,-1024 640,-896 512,-896 512,-768 384,-768 384,0"/>
+  </object>
+  <object id="26" x="512" y="384" width="384" height="256"/>
+  <object id="27" x="1024" y="512" width="512" height="384"/>
+  <object id="28" name="linea-ganar" x="6272" y="384">
+   <polyline points="0,0 128,-128"/>
+  </object>
+  <object id="29" name="linea-muerte" x="1024" y="2048">
+   <polyline points="0,0 512,0"/>
+  </object>
+  <object id="30" name="linea-muerte" x="3456" y="2304">
+   <polyline points="0,0 128,0"/>
+  </object>
+  <object id="31" name="linea-muerte" x="4096" y="2304">
+   <polyline points="0,0 896,0"/>
+  </object>
+  <object id="33" name="linea-muerte" x="5376" y="2304">
+   <polyline points="0,0 768,0"/>
+  </object>
+  <object id="34" x="5760" y="800" width="256" height="32"/>
+ </objectgroup>
+ <layer name="colectables" width="50" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt0rEJAAAIA8FU7j+yrQOoYPwDBzC85CvKuQj1/eW2DW6gO2yabI2W5zf4vi8A4J8Eq8wAZw==
+  </data>
+ </layer>
+</map>
